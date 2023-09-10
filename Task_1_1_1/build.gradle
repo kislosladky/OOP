@@ -3,7 +3,7 @@ plugins {
     id 'jacoco'
 }
 
-group = 'ru.nsu.shadrina'
+group = 'org.example'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -19,8 +19,6 @@ test {
     useJUnitPlatform()
 }
 
-jacocoTestReport {
-    reports {
-        xml.required = true
-    }
+javadoc {
+    destinationDir = file("${buildDir}/docs/javadoc")
 }
