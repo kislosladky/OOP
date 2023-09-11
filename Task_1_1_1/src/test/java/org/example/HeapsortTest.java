@@ -21,7 +21,7 @@ class HeapsortTest {
 
     @Test
     void sort() {
-        assertArrayEquals(new int[] {1,2,3,4}, Heapsort.sort(new int[] {3, 1, 2, 4}));
+        assertArrayEquals(new int[] {1, 2, 3, 4}, Heapsort.sort(new int[] {3, 1, 2, 4}));
     }
 
     @Test
