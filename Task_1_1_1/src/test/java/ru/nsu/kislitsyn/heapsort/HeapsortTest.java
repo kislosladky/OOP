@@ -1,11 +1,11 @@
 package ru.nsu.kislitsyn.heapsort;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 class HeapsortTest {
 
     @BeforeAll
@@ -43,12 +43,6 @@ class HeapsortTest {
 
     @Test
     void sortOfEmptyArray() {
-        assertArrayEquals(new int[] {},
-                Heapsort.sort(new int[] {}));
-    }
-
-    @Test
-    void sortOfBigArray() {
         assertArrayEquals(new int[] {},
                 Heapsort.sort(new int[] {}));
     }
