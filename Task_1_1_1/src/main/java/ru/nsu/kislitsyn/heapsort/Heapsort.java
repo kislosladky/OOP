@@ -11,7 +11,7 @@ public class Heapsort {
     * some text.
     *
     * <p>@param arr is the array we are sorting.
-    *
+     *
     * @return we return a sorted array.
     *
     *<p>sort is the main function of the class since it makes the sort itself.
@@ -38,15 +38,15 @@ public class Heapsort {
     /**
     * Some text.
     *
-    * @param arr   is the array we are sorting.
-    *
+    * <p>@param arr   is the array we are sorting.
+     *
     * @param start is the index where we need to start making heap out of array.
-    *
+     *
     * @param len   is length of the part of array which is not converted to heap yet.
     *
-    * <p>This function makes heap out of array by changing children
-    *    with parents recursively through the whole array.
-    *    </p>
+    *              <p>This function makes heap out of array by changing children
+    *              with parents recursively through the whole array.
+    *              </p>
     */
     static void heapify(int[] arr, int start, int len) {
         int largest = start;
