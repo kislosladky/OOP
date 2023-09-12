@@ -1,19 +1,18 @@
-package org.example;
+package ru.nsu.kislitsyn.heapsort;
 
-//package kislitsyn;
 
 
 /**
- * The only class in this file.
- * Contains of the sort method.
- */
+* The only class in this file.
+* Contains of the sort method.
+*/
 public class Heapsort {
     /**
-     * @param arr is the array we are sorting.
-     * @return we return a sorted array.
-     *
-     * sort is the main function of the class since it makes the sort itself.
-     */
+    * @param arr is the array we are sorting.
+    * @return we return a sorted array.
+    *
+    * sort is the main function of the class since it makes the sort itself.
+    */
     public static int[] sort(int[] arr) {
         int len = arr.length;
 
@@ -33,13 +32,12 @@ public class Heapsort {
     }
 
     /**
-     * @param arr   is the array we are sorting.
-     * @param start is the index where we need to start making heap out of array.
-     * @param len   is length of the part of array which is not converted to heap yet.
-     *
-     *              This function makes heap out of array by changing children
-     *              with parents recursively through the whole array.
-     */
+    * @param arr   is the array we are sorting.
+    * @param start is the index where we need to start making heap out of array.
+    * @param len   is length of the part of array which is not converted to heap yet.
+    *              This function makes heap out of array by changing children
+    *              with parents recursively through the whole array.
+    */
     static void heapify(int[] arr, int start, int len) {
         int largest = start;
         int left = 2 * start + 1;
