@@ -38,15 +38,15 @@ public class Heapsort {
     /**
     * Some text.
     *
-    * <p>@param arr   is the array we are sorting.
-     *
+    * @param arr   is the array we are sorting.
+    *
     * @param start is the index where we need to start making heap out of array.
-     *
+    *
     * @param len   is length of the part of array which is not converted to heap yet.
     *
-    *              <p>This function makes heap out of array by changing children
-    *              with parents recursively through the whole array.
-    *              </p>
+    * <p>This function makes heap out of array by changing children
+    *    with parents recursively through the whole array.
+    *    </p>
     */
     static void heapify(int[] arr, int start, int len) {
         int largest = start;
