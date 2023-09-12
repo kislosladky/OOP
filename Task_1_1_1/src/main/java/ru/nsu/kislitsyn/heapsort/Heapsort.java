@@ -2,8 +2,8 @@ package ru.nsu.kislitsyn.heapsort;
 
     /**
     * The only class in this file.
-    * <p>
-    * Contains of the sort method.
+    *
+    * <p>Contains of the sort method.
     * </p>
     */
 public class Heapsort {
@@ -11,11 +11,10 @@ public class Heapsort {
     *
     * some text.
     *
-    *
     * @param arr is the array we are sorting.
     * @return we return a sorted array.
-    * <p>
-    * sort is the main function of the class since it makes the sort itself.
+    *
+    * <p>sort is the main function of the class since it makes the sort itself.
     * </p>
     */
     public static int[] sort(int[] arr) {
@@ -38,12 +37,12 @@ public class Heapsort {
 
     /**
     * Some text.
-    * <p>
-    * @param arr   is the array we are sorting.
+    *
+    * <p>@param arr   is the array we are sorting.
     * @param start is the index where we need to start making heap out of array.
     * @param len   is length of the part of array which is not converted to heap yet.
-    *              <p>
-    *              This function makes heap out of array by changing children
+    *
+    *              <p>This function makes heap out of array by changing children
     *              with parents recursively through the whole array.
     *              </p>
     */
