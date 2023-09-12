@@ -1,14 +1,16 @@
 package ru.nsu.kislitsyn.heapsort;
 
-/**
-* The only class in this file.
-* <p>
-* Contains of the sort method.
-* </p>
-*/
+    /**
+    * The only class in this file.
+    * <p>
+    * Contains of the sort method.
+    * </p>
+    */
 public class Heapsort {
     /**
-    *
+    * <h>
+    * some text
+    * </h>
     * @param arr is the array we are sorting.
     * @return we return a sorted array.
     * <p>
@@ -34,6 +36,8 @@ public class Heapsort {
     }
 
     /**
+    * Some text
+    *
     * @param arr   is the array we are sorting.
     * @param start is the index where we need to start making heap out of array.
     * @param len   is length of the part of array which is not converted to heap yet.
