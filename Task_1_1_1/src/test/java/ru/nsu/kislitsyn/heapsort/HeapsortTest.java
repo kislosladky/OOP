@@ -2,8 +2,6 @@ package ru.nsu.kislitsyn.heapsort;
 
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
-
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;

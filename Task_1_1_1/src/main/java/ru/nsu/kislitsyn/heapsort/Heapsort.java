@@ -11,6 +11,7 @@ public class Heapsort {
     * some text.
     *
     * <p>@param arr is the array we are sorting.
+    *
     * @return we return a sorted array.
     *
     *<p>sort is the main function of the class since it makes the sort itself.
