@@ -8,9 +8,10 @@ package ru.nsu.kislitsyn.heapsort;
     */
 public class Heapsort {
     /**
-    * <h>
-    * some text
-    * </h>
+    *
+    * some text.
+    *
+    *
     * @param arr is the array we are sorting.
     * @return we return a sorted array.
     * <p>
@@ -36,8 +37,8 @@ public class Heapsort {
     }
 
     /**
-    * Some text
-    *
+    * Some text.
+    * <p>
     * @param arr   is the array we are sorting.
     * @param start is the index where we need to start making heap out of array.
     * @param len   is length of the part of array which is not converted to heap yet.
