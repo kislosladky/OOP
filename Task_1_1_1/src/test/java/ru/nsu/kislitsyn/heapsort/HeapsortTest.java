@@ -5,8 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 class HeapsortTest {
 
     @BeforeAll
@@ -26,11 +25,12 @@ class HeapsortTest {
 
     @Test
     void sort2() {
-        assertArrayEquals(new int[] {-1, 0, 1, 2, 3, 4}, Heapsort.sort(new int[] {3, 1, 2, 4, 0, -1}));
+        assertArrayEquals(new int[] {-1, 0, 1, 2, 3, 4},
+                Heapsort.sort(new int[] {3, 1, 2, 4, 0, -1}));
     }
 
     @AfterAll
-    static void end(){
+    static void end() {
         System.out.println("Testing is finished");
     }
 }

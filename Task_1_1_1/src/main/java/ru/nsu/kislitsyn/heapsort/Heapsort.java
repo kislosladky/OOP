@@ -1,7 +1,5 @@
 package ru.nsu.kislitsyn.heapsort;
 
-
-
 /**
 * The only class in this file.
 * Contains of the sort method.
