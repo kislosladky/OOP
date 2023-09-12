@@ -1,5 +1,8 @@
 package ru.nsu.kislitsyn.heapsort;
 
+import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
+
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import org.junit.jupiter.api.AfterAll;
@@ -7,8 +10,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.Arrays;
 
 class HeapsortTest {
 
@@ -52,7 +53,7 @@ class HeapsortTest {
     }
 
     @Test
-    void sortOfLargeArray(){
+    void sortOfLargeArray() {
         int length = 1000; // длина последовательности
         int min = -1000; // минимальное значение числа
         int max = 1000; // максимальное значение числа    Random random = new Random();
@@ -64,7 +65,7 @@ class HeapsortTest {
             copyArr[i] = number;
         }
         Arrays.sort(arr);
-        assertArrayEquals (arr, Heapsort.sort(copyArr));
+        assertArrayEquals(arr, Heapsort.sort(copyArr));
     }
 
 
