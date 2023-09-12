@@ -7,6 +7,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.Arrays;
+
 class HeapsortTest {
 
     @BeforeAll
@@ -48,6 +51,21 @@ class HeapsortTest {
                 Heapsort.sort(new int[] {}));
     }
 
+    @Test
+    void sortOfLargeArray(){
+        int length = 1000; // длина последовательности
+        int min = -1000; // минимальное значение числа
+        int max = 1000; // максимальное значение числа    Random random = new Random();
+        int[] arr = new int[length];
+        int[] copyArr = new int[length];
+        for (int i = 0; i < length; i++) {
+            int number = ThreadLocalRandom.current().nextInt(min, max + 1);;
+            arr[i] = number;
+            copyArr[i] = number;
+        }
+        Arrays.sort(arr);
+        assertArrayEquals (arr, Heapsort.sort(copyArr));
+    }
 
 
     @AfterAll
