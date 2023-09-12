@@ -2,13 +2,15 @@ package ru.nsu.kislitsyn.heapsort;
 
 /**
 * The only class in this file.
+ * <p></p>
 * Contains of the sort method.
 */
 public class Heapsort {
     /**
+    *
     * @param arr is the array we are sorting.
     * @return we return a sorted array.
-    *
+    * <p></p>
     * sort is the main function of the class since it makes the sort itself.
     */
     public static int[] sort(int[] arr) {
@@ -33,6 +35,7 @@ public class Heapsort {
     * @param arr   is the array we are sorting.
     * @param start is the index where we need to start making heap out of array.
     * @param len   is length of the part of array which is not converted to heap yet.
+    *              <p></p>
     *              This function makes heap out of array by changing children
     *              with parents recursively through the whole array.
     */
