@@ -69,4 +69,22 @@ public class Heapsort {
             heapify(arr, largest, len);
         }
     }
+
+    /**
+    * The main function simply calls sort.
+    *
+    * @param args is standard.
+    */
+    public static void main(String[] args){
+
+
+//        Heapsort ob = new Heapsort();
+//        arr = ob.sort(arr);
+//        for (int i : arr) {
+//            System.out.print(i + ' ');
+//        }
+//        System.out.println();
+        System.out.println("Around the world");
+        System.out.println("Around the world");
+    }
 }
