@@ -1,9 +1,9 @@
 package ru.nsu.kislitsyn.heapsort;
 
 /**
-The only class in this file.
+ The only class in this file.
 
-<p>Contains of the sort method.</p>
+ <p>Contains of the sort method.</p>
  */
 public class Heapsort {
     /**
@@ -12,7 +12,6 @@ public class Heapsort {
     @param arr is the array we are sorting.
 
     @return we return a sorted array.
-
      */
     public static int[] sort(int[] arr) {
         int len = arr.length;
