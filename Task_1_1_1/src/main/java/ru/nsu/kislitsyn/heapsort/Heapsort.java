@@ -8,6 +8,7 @@ The only class in this file.
 public class Heapsort {
     /**
     Sort is the major function of the class since it makes the sort itself.
+
     <p></p>
     @param arr is the array we are sorting.
 
@@ -35,6 +36,8 @@ public class Heapsort {
     /**
     This function makes heap out of array by changing children
     with parents recursively through the whole array.
+
+
     <p></p>
     @param arr   is the array we are sorting.
     @param start is the index where we need to start making heap out of array.
@@ -64,6 +67,7 @@ public class Heapsort {
 
     /**
     The main is needed only for compilation, so it does nothing.
+
     <p></p>
     @param args is standard.
      */
