@@ -8,7 +8,7 @@ The only class in this file.
 public class Heapsort {
     /**
     Sort is the major function of the class since it makes the sort itself.
-
+    <p></p>
     @param arr is the array we are sorting.
 
     @return we return a sorted array.
@@ -35,7 +35,7 @@ public class Heapsort {
     /**
     This function makes heap out of array by changing children
     with parents recursively through the whole array.
-
+    <p></p>
     @param arr   is the array we are sorting.
     @param start is the index where we need to start making heap out of array.
     @param len   is length of the part of array which is not converted to heap yet.
@@ -64,7 +64,7 @@ public class Heapsort {
 
     /**
     The main is needed only for compilation, so it does nothing.
-
+    <p></p>
     @param args is standard.
      */
     public static void main(String[] args) {
