@@ -1,18 +1,18 @@
 package ru.nsu.kislitsyn.heapsort;
 
 /**
- The only class in this file.
-
- <p>Contains of the sort method.</p>
- */
+* The only class in this file.
+*
+* <p>Contains of the sort method.</p>
+*/
 public class Heapsort {
     /**
-    Sort is the major function of the class since it makes the sort itself.
-
-    @param arr is the array we are sorting.
-
-    @return we return a sorted array.
-     */
+    * Sort is the major function of the class since it makes the sort itself.
+    *
+    * @param arr is the array we are sorting.
+    *
+    * @return we return a sorted array.
+    */
     public static int[] sort(int[] arr) {
         int len = arr.length;
 
@@ -32,13 +32,13 @@ public class Heapsort {
     }
 
     /**
-    This function makes heap out of array by changing children
-    with parents recursively through the whole array.
-
-    @param arr   is the array we are sorting.
-    @param start is the index where we need to start making heap out of array.
-    @param len   is length of the part of array which is not converted to heap yet.
-     */
+    * This function makes heap out of array by changing children
+    * with parents recursively through the whole array.
+    *
+    * @param arr   is the array we are sorting.
+    * @param start is the index where we need to start making heap out of array.
+    * @param len   is length of the part of array which is not converted to heap yet.
+    */
     static void heapify(int[] arr, int start, int len) {
         int largest = start;
         int left = 2 * start + 1;
@@ -62,10 +62,10 @@ public class Heapsort {
     }
 
     /**
-    The main is needed only for compilation, so it does nothing.
-
-    @param args is standard.
-     */
+    * The main is needed only for compilation, so it does nothing.
+    *
+    * @param args is standard.
+    */
     public static void main(String[] args) {
         System.out.println("Around the world");
         System.out.println("Around the world");
