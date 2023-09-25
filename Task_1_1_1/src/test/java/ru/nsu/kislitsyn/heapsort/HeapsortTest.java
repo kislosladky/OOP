@@ -4,22 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 class HeapsortTest {
-
-    @BeforeAll
-    static void begin() {
-        System.out.println("Testing is started");
-    }
-
-    @AfterEach
-    void tearDown() {
-        System.out.println("Test is passed");
-    }
 
     @Test
     void sortOfRegularArray() {
@@ -52,9 +39,9 @@ class HeapsortTest {
 
     @Test
     void sortOfLargeArray() {
-        int length = 1000; // длина последовательности
-        int min = -1000; // минимальное значение числа
-        int max = 1000; // максимальное значение числа    Random random = new Random();
+        int length = 1000;
+        int min = -1000;
+        int max = 1000;
         int[] arr = new int[length];
         int[] copyArr = new int[length];
         for (int i = 0; i < length; i++) {
@@ -64,11 +51,5 @@ class HeapsortTest {
         }
         Arrays.sort(arr);
         assertArrayEquals(arr, Heapsort.sort(copyArr));
-    }
-
-
-    @AfterAll
-    static void end() {
-        System.out.println("Testing is finished");
     }
 }
