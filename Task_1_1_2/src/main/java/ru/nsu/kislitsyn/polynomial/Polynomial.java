@@ -211,7 +211,7 @@ public class Polynomial {
             res.delete(0, 2);
         }
 
-        if (res.isEmpty()) {
+        if (res.length() == 0) {
             res.append("0");
         }
 
