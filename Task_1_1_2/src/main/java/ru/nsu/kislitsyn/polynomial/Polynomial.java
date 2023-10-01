@@ -4,29 +4,29 @@ package ru.nsu.kislitsyn.polynomial;
 import java.util.Arrays;
 
 /**
- * This is a class of polynomials and some arithmetic operations with it.
- */
+* This is a class of polynomials and some arithmetic operations with it.
+*/
 public class Polynomial {
     final int[] coeffs;
     final int power;
 
     /**
-     * This is a constructor of object.
-     *
-     * @param coeffs is an array of coefficients of the new polynomial.
-     */
+    * This is a constructor of object.
+    *
+    * @param coeffs is an array of coefficients of the new polynomial.
+    */
     public Polynomial(int[] coeffs) {
         this.coeffs = coeffs;
         this.power = coeffs.length - 1;
     }
 
     /**
-     * This function computes the sum of two polynomials.
-     *
-     * @param p2 is a polynomial we should add to *this*.
-     *
-     * @return the polynomial which appears to be the sum of two inputs.
-     */
+    * This function computes the sum of two polynomials.
+    *
+    * @param p2 is a polynomial we should add to *this*.
+    *
+    * @return the polynomial which appears to be the sum of two inputs.
+    */
     public Polynomial add(Polynomial p2) {
         int[] answ = new int[Math.max(this.coeffs.length, p2.coeffs.length)];
         if (this.coeffs.length > p2.coeffs.length) {
@@ -45,12 +45,12 @@ public class Polynomial {
     }
 
     /**
-     * This function computes the difference of two polynomials.
-     *
-     * @param poly is a polynomial we need to subtract from *this*.
-     *
-     * @return the polynomial which appears to be the difference of two inputs.
-     */
+    * This function computes the difference of two polynomials.
+    *
+    * @param poly is a polynomial we need to subtract from *this*.
+    *
+    * @return the polynomial which appears to be the difference of two inputs.
+    */
     public Polynomial subtract(Polynomial poly) {
         int[] answ = new int[Math.max(this.coeffs.length, poly.coeffs.length)];
         for (int i = 0; i < Math.min(this.coeffs.length, poly.coeffs.length); i++) {
@@ -69,12 +69,12 @@ public class Polynomial {
     }
 
     /**
-     * This function calculates the product of two polynomials.
-     *
-     * @param poly is the second polynomial we need to multiply.
-     *
-     * @return the polynomial which appears to be the product of input ones.
-     */
+    * This function calculates the product of two polynomials.
+    *
+    * @param poly is the second polynomial we need to multiply.
+    *
+    * @return the polynomial which appears to be the product of input ones.
+    */
     public Polynomial multiply(Polynomial poly) {
         int[] answ = new int[this.power + poly.power + 1];
         Arrays.fill(answ, 0);
@@ -88,12 +88,12 @@ public class Polynomial {
     }
 
     /**
-     * This method calculates the value of polynomial at some *x* point.
-     *
-     * @param x is a point where we need to evaluate polynomial.
-     *
-     * @return the value of polynomial at this point.
-     */
+    * This method calculates the value of polynomial at some *x* point.
+    *
+    * @param x is a point where we need to evaluate polynomial.
+    *
+    * @return the value of polynomial at this point.
+    */
     public int evaluate(int x) {
         int answ = 0, powerOfX = 1;
         for (int i = 0; i <= this.power; i++) {
@@ -105,29 +105,66 @@ public class Polynomial {
 
 
     /**
-     * This function compares two polynomials.
-     *
-     * @param poly is a polynomial which is compared to *this*.
-     *
-     * @return true if polynomials are equal, otherwise - false.
-     */
-//    @Override
-    public boolean equals(Polynomial poly) {
-        if (poly != null) {
-            return Arrays.equals(this.coeffs, poly.coeffs);
-        } else {
+    * This function compares two polynomials.
+    *
+    * @param obj is a polynomial which is compared to *this*.
+    *
+    * @return true if polynomials are equal, otherwise - false.
+    */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Polynomial poly = (Polynomial) obj;
+
+        if (poly.effectiveLen() != this.effectiveLen()) {
+            return false;
+        }
+
+        for (int i = 0; i <= this.power; i++) {
+            if (this.coeffs[i] != poly.coeffs[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 
+    private int effectiveLen() {
+        for (int i = this.coeffs.length; i >= 1; i--) {
+            if (this.coeffs[i - 1] != 0) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public int hashCode() {
+        int res = 31;
+        for (int i = 0; i <= this.power; i++) {
+            res = 17 * res + this.coeffs[i];
+        }
+        res = res * 17 + this.power;
+        return res;
+    }
 
     /**
-     * This function calculates *degree* differential of polynomial.
-     *
-     * @param degree is an int number - the power of differential we should return.
-     *
-     * @return the polynomial which is *degree* power of *this*.
-     */
+    * This function calculates *degree* differential of polynomial.
+    *
+    * @param degree int number - the power of differential we should return.
+    *
+    * @return the polynomial which is *degree* power of *this*.
+    */
     public Polynomial differentiate(int degree) {
 
         if (degree > this.power) {
@@ -146,10 +183,10 @@ public class Polynomial {
     }
 
     /**
-     * This method makes the string representation of polynomial.
-     *
-     * @return polynomial at string representation.
-     */
+    * This method makes the string representation of polynomial.
+    *
+    * @return polynomial at string representation.
+    */
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
@@ -182,12 +219,12 @@ public class Polynomial {
     }
 
     /**
-     * This function is needed for good string representation of polynomial.
-     *
-     * @param a is a value.
-     *
-     * @return string's sign, which contains either a value converted to string or an empty string if abs(a) == 1.
-     */
+    * This function is needed for good string representation of polynomial.
+    *
+    * @param a value.
+    *
+    * @return string's sign, which contains either a value converted to string or an empty string if abs(a) == 1.
+    */
     private String notOne(int a) {
         if (Math.abs(a) == 1) {
             return "";
@@ -196,12 +233,12 @@ public class Polynomial {
     }
 
     /**
-     * The sign function return the sign of integer value.
-     *
-     * @param a is value.
-     *
-     * @return the string containing the sign of value.
-     */
+    * The sign function return the sign of integer value.
+    *
+    * @param a value.
+    *
+    * @return the string containing the sign of value.
+    */
     private String sign(int a) {
         if (a < 0) {
             return "-";
