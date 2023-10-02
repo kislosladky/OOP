@@ -2,7 +2,10 @@ package ru.nsu.kislitsyn.polynomial;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class PolynomialTest {
 
@@ -87,7 +90,6 @@ class PolynomialTest {
         assertEquals(0, p.evaluate(0));
     }
 
-
     @Test
     void eqTestTrue() {
         Polynomial a = new Polynomial(new int[] {1, 2, 3, 6});
@@ -116,9 +118,6 @@ class PolynomialTest {
     @Test
     void differentiate() {
         Polynomial a = new Polynomial(new int[] {1, 2, 3, 4});
-        ;
-//        assertArrayEquals(new int[] {2, 6, 12}, a.coeffs);
-//        a.differentiate(1);
         assertArrayEquals(new int[] {6, 24}, a.differentiate(2).coeffs);
 
         a.differentiate(1);
@@ -151,11 +150,13 @@ class PolynomialTest {
         Polynomial a = new Polynomial(new int[] {0});
         assertEquals("0", a.toString());
     }
+
     @Test
     void testNothingToString() {
         Polynomial a = new Polynomial(new int[] {});
         assertEquals("0", a.toString());
     }
+    
     @Test
     void testFromTz() {
         Polynomial p1 = new Polynomial(new int[]{4, 3, 6, 7});

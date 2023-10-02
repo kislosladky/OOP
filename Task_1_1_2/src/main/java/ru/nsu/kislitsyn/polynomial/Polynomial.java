@@ -33,12 +33,14 @@ public class Polynomial {
             for (int i = 0; i <= p2.power; i++) {
                 answ[i] = this.coeffs[i] + p2.coeffs[i];
             }
-            System.arraycopy(this.coeffs, p2.coeffs.length, answ, p2.coeffs.length, this.coeffs.length - p2.coeffs.length);
+            System.arraycopy(this.coeffs, p2.coeffs.length,
+                    answ, p2.coeffs.length, this.coeffs.length - p2.coeffs.length);
         } else {
             for (int i = 0; i <= this.power; i++) {
                 answ[i] = this.coeffs[i] + p2.coeffs[i];
             }
-            System.arraycopy(p2.coeffs, this.coeffs.length, answ, this.coeffs.length, p2.coeffs.length - this.coeffs.length);
+            System.arraycopy(p2.coeffs, this.coeffs.length,
+                    answ, this.coeffs.length, p2.coeffs.length - this.coeffs.length);
 
         }
         return new Polynomial(answ);
@@ -58,7 +60,8 @@ public class Polynomial {
         }
 
         if (this.coeffs.length > poly.coeffs.length) {
-            System.arraycopy(this.coeffs, poly.coeffs.length, answ, poly.coeffs.length, this.coeffs.length - poly.coeffs.length);
+            System.arraycopy(this.coeffs, poly.coeffs.length,
+                    answ, poly.coeffs.length, this.coeffs.length - poly.coeffs.length);
         } else {
             for (int i = this.coeffs.length; i < poly.coeffs.length; i++) {
                 answ[i] = -poly.coeffs[i];
@@ -95,7 +98,8 @@ public class Polynomial {
     * @return the value of polynomial at this point.
     */
     public int evaluate(int x) {
-        int answ = 0, powerOfX = 1;
+        int answ = 0;
+        int powerOfX = 1;
         for (int i = 0; i <= this.power; i++) {
             answ += this.coeffs[i] * powerOfX;
             powerOfX *= x;
@@ -193,7 +197,8 @@ public class Polynomial {
 
         for (int i = this.coeffs.length - 1; i >= 2; i--) {
             if (this.coeffs[i] != 0) {
-                res.append(sign(this.coeffs[i]) + " " + notOne(Math.abs(this.coeffs[i])) + "x^" + i + " ");
+                res.append(sign(this.coeffs[i]) + " " +
+                        notOne(Math.abs(this.coeffs[i])) + "x^" + i + " ");
             }
         }
 
