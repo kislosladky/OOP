@@ -197,8 +197,8 @@ public class Polynomial {
 
         for (int i = this.coeffs.length - 1; i >= 2; i--) {
             if (this.coeffs[i] != 0) {
-                res.append(sign(this.coeffs[i]) + " " +
-                        notOne(Math.abs(this.coeffs[i])) + "x^" + i + " ");
+                res.append(sign(this.coeffs[i]) + " "
+                        + notOne(Math.abs(this.coeffs[i])) + "x^" + i + " ");
             }
         }
 
@@ -228,7 +228,7 @@ public class Polynomial {
     *
     * @param a value.
     *
-    * @return string's sign, which contains either a value converted to string or an empty string if abs(a) == 1.
+    * @return (String)abs(a) or empty line, if abs(a) == 1.
     */
     private String notOne(int a) {
         if (Math.abs(a) == 1) {
