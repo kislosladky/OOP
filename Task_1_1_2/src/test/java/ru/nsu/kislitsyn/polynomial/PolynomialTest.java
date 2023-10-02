@@ -1,11 +1,8 @@
 package ru.nsu.kislitsyn.polynomial;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class PolynomialTest {
 
@@ -39,6 +36,14 @@ class PolynomialTest {
         Polynomial p2 = new Polynomial(new int[] {-5, -5, -8, 3});
 
         assertEquals("10x^3 - 2x^2 - x - 1", p1.add(p2).toString());
+    }
+
+    @Test
+    void addWithZero() {
+        Polynomial p1 = new Polynomial(new int[] {4, 4, 6, 7});
+        Polynomial p2 = new Polynomial(new int[] {0});
+
+        assertEquals("7x^3 + 6x^2 + 4x + 4", p1.add(p2).toString());
     }
 
 
@@ -99,11 +104,18 @@ class PolynomialTest {
     }
 
     @Test
-    void eqTest() {
+    void eqTestNull() {
         Polynomial a = new Polynomial(new int[] {1, 2, 3, 6});
-        Polynomial b = new Polynomial(new int[] {1, 2, 3, 6});
 
         assertFalse(a.equals(null));
+    }
+
+    @Test
+    void eqTestSelf() {
+        Polynomial a = new Polynomial(new int[] {1, 2, 3, 6});
+
+        assertTrue(a.equals(a));
+        assertEquals(a, a);
     }
 
     @Test
@@ -111,17 +123,27 @@ class PolynomialTest {
         Polynomial a = new Polynomial(new int[] {1, 2, 3, 6});
         Polynomial c = new Polynomial(new int[] {1, 2, 3, 8});
 
+        assertNotEquals(a, c);
         assertFalse(a.equals(c));
     }
 
     @Test
-    void differentiate() {
+    void differentiate2() {
         Polynomial a = new Polynomial(new int[] {1, 2, 3, 4});
         assertArrayEquals(new int[] {6, 24}, a.differentiate(2).coeffs);
+    }
 
-        a.differentiate(1);
+    @Test
+    void differentiate3() {
+        Polynomial a = new Polynomial(new int[] {1, 2, 3, 4});
+
         assertArrayEquals(new int[] {24}, a.differentiate(3).coeffs);
-        a.differentiate(1);
+    }
+
+    @Test
+    void differentiateMoreThanPower() {
+        Polynomial a = new Polynomial(new int[] {1, 2, 3, 4});
+
         assertArrayEquals(new int[] {0}, a.differentiate(4).coeffs);
     }
 
@@ -163,4 +185,29 @@ class PolynomialTest {
         System.out.println(p1.add(p2.differentiate(1)).toString());
         System.out.println(p1.multiply(p2).evaluate(2));
     }
+
+    @Test
+    void testHashcodeBase() {
+        Polynomial p1 = new Polynomial(new int[]{4, 3, 6, 7});
+        Polynomial p2 = new Polynomial(new int[]{4, 3, 6, 7});
+        assertEquals(p1.hashCode(), p2.hashCode());
+    }
+
+    @Test
+    void testHashcodeItself() {
+        Polynomial p1 = new Polynomial(new int[]{4, 3, 6, 7});
+        int h1 = p1.hashCode();
+        int h2 = p1.hashCode();
+        assertEquals(h1, h2);
+    }
+
+    @Test
+    void testHashcodeEqual() {
+        Polynomial p1 = new Polynomial(new int[]{4, 3, 6, 7});
+        Polynomial p2 = new Polynomial(new int[]{4, 3, 6, 7, 0, 0});
+        int h1 = p1.hashCode();
+        int h2 = p2.hashCode();
+        assertEquals(h1, h2);
+    }
+
 }

@@ -166,10 +166,10 @@ public class Polynomial {
     public int hashCode() {
         int res = 31;
         int len = this.effectiveLen();
-        for (int i = 0; i <= len; i++) {
+        System.out.println(len);
+        for (int i = 0; i <= len - 1; i++) {
             res = 17 * res + this.coeffs[i];
         }
-        res = res * 17 + this.power;
         return res;
     }
 
