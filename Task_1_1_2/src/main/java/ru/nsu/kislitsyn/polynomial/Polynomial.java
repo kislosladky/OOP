@@ -158,7 +158,8 @@ public class Polynomial {
     }
 
     /**
-    * Overriding hashcode
+    * Overriding hashcode.
+    *
     * @return hash of the polynomial.
     */
     @Override
