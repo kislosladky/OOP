@@ -143,6 +143,11 @@ public class Polynomial {
         return true;
     }
 
+    /**
+     * This function is used to measure length of the polynomial (without 0 in the beginning).
+     *
+     * @return len of the polynomial.
+     */
     private int effectiveLen() {
         for (int i = this.coeffs.length; i >= 1; i--) {
             if (this.coeffs[i - 1] != 0) {
@@ -152,10 +157,15 @@ public class Polynomial {
         return 0;
     }
 
+    /**
+    * Overriding hashcode
+    * @return hash of the polynomial.
+    */
     @Override
     public int hashCode() {
         int res = 31;
-        for (int i = 0; i <= this.power; i++) {
+        int len = this.effectiveLen();
+        for (int i = 0; i <= len; i++) {
             res = 17 * res + this.coeffs[i];
         }
         res = res * 17 + this.power;
