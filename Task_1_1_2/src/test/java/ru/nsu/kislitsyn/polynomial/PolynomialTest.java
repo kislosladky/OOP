@@ -117,7 +117,6 @@ class PolynomialTest {
     }
 
     @Test
-//    @SuppressWarnings()
     void eqTestSelf() {
         Polynomial a = new Polynomial(new int[] {1, 2, 3, 6});
 
