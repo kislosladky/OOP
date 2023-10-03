@@ -225,7 +225,7 @@ public class Polynomial {
             res.delete(0, 2);
         }
 
-        if (res.isEmpty()) {
+        if (res.toString().isEmpty()) {
             res.append("0");
         }
 
