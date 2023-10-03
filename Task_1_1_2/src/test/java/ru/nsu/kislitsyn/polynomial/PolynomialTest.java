@@ -2,9 +2,7 @@ package ru.nsu.kislitsyn.polynomial;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,23 +29,25 @@ class PolynomialTest {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {2, 1, 8, 3});
 
-        assertEquals("10x^3 + 14x^2 + 4x + 6", p1.add(p2).toString());
+        Polynomial expected = new Polynomial(new int[] {6, 4, 14, 10});
+
+        assertEquals(expected, p1.add(p2));
     }
 
     @Test
     void addWithNegativeAnswer() {
         Polynomial p1 = new Polynomial(new int[] {4, 4, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {-5, -5, -8, 3});
+        Polynomial expected = new Polynomial(new int[] {-1, -1, -2, 10});
 
-        assertEquals("10x^3 - 2x^2 - x - 1", p1.add(p2).toString());
+        assertEquals(expected, p1.add(p2));
     }
 
     @Test
     void addWithZero() {
         Polynomial p1 = new Polynomial(new int[] {4, 4, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {0});
-
-        assertEquals("7x^3 + 6x^2 + 4x + 4", p1.add(p2).toString());
+        assertEquals(p1, p1.add(p2));
     }
 
 
@@ -61,7 +61,8 @@ class PolynomialTest {
     void subtractSamePower() {
         Polynomial p1 = new Polynomial(new int[] {4, 4, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {2, 13, 2, 1});
-        assertEquals("6x^3 + 4x^2 - 9x + 2", p1.subtract(p2).toString());
+        Polynomial expected = new Polynomial(new int[] {2, -9, 4, 6});
+        assertEquals(expected, p1.subtract(p2));
     }
 
     @Test
@@ -76,7 +77,8 @@ class PolynomialTest {
         Polynomial p1 = new Polynomial(new int[]{4, 3, 6, 7});
         Polynomial p2 = new Polynomial(new int[]{3, 2, 8});
 
-        assertEquals("56x^5 + 62x^4 + 57x^3 + 56x^2 + 17x + 12", p1.multiply(p2).toString());
+        Polynomial expected = new Polynomial(new int[] {12, 17, 56, 57, 62, 56});
+        assertEquals(expected, p1.multiply(p2));
     }
 
     @Test
@@ -104,21 +106,21 @@ class PolynomialTest {
         Polynomial a = new Polynomial(new int[] {1, 2, 3, 6});
         Polynomial b = new Polynomial(new int[] {1, 2, 3, 6});
 
-        assertTrue(a.equals(b));
+        assertEquals(a, b);
     }
 
     @Test
     void eqTestNull() {
         Polynomial a = new Polynomial(new int[] {1, 2, 3, 6});
 
-        assertFalse(a.equals(null));
+        assertNotEquals(a, null);
     }
 
     @Test
+//    @SuppressWarnings()
     void eqTestSelf() {
         Polynomial a = new Polynomial(new int[] {1, 2, 3, 6});
 
-        assertTrue(a.equals(a));
         assertEquals(a, a);
     }
 
@@ -128,7 +130,6 @@ class PolynomialTest {
         Polynomial c = new Polynomial(new int[] {1, 2, 3, 8});
 
         assertNotEquals(a, c);
-        assertFalse(a.equals(c));
     }
 
     @Test
@@ -213,5 +214,4 @@ class PolynomialTest {
         int h2 = p2.hashCode();
         assertEquals(h1, h2);
     }
-
 }
