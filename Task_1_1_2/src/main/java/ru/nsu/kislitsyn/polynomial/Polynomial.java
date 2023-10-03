@@ -7,8 +7,8 @@ import java.util.Arrays;
 * This is a class of polynomials and some arithmetic operations with it.
 */
 public class Polynomial {
-    final private int[] coeffs;
-    final private int power;
+    private final int[] coeffs;
+    private final int power;
 
     /**
     * This is a constructor of object.
@@ -261,10 +261,20 @@ public class Polynomial {
         return "+";
     }
 
+    /**
+     * Simple getter of coeffs.
+     *
+     * @return coeffs of polynomial.
+     */
     public int[] getCoeffs() {
         return this.coeffs;
     }
 
+    /**
+     * Simple getter of power of polynomial.
+     *
+     * @return this.power.
+     */
     public int getPower() {
         return this.power;
     }
