@@ -166,7 +166,6 @@ public class Polynomial {
     public int hashCode() {
         int res = 31;
         int len = this.effectiveLen();
-        System.out.println(len);
         for (int i = 0; i <= len - 1; i++) {
             res = 17 * res + this.coeffs[i];
         }
@@ -260,5 +259,13 @@ public class Polynomial {
             return "-";
         }
         return "+";
+    }
+
+    public int[] getCoeffs() {
+        return this.coeffs;
+    }
+
+    public int getPower() {
+        return this.power;
     }
 }

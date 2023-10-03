@@ -15,7 +15,7 @@ class PolynomialTest {
         Polynomial p1 = new Polynomial(new int[] {4, 3, 6, 7});
         Polynomial p2 = new Polynomial(new int[] {3, 2, 8, 0, 12});
 
-        assertArrayEquals(new int[] {7, 5, 14, 7, 12}, p1.add(p2).coeffs);
+        assertArrayEquals(new int[] {7, 5, 14, 7, 12}, p1.add(p2).getCoeffs());
     }
 
     @Test
@@ -134,28 +134,28 @@ class PolynomialTest {
     @Test
     void differentiate2() {
         Polynomial a = new Polynomial(new int[] {1, 2, 3, 4});
-        assertArrayEquals(new int[] {6, 24}, a.differentiate(2).coeffs);
+        assertArrayEquals(new int[] {6, 24}, a.differentiate(2).getCoeffs());
     }
 
     @Test
     void differentiate3() {
         Polynomial a = new Polynomial(new int[] {1, 2, 3, 4});
 
-        assertArrayEquals(new int[] {24}, a.differentiate(3).coeffs);
+        assertArrayEquals(new int[] {24}, a.differentiate(3).getCoeffs());
     }
 
     @Test
     void differentiateMoreThanPower() {
         Polynomial a = new Polynomial(new int[] {1, 2, 3, 4});
 
-        assertArrayEquals(new int[] {0}, a.differentiate(4).coeffs);
+        assertArrayEquals(new int[] {0}, a.differentiate(4).getCoeffs());
     }
 
     @Test
     void testPolyMake() {
         Polynomial a = new Polynomial(new int[] {1, 2, 3, 4});
-        assertArrayEquals(new int[] {1, 2, 3, 4}, a.coeffs);
-        assertEquals(3, a.power);
+        assertArrayEquals(new int[] {1, 2, 3, 4}, a.getCoeffs());
+        assertEquals(3, a.getPower());
     }
 
     @Test
