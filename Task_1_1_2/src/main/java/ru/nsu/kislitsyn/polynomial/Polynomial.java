@@ -207,12 +207,14 @@ public class Polynomial {
 
         for (int i = this.coeffs.length - 1; i >= 2; i--) {
             if (this.coeffs[i] != 0) {
-                res.append(sign(this.coeffs[i])).append(" ").append(notOne(Math.abs(this.coeffs[i]))).append("x^").append(i).append(" ");
+                res.append(sign(this.coeffs[i])).append(" ");
+                res.append(notOne(Math.abs(this.coeffs[i]))).append("x^").append(i).append(" ");
             }
         }
 
         if (this.coeffs.length > 1 && this.coeffs[1] != 0) {
-            res.append(sign(this.coeffs[1])).append(" ").append(notOne(Math.abs(this.coeffs[1]))).append("x ");
+            res.append(sign(this.coeffs[1])).append(" ");
+            res.append(notOne(Math.abs(this.coeffs[1]))).append("x ");
         }
 
         if (this.coeffs.length > 0 && this.coeffs[0] != 0) {
