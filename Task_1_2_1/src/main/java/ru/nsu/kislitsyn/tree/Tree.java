@@ -1,8 +1,12 @@
 package ru.nsu.kislitsyn.tree;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
+* This is my implementation of tree class with generic type.
+*
 * @param <T> is generic.
 */
 public class Tree<T> implements Iterable<T> {
@@ -18,9 +22,10 @@ public class Tree<T> implements Iterable<T> {
     public Tree() {
     }
 
-    ;
 
     /**
+    * Getter for value.
+    *
     * @return the value of the node.
     */
     public T getValue() {
@@ -28,6 +33,8 @@ public class Tree<T> implements Iterable<T> {
     }
 
     /**
+    * Setter for value.
+    *
     * @param value the value we need to set.
     */
     public void setValue(T value) {
@@ -35,6 +42,8 @@ public class Tree<T> implements Iterable<T> {
     }
 
     /**
+    * Getter for list of children.
+    *
     * @return the list of the children.
     */
     public List<Tree<T>> getChildren() {
@@ -42,6 +51,8 @@ public class Tree<T> implements Iterable<T> {
     }
 
     /**
+    * Setter for parent.
+    *
     * @param parent is the parent we need to set.
     */
     public void setParent(Tree<T> parent) {
@@ -49,6 +60,8 @@ public class Tree<T> implements Iterable<T> {
     }
 
     /**
+    * Getter for parent.
+    *
     * @return parent of the node.
     */
     public Tree<T> getParent() {
@@ -56,6 +69,8 @@ public class Tree<T> implements Iterable<T> {
     }
 
     /**
+    * Adds child to the node.
+    *
     * @param childValue the value of the node we need to add to the tree.
     *
     * @return the node itself.
@@ -68,6 +83,8 @@ public class Tree<T> implements Iterable<T> {
     }
 
     /**
+    * Adds child to the node.
+    *
     * @param childTree is the node we need to add to the tree.
     *
     * @return node itself.
@@ -95,11 +112,13 @@ public class Tree<T> implements Iterable<T> {
     }
 
     /**
+    * Iterates tree.
+    *
     * @return iterator of the tree.
     */
     public Iterator<T> iterator() {
         IteratorBfs<T> myIterator = new IteratorBfs<>(this);
-        Iterator<T> it = new Iterator<T>() {
+        return new Iterator<T>() {
             private int currentIndex = 0;
 
             @Override
@@ -112,29 +131,30 @@ public class Tree<T> implements Iterable<T> {
                 return myIterator.get(currentIndex++);
             }
         };
-        return it;
     }
 
     /**
+    * Compares trees.
+    *
     * @param another is the tree we need to compare with.
     *
     * @return true, if the trees completely equal, otherwise false.
     */
     public boolean isEqual(Tree<T> another) {
-        Iterator<T> iterThis = this.iterator();
-        Iterator<T> iterB;
+        Iterator<T> iteratorThis = this.iterator();
+        Iterator<T> iteratorB;
         if (another != null) {
-            iterB = another.iterator();
+            iteratorB = another.iterator();
         } else {
             return false;
         }
 
-        while (iterThis.hasNext() && iterB.hasNext()) {
-            if (iterThis.next() != iterB.next()) {
+        while (iteratorThis.hasNext() && iteratorB.hasNext()) {
+            if (iteratorThis.next() != iteratorB.next()) {
                 return false;
             }
         }
-        if (iterThis.hasNext() || iterB.hasNext()) {
+        if (iteratorThis.hasNext() || iteratorB.hasNext()) {
             return false;
         }
         return true;

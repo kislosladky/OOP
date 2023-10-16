@@ -2,7 +2,8 @@ package ru.nsu.kislitsyn.tree;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TreeTest {
 
@@ -37,11 +38,11 @@ class TreeTest {
     void bfsTest() {
         Tree<String> tree = new Tree<>("R1");
         var a = tree.addChild("A");
-        var b = a.addChild("B");
         Tree<String> subtree = new Tree<>("R2");
         subtree.addChild("C");
         subtree.addChild("D");
         tree.addChild(subtree);
+        var b = a.addChild("B");
         b.remove();
         for (String i : subtree) {
             System.out.println(i);

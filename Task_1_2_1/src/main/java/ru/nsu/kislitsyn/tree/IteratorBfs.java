@@ -5,6 +5,8 @@ import java.util.Iterator;
 
 
 /**
+* This is the implementation of the iterator for my tree class.
+*
 * @param <T> is generic.
 */
 class IteratorBfs<T> implements Iterator<T> {
