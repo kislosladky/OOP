@@ -46,7 +46,7 @@ class TreeTest {
         b.remove();
         for (String i : tree) {
             System.out.println(i);
-            subtree.setValue("R3");
+//            subtree.setValue("R3");
         }
     }
 }
