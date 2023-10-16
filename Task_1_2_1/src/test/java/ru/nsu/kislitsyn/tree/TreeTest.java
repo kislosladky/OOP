@@ -100,6 +100,7 @@ class TreeTest {
         var a = tree.addChild("A");
         var b = a.addChild("B");
         b.remove();
+        tree.setUseBfs(false);
         System.out.println("DFS");
         for (String i : tree) {
             System.out.println(i);
