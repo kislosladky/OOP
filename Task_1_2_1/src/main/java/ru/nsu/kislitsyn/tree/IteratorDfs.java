@@ -1,27 +1,20 @@
 package ru.nsu.kislitsyn.tree;
 
-import java.util.ArrayList;
+import java.util.Stack;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
-import java.util.List;
-
 
 /**
- * This is an iterator for tree implemented via breadth first search.
+ * This is an iterator for tree implemented via depth first search.
  *
  * @param <T> generic type.
  */
-public class IteratorBfs<T> implements Iterator<T> {
-    private List<Tree<T>> queue;
+public class IteratorDfs<T> implements Iterator<T> {
+    private Stack<Tree<T>> queue;
     private Tree<T> root;
 
-    /**
-     * The constructor of IteratorBfs.
-     *
-     * @param root the node we should start bfs from.
-     */
-    public IteratorBfs(Tree<T> root) {
-        queue = new ArrayList<Tree<T>>();
+    public IteratorDfs(Tree<T> root) {
+        queue = new Stack<Tree<T>>();
         queue.add(root);
         this.root = root;
         root.unchanged();
@@ -43,10 +36,9 @@ public class IteratorBfs<T> implements Iterator<T> {
         if (root.changed()) {
             throw new ConcurrentModificationException();
         }
-        T answ = queue.get(0).getValue();
-        queue.addAll(queue.get(0).getChildren());
-        queue.remove(0);
-        return answ;
+        Tree<T> answ = queue.pop();
+        queue.addAll(answ.getChildren());
+        return answ.getValue();
     }
-}
 
+}

@@ -3,6 +3,7 @@ package ru.nsu.kislitsyn.tree;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
 * This is my implementation of tree class with generic type.
@@ -14,20 +15,19 @@ public class Tree<T> implements Iterable<T> {
     private List<Tree<T>> children;
     private T value;
     private boolean changed;
+    private boolean useBfs;
 
     public Tree(T value) {
         this.value = value;
         this.children = new ArrayList<>();
         changed = false;
-    }
-
-    public Tree() {
+        useBfs = true;
     }
 
     /**
     * Getter for changed flag.
     *
-    * @return
+    * @return the value of flag.
     */
     public boolean getChanged() {
         return this.changed;
@@ -90,6 +90,24 @@ public class Tree<T> implements Iterable<T> {
     }
 
     /**
+    * Setter for useBfs.
+    *
+    * @param value
+    */
+    public void setUseBfs(boolean value) {
+        this.useBfs = value;
+    }
+
+    /**
+    * Getter for useBfs.
+    *
+    * @return the flag useBfs.
+    */
+    public boolean getUseBfs() {
+        return this.useBfs;
+    }
+
+    /**
     * Adds child to the node.
     *
     * @param childValue the value of the node we need to add to the tree.
@@ -141,24 +159,35 @@ public class Tree<T> implements Iterable<T> {
     * @return iterator of the tree.
     */
     public Iterator<T> iterator() {
-        return new IteratorBfs<>(this);
+        if (useBfs) {
+            return new IteratorBfs<>(this);
+        } else {
+            return new IteratorDfs<>(this);
+        }
     }
 
     /**
     * Compares trees.
     *
-    * @param another is the tree we need to compare with.
+    * @param other is the tree we need to compare with.
     *
     * @return true, if the trees completely equal, otherwise false.
     */
-    public boolean isEqual(Tree<T> another) {
-        Iterator<T> iteratorThis = this.iterator();
-        Iterator<T> iteratorB;
-        if (another != null) {
-            iteratorB = another.iterator();
-        } else {
+    @Override
+    public boolean equals(Object other) {
+        if (other == null || other.getClass() != this.getClass()) {
             return false;
         }
+
+        if (other == this) {
+            return true;
+        }
+
+        var another = (Tree<T>)other;
+
+        Iterator<T> iteratorThis = this.iterator();
+        Iterator<T> iteratorB = another.iterator();
+
 
         while (iteratorThis.hasNext() && iteratorB.hasNext()) {
             if (iteratorThis.next() != iteratorB.next()) {
@@ -180,7 +209,7 @@ public class Tree<T> implements Iterable<T> {
         if (this.getChanged()) {
             return true;
         }
-        for (Tree<T> i: this.getChildren()) {
+        for (Tree<T> i : this.getChildren()) {
             if (i.changed()) {
                 return true;
             }
@@ -193,7 +222,7 @@ public class Tree<T> implements Iterable<T> {
     */
     void unchanged() {
         this.changed = false;
-        for (Tree<T> i: this.getChildren()) {
+        for (Tree<T> i : this.getChildren()) {
             i.unchanged();
         }
     }
