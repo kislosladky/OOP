@@ -33,35 +33,18 @@ class TreeTest {
         assertEquals(0, a.getChildren().size());
     }
 
-//    @Test
-//    void bfsTest() {
-//        Tree<String> tree = new Tree<>("R1");
-//        var a = tree.addChild("A");
-//        var b = a.addChild("B");
-//        Tree<String> subtree = new Tree<>("R2");
-//        subtree.addChild("C");
-//        subtree.addChild("D");
-//        tree.addChild(subtree);
-//        b.remove();
-//        IteratorBfs<String> iterator = new IteratorBfs<>(tree);
-//        for (Tree<String> i: iterator) {
-//            System.out.println(i.getValue());
-//        }
-//    }
-
-//    @Test
-//    void dfsTest() {
-//        Tree<String> tree = new Tree<>("R1");
-//        var a = tree.addChild("A");
-//        var b = a.addChild("B");
-//        Tree<String> subtree = new Tree<>("R2");
-//        subtree.addChild("C");
-//        subtree.addChild("D");
-//        tree.addChild(subtree);
-//        b.remove();
-//        IteratorDfs<String> iterator = new IteratorDfs<>(tree);
-//        for (Tree<String> i: iterator) {
-//            System.out.println(i.getValue());
-//        }
-//    }
+    @Test
+    void bfsTest() {
+        Tree<String> tree = new Tree<>("R1");
+        var a = tree.addChild("A");
+        var b = a.addChild("B");
+        Tree<String> subtree = new Tree<>("R2");
+        subtree.addChild("C");
+        subtree.addChild("D");
+        tree.addChild(subtree);
+        b.remove();
+        for (String i : subtree) {
+            System.out.println(i);
+        }
+    }
 }
