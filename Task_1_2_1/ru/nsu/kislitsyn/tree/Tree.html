@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -202,55 +202,69 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 </td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getChanged()">getChanged</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Getter for changed flag.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="Tree.html" title="class in ru.nsu.kislitsyn.tree">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getChildren()">getChildren</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Getter for list of children.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="Tree.html" title="class in ru.nsu.kislitsyn.tree">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getParent()">getParent</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Getter for parent.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="Tree.html" title="type parameter in Tree">T</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getValue()">getValue</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Getter for value.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isEqual(ru.nsu.kislitsyn.tree.Tree)">isEqual</a></span>&#8203;(<a href="Tree.html" title="class in ru.nsu.kislitsyn.tree">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&nbsp;another)</code></th>
 <td class="colLast">
 <div class="block">Compares trees.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>java.util.Iterator&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#iterator()">iterator</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Iterates tree.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#remove()">remove</a></span>()</code></th>
 <td class="colLast">
 <div class="block">removes the node in the tree.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setChanged(boolean)">setChanged</a></span>&#8203;(boolean&nbsp;value)</code></th>
+<td class="colLast">
+<div class="block">Setter for changed flag.</div>
+</td>
+</tr>
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setParent(ru.nsu.kislitsyn.tree.Tree)">setParent</a></span>&#8203;(<a href="Tree.html" title="class in ru.nsu.kislitsyn.tree">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&nbsp;parent)</code></th>
 <td class="colLast">
 <div class="block">Setter for parent.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setValue(T)">setValue</a></span>&#8203;(<a href="Tree.html" title="type parameter in Tree">T</a>&nbsp;value)</code></th>
 <td class="colLast">
@@ -318,6 +332,33 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="getChanged()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getChanged</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;getChanged()</pre>
+<div class="block">Getter for changed flag.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+</dl>
+</li>
+</ul>
+<a id="setChanged(boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setChanged</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setChanged&#8203;(boolean&nbsp;value)</pre>
+<div class="block">Setter for changed flag.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>value</code> - the value of the changed flag.</dd>
+</dl>
+</li>
+</ul>
 <a id="getValue()">
 <!--   -->
 </a>
