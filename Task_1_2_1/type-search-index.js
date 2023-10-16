@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.kislitsyn.tree","l":"IteratorBfs"},{"p":"ru.nsu.kislitsyn.tree","l":"Tree"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.kislitsyn.tree","l":"IteratorBfs"},{"p":"ru.nsu.kislitsyn.tree","l":"IteratorDfs"},{"p":"ru.nsu.kislitsyn.tree","l":"Tree"}]

@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -162,10 +162,6 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">Tree</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(T)">Tree</a></span>&#8203;(<a href="Tree.html" title="type parameter in Tree">T</a>&nbsp;value)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -203,68 +199,82 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;other)</code></th>
+<td class="colLast">
+<div class="block">Compares trees.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getChanged()">getChanged</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Getter for changed flag.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="Tree.html" title="class in ru.nsu.kislitsyn.tree">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getChildren()">getChildren</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Getter for list of children.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="Tree.html" title="class in ru.nsu.kislitsyn.tree">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getParent()">getParent</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Getter for parent.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUseBfs()">getUseBfs</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Getter for useBfs.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="Tree.html" title="type parameter in Tree">T</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getValue()">getValue</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Getter for value.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isEqual(ru.nsu.kislitsyn.tree.Tree)">isEqual</a></span>&#8203;(<a href="Tree.html" title="class in ru.nsu.kislitsyn.tree">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&nbsp;another)</code></th>
-<td class="colLast">
-<div class="block">Compares trees.</div>
-</td>
-</tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>java.util.Iterator&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#iterator()">iterator</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Iterates tree.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#remove()">remove</a></span>()</code></th>
 <td class="colLast">
 <div class="block">removes the node in the tree.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setChanged(boolean)">setChanged</a></span>&#8203;(boolean&nbsp;value)</code></th>
 <td class="colLast">
 <div class="block">Setter for changed flag.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setParent(ru.nsu.kislitsyn.tree.Tree)">setParent</a></span>&#8203;(<a href="Tree.html" title="class in ru.nsu.kislitsyn.tree">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&nbsp;parent)</code></th>
 <td class="colLast">
 <div class="block">Setter for parent.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUseBfs(boolean)">setUseBfs</a></span>&#8203;(boolean&nbsp;value)</code></th>
+<td class="colLast">
+<div class="block">Setter for useBfs.</div>
+</td>
+</tr>
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setValue(T)">setValue</a></span>&#8203;(<a href="Tree.html" title="type parameter in Tree">T</a>&nbsp;value)</code></th>
 <td class="colLast">
@@ -277,7 +287,7 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Iterable">
@@ -307,19 +317,10 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 </a><a id="&lt;init&gt;(T)">
 <!--   -->
 </a>
-<ul class="blockList">
-<li class="blockList">
-<h4>Tree</h4>
-<pre>public&nbsp;Tree&#8203;(<a href="Tree.html" title="type parameter in Tree">T</a>&nbsp;value)</pre>
-</li>
-</ul>
-<a id="&lt;init&gt;()">
-<!--   -->
-</a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>Tree</h4>
-<pre>public&nbsp;Tree()</pre>
+<pre>public&nbsp;Tree&#8203;(<a href="Tree.html" title="type parameter in Tree">T</a>&nbsp;value)</pre>
 </li>
 </ul>
 </li>
@@ -342,6 +343,7 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 <div class="block">Getter for changed flag.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
+<dd>the value of flag.</dd>
 </dl>
 </li>
 </ul>
@@ -431,6 +433,34 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 </dl>
 </li>
 </ul>
+<a id="setUseBfs(boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setUseBfs</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setUseBfs&#8203;(boolean&nbsp;value)</pre>
+<div class="block">Setter for useBfs.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>value</code> - </dd>
+</dl>
+</li>
+</ul>
+<a id="getUseBfs()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUseBfs</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;getUseBfs()</pre>
+<div class="block">Getter for useBfs.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the flag useBfs.</dd>
+</dl>
+</li>
+</ul>
 <a id="addChild(java.lang.Object)">
 <!--   -->
 </a><a id="addChild(T)">
@@ -491,17 +521,19 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 </dl>
 </li>
 </ul>
-<a id="isEqual(ru.nsu.kislitsyn.tree.Tree)">
+<a id="equals(java.lang.Object)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>isEqual</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;isEqual&#8203;(<a href="Tree.html" title="class in ru.nsu.kislitsyn.tree">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&nbsp;another)</pre>
+<h4>equals</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;other)</pre>
 <div class="block">Compares trees.</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>another</code> - is the tree we need to compare with.</dd>
+<dd><code>other</code> - is the tree we need to compare with.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true, if the trees completely equal, otherwise false.</dd>
 </dl>
