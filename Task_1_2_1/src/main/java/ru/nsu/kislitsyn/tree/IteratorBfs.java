@@ -12,8 +12,9 @@ import java.util.List;
  * @param <T> generic type.
  */
 public class IteratorBfs<T> implements Iterator<T> {
-    private List<Tree<T>> queue;
-    private Tree<T> root;
+    private final List<Tree<T>> queue;
+    private final Tree<T> root;
+    private final int expectedChanges;
 
     /**
      * The constructor of IteratorBfs.
@@ -21,26 +22,24 @@ public class IteratorBfs<T> implements Iterator<T> {
      * @param root the node we should start bfs from.
      */
     public IteratorBfs(Tree<T> root) {
-        queue = new ArrayList<Tree<T>>();
+        queue = new ArrayList<>();
         queue.add(root);
         this.root = root;
-        root.unchanged();
+//        root.unchanged();
+        expectedChanges = root.getChanged();
     }
 
     @Override
     public boolean hasNext() {
-        if (root.changed()) {
+        if (root.getChanged() != expectedChanges) {
             throw new ConcurrentModificationException();
         }
-        if (queue.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !queue.isEmpty();
     }
 
     @Override
     public T next() {
-        if (root.changed()) {
+        if (root.getChanged() != expectedChanges) {
             throw new ConcurrentModificationException();
         }
         T answ = queue.get(0).getValue();

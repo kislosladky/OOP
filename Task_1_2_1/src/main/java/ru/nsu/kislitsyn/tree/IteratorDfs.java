@@ -12,6 +12,7 @@ import java.util.Stack;
 public class IteratorDfs<T> implements Iterator<T> {
     private Stack<Tree<T>> queue;
     private Tree<T> root;
+    private int expectedChanges;
 
     /**
     * The constructor of IteratorDfs.
@@ -22,12 +23,13 @@ public class IteratorDfs<T> implements Iterator<T> {
         queue = new Stack<Tree<T>>();
         queue.add(root);
         this.root = root;
-        root.unchanged();
+//        root.unchanged();
+        expectedChanges = root.getChanged();
     }
 
     @Override
     public boolean hasNext() {
-        if (root.changed()) {
+        if (root.getChanged() != expectedChanges) {
             throw new ConcurrentModificationException();
         }
         if (queue.isEmpty()) {
@@ -38,7 +40,7 @@ public class IteratorDfs<T> implements Iterator<T> {
 
     @Override
     public T next() {
-        if (root.changed()) {
+        if (root.getChanged() != expectedChanges) {
             throw new ConcurrentModificationException();
         }
         Tree<T> answ = queue.pop();

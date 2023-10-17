@@ -1,9 +1,6 @@
 package ru.nsu.kislitsyn.tree;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
 * This is my implementation of tree class with generic type.
@@ -12,10 +9,10 @@ import java.util.Objects;
 */
 public class Tree<T> implements Iterable<T> {
     private Tree<T> parent;
-    private List<Tree<T>> children;
+    private final List<Tree<T>> children;
     private T value;
-    private boolean changed;
-    private boolean useBfs;
+    private int changeCnt;
+    private iteratorType iterType;
 
     /**
     * Constructor of tree node.
@@ -25,8 +22,9 @@ public class Tree<T> implements Iterable<T> {
     public Tree(T value) {
         this.value = value;
         this.children = new ArrayList<>();
-        changed = false;
-        useBfs = true;
+//        this.children = new HashSet<>();
+        changeCnt = 0;
+        iterType = iteratorType.BFS;
     }
 
     /**
@@ -34,17 +32,15 @@ public class Tree<T> implements Iterable<T> {
     *
     * @return the value of flag.
     */
-    public boolean getChanged() {
-        return this.changed;
+    public int getChanged() {
+        return this.changeCnt;
     }
 
     /**
     * Setter for changed flag.
-    *
-    * @param value the value of the changed flag.
     */
-    public void setChanged(boolean value) {
-        this.changed = value;
+    public void setChangeCnt() {
+        this.changeCnt++;
     }
 
 
@@ -64,7 +60,7 @@ public class Tree<T> implements Iterable<T> {
     */
     public void setValue(T value) {
         this.value = value;
-        this.changed = true;
+        this.setChangeCnt();
     }
 
     /**
@@ -72,7 +68,7 @@ public class Tree<T> implements Iterable<T> {
     *
     * @return the list of the children.
     */
-    public List<Tree<T>> getChildren() {
+    public Collection<Tree<T>> getChildren() {
         return this.children;
     }
 
@@ -99,8 +95,8 @@ public class Tree<T> implements Iterable<T> {
     *
     * @param value the value of flag.
     */
-    public void setUseBfs(boolean value) {
-        this.useBfs = value;
+    public void setIterType(iteratorType value) {
+        this.iterType = value;
     }
 
     /**
@@ -108,8 +104,8 @@ public class Tree<T> implements Iterable<T> {
     *
     * @return the flag useBfs.
     */
-    public boolean getUseBfs() {
-        return this.useBfs;
+    public iteratorType getIterType() {
+        return this.iterType;
     }
 
     /**
@@ -122,7 +118,7 @@ public class Tree<T> implements Iterable<T> {
     public Tree<T> addChild(T childValue) {
         Tree<T> childTree = new Tree<>(childValue);
         this.children.add(childTree);
-        this.setChanged(true);
+        this.setChangeCnt();
         childTree.setParent(this);
         return childTree;
     }
@@ -136,7 +132,7 @@ public class Tree<T> implements Iterable<T> {
     */
     public Tree<T> addChild(Tree<T> childTree) {
         children.add(childTree);
-        this.setChanged(true);
+        this.setChangeCnt();
         childTree.setParent(this);
         return childTree;
     }
@@ -145,7 +141,7 @@ public class Tree<T> implements Iterable<T> {
     * removes the node in the tree.
     */
     public void remove() {
-        this.setChanged(true);
+        this.setChangeCnt();
 
         for (Tree<T> i : this.children) {
             i.setParent(this.getParent());
@@ -166,7 +162,7 @@ public class Tree<T> implements Iterable<T> {
     * @return iterator of the tree.
     */
     public Iterator<T> iterator() {
-        if (useBfs) {
+        if (iterType == iteratorType.BFS) {
             return new IteratorBfs<>(this);
         } else {
             return new IteratorDfs<>(this);
@@ -181,6 +177,7 @@ public class Tree<T> implements Iterable<T> {
     * @return true, if the trees completely equal, otherwise false.
     */
     @Override
+    @SuppressWarnings("unchecked")
     public boolean equals(Object other) {
         if (other == null || other.getClass() != this.getClass()) {
             return false;
@@ -192,54 +189,19 @@ public class Tree<T> implements Iterable<T> {
 
         var another = (Tree<T>) other;
 
-        Iterator<T> iteratorThis = this.iterator();
-        Iterator<T> iteratorB = another.iterator();
-
-        while (iteratorThis.hasNext() && iteratorB.hasNext()) {
-            if (iteratorThis.next() != iteratorB.next()) {
-                return false;
-            }
-        }
-        if (iteratorThis.hasNext() || iteratorB.hasNext()) {
-            return false;
-        }
-        return true;
+        return Objects.equals(children, another.children) && Objects.equals(value, another.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(children, value, changed, useBfs);
+        return Objects.hash(value, children);
     }
 
     /**
-    * Checks if the node have changed.
-    *
-    * @return true if node have changed.
-    */
-    boolean changed() {
-        if (this.getChanged()) {
-            return true;
-        }
-        for (Tree<T> i : this.getChildren()) {
-            if (i.changed()) {
-                return true;
-            }
-        }
-        return false;
+     * enum for choosing way to iterate.
+     */
+    public enum iteratorType {
+        BFS,
+        DFS
     }
-
-    /**
-    * Sets tree to unchanged condition.
-    */
-    void unchanged() {
-        this.changed = false;
-        for (Tree<T> i : this.getChildren()) {
-            i.unchanged();
-        }
-    }
-
-//    enum iteratorType {
-//        BFS,
-//        DFS
-//    }
 }

@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="17f456a3-46c7-4541-8125-8a15087cbc56" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nsu/kislitsyn/tree/IteratorBfs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nsu/kislitsyn/tree/IteratorBfs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nsu/kislitsyn/tree/IteratorDfs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nsu/kislitsyn/tree/IteratorDfs.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/nsu/kislitsyn/tree/Tree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nsu/kislitsyn/tree/Tree.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ru/nsu/kislitsyn/tree/TreeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/nsu/kislitsyn/tree/TreeTest.java" afterDir="false" />
     </list>
@@ -102,7 +104,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TreeTest.dfsTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TreeTest.equalsTestOfNotEqualTrees" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -115,7 +117,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;ru.nsu.kislitsyn.tree.TreeTest.dfsTest&quot;" />
+            <option value="&quot;ru.nsu.kislitsyn.tree.TreeTest.equalsTestOfNotEqualTrees&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -126,7 +128,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TreeTest.equalTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TreeTest.exceptionTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -139,7 +141,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;ru.nsu.kislitsyn.tree.TreeTest.equalTest&quot;" />
+            <option value="&quot;ru.nsu.kislitsyn.tree.TreeTest.exceptionTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -150,7 +152,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TreeTest.equalTestOfNotEqualTrees" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TreeTest.removeTestWithLotsOfChildren" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -163,7 +165,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;ru.nsu.kislitsyn.tree.TreeTest.equalTestOfNotEqualTrees&quot;" />
+            <option value="&quot;ru.nsu.kislitsyn.tree.TreeTest.removeTestWithLotsOfChildren&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -174,7 +176,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TreeTest.removeTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TreeTest.taskTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -187,7 +189,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;ru.nsu.kislitsyn.tree.TreeTest.removeTest&quot;" />
+            <option value="&quot;ru.nsu.kislitsyn.tree.TreeTest.taskTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -211,11 +213,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.TreeTest.equalsTestOfNotEqualTrees" />
+        <item itemvalue="Gradle.TreeTest.taskTest" />
+        <item itemvalue="Gradle.TreeTest.exceptionTest" />
+        <item itemvalue="Gradle.TreeTest.removeTestWithLotsOfChildren" />
         <item itemvalue="Gradle.TreeTest.changedTest" />
-        <item itemvalue="Gradle.TreeTest.equalTestOfNotEqualTrees" />
-        <item itemvalue="Gradle.TreeTest.dfsTest" />
-        <item itemvalue="Gradle.TreeTest.equalTest" />
-        <item itemvalue="Gradle.TreeTest.removeTest" />
       </list>
     </recent_temporary>
   </component>
