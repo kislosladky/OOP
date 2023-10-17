@@ -87,7 +87,7 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
@@ -148,6 +148,31 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<section>
+<ul class="blockList">
+<li class="blockList"><a id="nested.class.summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<table class="memberSummary">
+<caption><span>Nested Classes</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Class</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Tree.iteratorType.html" title="enum in ru.nsu.kislitsyn.tree">Tree.iteratorType</a></span></code></th>
+<td class="colLast">
+<div class="block">enum for choosing way to iterate.</div>
+</td>
+</tr>
+</table>
+</li>
+</ul>
+</section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <section>
 <ul class="blockList">
@@ -207,31 +232,31 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>boolean</code></td>
+<td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getChanged()">getChanged</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Getter for changed flag.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="Tree.html" title="class in ru.nsu.kislitsyn.tree">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&gt;</code></td>
+<td class="colFirst"><code>java.util.Collection&lt;<a href="Tree.html" title="class in ru.nsu.kislitsyn.tree">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getChildren()">getChildren</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Getter for list of children.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
+<td class="colFirst"><code><a href="Tree.iteratorType.html" title="enum in ru.nsu.kislitsyn.tree">Tree.iteratorType</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getIterType()">getIterType</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Getter for useBfs.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="Tree.html" title="class in ru.nsu.kislitsyn.tree">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getParent()">getParent</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Getter for parent.</div>
-</td>
-</tr>
-<tr id="i6" class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUseBfs()">getUseBfs</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Getter for useBfs.</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
@@ -262,23 +287,23 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setChanged(boolean)">setChanged</a></span>&#8203;(boolean&nbsp;value)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setChangeCnt()">setChangeCnt</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Setter for changed flag.</div>
 </td>
 </tr>
 <tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setParent(ru.nsu.kislitsyn.tree.Tree)">setParent</a></span>&#8203;(<a href="Tree.html" title="class in ru.nsu.kislitsyn.tree">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&nbsp;parent)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setIterType(ru.nsu.kislitsyn.tree.Tree.iteratorType)">setIterType</a></span>&#8203;(<a href="Tree.iteratorType.html" title="enum in ru.nsu.kislitsyn.tree">Tree.iteratorType</a>&nbsp;value)</code></th>
 <td class="colLast">
-<div class="block">Setter for parent.</div>
+<div class="block">Setter for useBfs.</div>
 </td>
 </tr>
 <tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUseBfs(boolean)">setUseBfs</a></span>&#8203;(boolean&nbsp;value)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setParent(ru.nsu.kislitsyn.tree.Tree)">setParent</a></span>&#8203;(<a href="Tree.html" title="class in ru.nsu.kislitsyn.tree">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&nbsp;parent)</code></th>
 <td class="colLast">
-<div class="block">Setter for useBfs.</div>
+<div class="block">Setter for parent.</div>
 </td>
 </tr>
 <tr id="i14" class="altColor">
@@ -351,7 +376,7 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getChanged</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;getChanged()</pre>
+<pre class="methodSignature">public&nbsp;int&nbsp;getChanged()</pre>
 <div class="block">Getter for changed flag.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -359,18 +384,14 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 </dl>
 </li>
 </ul>
-<a id="setChanged(boolean)">
+<a id="setChangeCnt()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>setChanged</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setChanged&#8203;(boolean&nbsp;value)</pre>
+<h4>setChangeCnt</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setChangeCnt()</pre>
 <div class="block">Setter for changed flag.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>value</code> - the value of the changed flag.</dd>
-</dl>
 </li>
 </ul>
 <a id="getValue()">
@@ -409,7 +430,7 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getChildren</h4>
-<pre class="methodSignature">public&nbsp;java.util.List&lt;<a href="Tree.html" title="class in ru.nsu.kislitsyn.tree">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&gt;&nbsp;getChildren()</pre>
+<pre class="methodSignature">public&nbsp;java.util.Collection&lt;<a href="Tree.html" title="class in ru.nsu.kislitsyn.tree">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">T</a>&gt;&gt;&nbsp;getChildren()</pre>
 <div class="block">Getter for list of children.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -445,13 +466,13 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 </dl>
 </li>
 </ul>
-<a id="setUseBfs(boolean)">
+<a id="setIterType(ru.nsu.kislitsyn.tree.Tree.iteratorType)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>setUseBfs</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setUseBfs&#8203;(boolean&nbsp;value)</pre>
+<h4>setIterType</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setIterType&#8203;(<a href="Tree.iteratorType.html" title="enum in ru.nsu.kislitsyn.tree">Tree.iteratorType</a>&nbsp;value)</pre>
 <div class="block">Setter for useBfs.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -459,13 +480,13 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 </dl>
 </li>
 </ul>
-<a id="getUseBfs()">
+<a id="getIterType()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getUseBfs</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;getUseBfs()</pre>
+<h4>getIterType</h4>
+<pre class="methodSignature">public&nbsp;<a href="Tree.iteratorType.html" title="enum in ru.nsu.kislitsyn.tree">Tree.iteratorType</a>&nbsp;getIterType()</pre>
 <div class="block">Getter for useBfs.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -614,7 +635,7 @@ implements java.lang.Iterable&lt;T&gt;</pre>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
