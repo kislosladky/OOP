@@ -1,8 +1,8 @@
 package ru.nsu.kislitsyn.tree;
 
-import java.util.Stack;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.Stack;
 
 /**
  * This is an iterator for tree implemented via depth first search.

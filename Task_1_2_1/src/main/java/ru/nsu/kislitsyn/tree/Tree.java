@@ -17,6 +17,11 @@ public class Tree<T> implements Iterable<T> {
     private boolean changed;
     private boolean useBfs;
 
+    /**
+    * Constructor of tree node.
+    *
+    * @param value the value of node.
+    */
     public Tree(T value) {
         this.value = value;
         this.children = new ArrayList<>();
@@ -92,7 +97,7 @@ public class Tree<T> implements Iterable<T> {
     /**
     * Setter for useBfs.
     *
-    * @param value
+    * @param value the value of flag.
     */
     public void setUseBfs(boolean value) {
         this.useBfs = value;
@@ -141,11 +146,12 @@ public class Tree<T> implements Iterable<T> {
     */
     public void remove() {
         this.changed = true;
-        if (this.parent != null) {
-            for (Tree<T> i : this.children) {
-                i.parent = this.parent;
-            }
 
+        for (Tree<T> i : this.children) {
+            i.parent = this.parent;
+        }
+
+        if (this.parent != null) {
             this.parent.children.remove(this);
             this.parent = null;
         }
@@ -183,7 +189,7 @@ public class Tree<T> implements Iterable<T> {
             return true;
         }
 
-        var another = (Tree<T>)other;
+        var another = (Tree<T>) other;
 
         Iterator<T> iteratorThis = this.iterator();
         Iterator<T> iteratorB = another.iterator();
@@ -198,6 +204,11 @@ public class Tree<T> implements Iterable<T> {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(children, value, changed, useBfs);
     }
 
     /**

@@ -1,7 +1,7 @@
 package ru.nsu.kislitsyn.tree;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -45,6 +45,7 @@ class TreeTest {
         var a = tree.addChild("A");
         var b = a.addChild("B");
         b.remove();
+        System.out.println("BFS");
         for (String i : tree) {
             System.out.println(i);
         }
@@ -80,15 +81,46 @@ class TreeTest {
     @Test
     void equalTest() {
         var a = new Tree<>("A");
-        var aChild = a.addChild("a");
-        aChild.addChild("aa");
+        var childA = a.addChild("a");
+        childA.addChild("aa");
 
-        var aCopy = new Tree<>("A");
-        var aChildCopy = aCopy.addChild("a");
-        aChildCopy.addChild("aa");
+        var copyA = new Tree<>("A");
+        var copyAChild = copyA.addChild("a");
+        copyAChild.addChild("aa");
 
-        assertEquals(a, aCopy);
+        assertEquals(a, copyA);
     }
+
+    @Test
+    void equalTestFalse() {
+        var a = new Tree<>("A");
+        var childA = a.addChild("a");
+        childA.addChild("aa");
+
+        var copyA = new Tree<>("A");
+        var copyAChild = copyA.addChild("a");
+        copyAChild.addChild("aaa");
+
+        assertNotEquals(a, copyA);
+    }
+
+    /**
+     * This test shouldn't work, but works, because my method isn't perfect.
+     */
+    @Test
+    void equalTestOfNotEqualTrees() {
+        var a = new Tree<>("A");
+        var childA = a.addChild("a");
+        a.addChild("aa");
+
+        var b = new Tree<>("A");
+        var childB = b.addChild("a");
+        childB.addChild("aa");
+
+        assertEquals(a, b);
+    }
+
+
 
     @Test
     void dfsTest() {
