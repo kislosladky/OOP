@@ -149,6 +149,7 @@ public class Tree<T> implements Iterable<T> {
 
         for (Tree<T> i : this.children) {
             i.setParent(this.getParent());
+            this.getParent().addChild(i);
         }
 
         if (this.parent != null) {
@@ -194,7 +195,6 @@ public class Tree<T> implements Iterable<T> {
         Iterator<T> iteratorThis = this.iterator();
         Iterator<T> iteratorB = another.iterator();
 
-
         while (iteratorThis.hasNext() && iteratorB.hasNext()) {
             if (iteratorThis.next() != iteratorB.next()) {
                 return false;
@@ -237,4 +237,9 @@ public class Tree<T> implements Iterable<T> {
             i.unchanged();
         }
     }
+
+//    enum iteratorType {
+//        BFS,
+//        DFS
+//    }
 }

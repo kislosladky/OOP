@@ -1,12 +1,10 @@
 package ru.nsu.kislitsyn.tree;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
+
+import java.util.ConcurrentModificationException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class TreeTest {
 
@@ -79,6 +77,19 @@ class TreeTest {
         assertEquals(1, a.getChildren().size());
         assertEquals(3, a.getChildren().get(0).getValue());
     }
+
+    @Test
+    void removeTestWithLotsOfChildren() {
+        var a = new Tree<>(2);
+        a.addChild(3);
+        var b = a.addChild(new Tree<>(6));
+        b.addChild(4);
+        b.addChild(90);
+        b.remove();
+        assertEquals(3, a.getChildren().size());
+        assertEquals(3, a.getChildren().get(0).getValue());
+    }
+
 
     @Test
     void equalsTest() {
@@ -181,6 +192,21 @@ class TreeTest {
         assertTrue(a.changed());
     }
 
-
+//    @Test
+//    void exceptionTest() {
+//        Tree<String> tree = new Tree<>("R1");
+//        Tree<String> subtree = new Tree<>("R2");
+//        subtree.addChild("C");
+//        subtree.addChild("D");
+//        tree.addChild(subtree);
+//        var a = tree.addChild("A");
+//        var b = a.addChild("B");
+//        b.remove();
+//        System.out.println("BFS");
+//        for (String i : tree) {
+//            System.out.println(i)
+//        }
+//        assertThrows(ConcurrentModificationException.class);
+//    }
 
 }
