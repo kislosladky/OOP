@@ -13,6 +13,11 @@ public class IteratorDfs<T> implements Iterator<T> {
     private Stack<Tree<T>> queue;
     private Tree<T> root;
 
+    /**
+    * The constructor of IteratorDfs.
+    *
+    * @param root the node we should iterate from.
+    */
     public IteratorDfs(Tree<T> root) {
         queue = new Stack<Tree<T>>();
         queue.add(root);

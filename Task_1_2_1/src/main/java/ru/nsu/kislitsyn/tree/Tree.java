@@ -91,7 +91,7 @@ public class Tree<T> implements Iterable<T> {
     * @return parent of the node.
     */
     public Tree<T> getParent() {
-        return parent;
+        return this.parent;
     }
 
     /**
@@ -122,7 +122,7 @@ public class Tree<T> implements Iterable<T> {
     public Tree<T> addChild(T childValue) {
         Tree<T> childTree = new Tree<>(childValue);
         this.children.add(childTree);
-        this.changed = true;
+        this.setChanged(true);
         childTree.setParent(this);
         return childTree;
     }
@@ -136,7 +136,7 @@ public class Tree<T> implements Iterable<T> {
     */
     public Tree<T> addChild(Tree<T> childTree) {
         children.add(childTree);
-        changed = true;
+        this.setChanged(true);
         childTree.setParent(this);
         return childTree;
     }
@@ -145,10 +145,10 @@ public class Tree<T> implements Iterable<T> {
     * removes the node in the tree.
     */
     public void remove() {
-        this.changed = true;
+        this.setChanged(true);
 
         for (Tree<T> i : this.children) {
-            i.parent = this.parent;
+            i.setParent(this.getParent());
         }
 
         if (this.parent != null) {

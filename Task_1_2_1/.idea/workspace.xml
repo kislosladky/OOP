@@ -66,7 +66,8 @@
     &quot;onboarding.tips.debug.path&quot;: &quot;/home/kislitsyni/Java/OOP/Task_1_2_1/Task_1_2_1/src/main/java/org/example/Main.java&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -77,8 +78,8 @@
       <recent name="ru.nsu.kislitsyn.tree" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.TreeTest.equalTestOfNotEqualTrees">
-    <configuration name="TreeTest.addChildValueTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.TreeTest.changedTest">
+    <configuration name="TreeTest.changedTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -91,7 +92,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;ru.nsu.kislitsyn.tree.TreeTest.addChildValueTest&quot;" />
+            <option value="&quot;ru.nsu.kislitsyn.tree.TreeTest.changedTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -211,11 +212,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.TreeTest.changedTest" />
         <item itemvalue="Gradle.TreeTest.equalTestOfNotEqualTrees" />
         <item itemvalue="Gradle.TreeTest.dfsTest" />
         <item itemvalue="Gradle.TreeTest.equalTest" />
         <item itemvalue="Gradle.TreeTest.removeTest" />
-        <item itemvalue="Gradle.TreeTest.addChildValueTest" />
       </list>
     </recent_temporary>
   </component>

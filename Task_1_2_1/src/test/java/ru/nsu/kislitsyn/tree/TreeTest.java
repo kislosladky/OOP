@@ -1,9 +1,8 @@
 package ru.nsu.kislitsyn.tree;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class TreeTest {
@@ -79,7 +78,7 @@ class TreeTest {
     }
 
     @Test
-    void equalTest() {
+    void equalsTest() {
         var a = new Tree<>("A");
         var childA = a.addChild("a");
         childA.addChild("aa");
@@ -92,14 +91,14 @@ class TreeTest {
     }
 
     @Test
-    void equalTestFalse() {
+    void equalsTestFalse() {
         var a = new Tree<>("A");
         var childA = a.addChild("a");
         childA.addChild("aa");
 
         var copyA = new Tree<>("A");
-        var copyAChild = copyA.addChild("a");
-        copyAChild.addChild("aaa");
+        var copyChildA = copyA.addChild("a");
+        copyChildA.addChild("aaa");
 
         assertNotEquals(a, copyA);
     }
@@ -108,7 +107,7 @@ class TreeTest {
      * This test shouldn't work, but works, because my method isn't perfect.
      */
     @Test
-    void equalTestOfNotEqualTrees() {
+    void equalsTestOfNotEqualTrees() {
         var a = new Tree<>("A");
         var childA = a.addChild("a");
         a.addChild("aa");
@@ -138,5 +137,47 @@ class TreeTest {
             System.out.println(i);
         }
     }
+
+    @Test
+    void setParentTestNull() {
+        var a = new Tree<>("Around the world");
+        assertNull(a.getParent());
+    }
+
+    @Test
+    void setParentTest() {
+        var a = new Tree<>("Around the world");
+        var b = a.addChild("Harder, better, faster, stronger");
+        assertEquals(a, b.getParent());
+    }
+
+    @Test
+    void hashcodeTest() {
+        var a = new Tree<>("A");
+        var childA = a.addChild("a");
+        a.addChild("aa");
+        int hash1 = a.hashCode();
+        int hash2 = a.hashCode();
+
+        assertEquals(hash1, hash2);
+    }
+
+    @Test
+    void changedTest() {
+        var a = new Tree<>(6);
+        assertFalse(a.changed());
+        a.setValue(5);
+        assertTrue(a.changed());
+        a.addChild(1);
+        a.addChild(2);
+        var b = a.addChild(14);
+        b.addChild(7);
+        a.unchanged();
+        assertFalse(a.changed());
+        b.setValue(13);
+        assertTrue(a.changed());
+    }
+
+
 
 }
