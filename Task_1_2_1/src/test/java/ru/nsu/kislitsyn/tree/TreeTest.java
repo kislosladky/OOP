@@ -1,9 +1,12 @@
 package ru.nsu.kislitsyn.tree;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 
 class TreeTest {
 
@@ -84,8 +87,8 @@ class TreeTest {
         childA.addChild("aa");
 
         var copyA = new Tree<>("A");
-        var copyAChild = copyA.addChild("a");
-        copyAChild.addChild("aa");
+        var copyChildA = copyA.addChild("a");
+        copyChildA.addChild("aa");
 
         assertEquals(a, copyA);
     }
