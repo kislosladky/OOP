@@ -1,6 +1,9 @@
 package ru.nsu.kislitsyn.tree;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 
 /**
 * This is my implementation of tree class with generic type.
@@ -12,7 +15,7 @@ public class Tree<T> implements Iterable<T> {
     private final List<Tree<T>> children;
     private T value;
     private int changeCnt;
-    private iteratorType iterType;
+    private IteratorType iterType;
 
     /**
     * Constructor of tree node.
@@ -22,9 +25,8 @@ public class Tree<T> implements Iterable<T> {
     public Tree(T value) {
         this.value = value;
         this.children = new ArrayList<>();
-//        this.children = new HashSet<>();
         changeCnt = 0;
-        iterType = iteratorType.BFS;
+        iterType = IteratorType.BFS;
     }
 
     /**
@@ -68,7 +70,7 @@ public class Tree<T> implements Iterable<T> {
     *
     * @return the list of the children.
     */
-    public Collection<Tree<T>> getChildren() {
+    public List<Tree<T>> getChildren() {
         return this.children;
     }
 
@@ -95,7 +97,7 @@ public class Tree<T> implements Iterable<T> {
     *
     * @param value the value of flag.
     */
-    public void setIterType(iteratorType value) {
+    public void setIterType(IteratorType value) {
         this.iterType = value;
     }
 
@@ -104,7 +106,7 @@ public class Tree<T> implements Iterable<T> {
     *
     * @return the flag useBfs.
     */
-    public iteratorType getIterType() {
+    public IteratorType getIterType() {
         return this.iterType;
     }
 
@@ -162,7 +164,7 @@ public class Tree<T> implements Iterable<T> {
     * @return iterator of the tree.
     */
     public Iterator<T> iterator() {
-        if (iterType == iteratorType.BFS) {
+        if (iterType == IteratorType.BFS) {
             return new IteratorBfs<>(this);
         } else {
             return new IteratorDfs<>(this);
@@ -189,18 +191,27 @@ public class Tree<T> implements Iterable<T> {
 
         var another = (Tree<T>) other;
 
-        return Objects.equals(children, another.children) && Objects.equals(value, another.value);
+        if (this.value != another.value) {
+            return false;
+        } else {
+            return this.hashCode() == other.hashCode();
+        }
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value, children);
+        int answ = Objects.hash(value);
+        for (Tree<T> i : this.children) {
+            answ += i.hashCode();
+        }
+        return answ;
     }
 
     /**
      * enum for choosing way to iterate.
      */
-    public enum iteratorType {
+    public enum IteratorType {
         BFS,
         DFS
     }

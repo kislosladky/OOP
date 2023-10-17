@@ -10,9 +10,9 @@ import java.util.Stack;
  * @param <T> generic type.
  */
 public class IteratorDfs<T> implements Iterator<T> {
-    private Stack<Tree<T>> queue;
-    private Tree<T> root;
-    private int expectedChanges;
+    private final Stack<Tree<T>> queue;
+    private final Tree<T> root;
+    private final int expectedChanges;
 
     /**
     * The constructor of IteratorDfs.
@@ -20,10 +20,9 @@ public class IteratorDfs<T> implements Iterator<T> {
     * @param root the node we should iterate from.
     */
     public IteratorDfs(Tree<T> root) {
-        queue = new Stack<Tree<T>>();
+        queue = new Stack<>();
         queue.add(root);
         this.root = root;
-//        root.unchanged();
         expectedChanges = root.getChanged();
     }
 
@@ -32,10 +31,7 @@ public class IteratorDfs<T> implements Iterator<T> {
         if (root.getChanged() != expectedChanges) {
             throw new ConcurrentModificationException();
         }
-        if (queue.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !queue.isEmpty();
     }
 
     @Override

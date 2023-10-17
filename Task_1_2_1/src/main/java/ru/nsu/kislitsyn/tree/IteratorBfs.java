@@ -25,7 +25,6 @@ public class IteratorBfs<T> implements Iterator<T> {
         queue = new ArrayList<>();
         queue.add(root);
         this.root = root;
-//        root.unchanged();
         expectedChanges = root.getChanged();
     }
 
