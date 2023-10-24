@@ -155,7 +155,6 @@ class PolynomialTest {
     void testPolyMake() {
         Polynomial a = new Polynomial(new int[] {1, 2, 3, 4});
         assertArrayEquals(new int[] {1, 2, 3, 4}, a.getCoeffs());
-        assertEquals(3, a.getPower());
     }
 
     @Test

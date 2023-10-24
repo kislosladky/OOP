@@ -8,7 +8,6 @@ import java.util.Arrays;
 */
 public class Polynomial {
     private final int[] coeffs;
-    private final int power;
 
     /**
     * This is a constructor of object.
@@ -17,7 +16,6 @@ public class Polynomial {
     */
     public Polynomial(int[] coeffs) {
         this.coeffs = coeffs;
-        this.power = coeffs.length - 1;
     }
 
     /**
@@ -30,13 +28,13 @@ public class Polynomial {
     public Polynomial add(Polynomial p2) {
         int[] answ = new int[Math.max(this.coeffs.length, p2.coeffs.length)];
         if (this.coeffs.length > p2.coeffs.length) {
-            for (int i = 0; i <= p2.power; i++) {
+            for (int i = 0; i < p2.coeffs.length; i++) {
                 answ[i] = this.coeffs[i] + p2.coeffs[i];
             }
             System.arraycopy(this.coeffs, p2.coeffs.length,
                     answ, p2.coeffs.length, this.coeffs.length - p2.coeffs.length);
         } else {
-            for (int i = 0; i <= this.power; i++) {
+            for (int i = 0; i < this.coeffs.length; i++) {
                 answ[i] = this.coeffs[i] + p2.coeffs[i];
             }
             System.arraycopy(p2.coeffs, this.coeffs.length,
@@ -79,10 +77,10 @@ public class Polynomial {
     * @return the polynomial which appears to be the product of input ones.
     */
     public Polynomial multiply(Polynomial poly) {
-        int[] answ = new int[this.power + poly.power + 1];
+        int[] answ = new int[(this.coeffs.length - 1) + (poly.coeffs.length - 1) + 1];
         Arrays.fill(answ, 0);
-        for (int i = 0; i <= this.power; i++) {
-            for (int j = 0; j <= poly.power; j++) {
+        for (int i = 0; i < this.coeffs.length; i++) {
+            for (int j = 0; j < poly.coeffs.length; j++) {
                 answ[i + j] += this.coeffs[i] * poly.coeffs[j];
             }
         }
@@ -100,8 +98,8 @@ public class Polynomial {
     public int evaluate(int x) {
         int answ = 0;
         int powerOfX = 1;
-        for (int i = 0; i <= this.power; i++) {
-            answ += this.coeffs[i] * powerOfX;
+        for (int coeff : this.coeffs) {
+            answ += coeff * powerOfX;
             powerOfX *= x;
         }
         return answ;
@@ -135,7 +133,7 @@ public class Polynomial {
             return false;
         }
 
-        for (int i = 0; i <= this.power; i++) {
+        for (int i = 0; i < this.coeffs.length; i++) {
             if (this.coeffs[i] != poly.coeffs[i]) {
                 return false;
             }
@@ -181,7 +179,7 @@ public class Polynomial {
     */
     public Polynomial differentiate(int degree) {
 
-        if (degree > this.power) {
+        if (degree > this.coeffs.length - 1) {
             return new Polynomial(new int[]{0});
         }
         int[] answ = this.coeffs.clone();
@@ -241,7 +239,7 @@ public class Polynomial {
     *
     * @return (String)abs(a) or empty line, if abs(a) == 1.
     */
-    private String notOne(int a) {
+    private static String notOne(int a) {
         if (Math.abs(a) == 1) {
             return "";
         }
@@ -255,7 +253,7 @@ public class Polynomial {
     *
     * @return the string containing the sign of value.
     */
-    private String sign(int a) {
+    private static String sign(int a) {
         if (a < 0) {
             return "-";
         }
@@ -269,14 +267,5 @@ public class Polynomial {
      */
     public int[] getCoeffs() {
         return this.coeffs;
-    }
-
-    /**
-     * Simple getter of power of polynomial.
-     *
-     * @return this.power.
-     */
-    public int getPower() {
-        return this.power;
     }
 }
