@@ -4,88 +4,67 @@ import java.util.ArrayList;
 
 public class GraphAdjMatrix<T> implements Graph<T> {
 
-    ArrayList<AdjMatrixLine<T>> vertices;
+    private final ArrayList<AdjMatrixLine<T>> vertices;
 
-    private record AdjMatrixLCell<T> (T value, int weight){}
-
-    private static class EdgeRecord<T> implements Edge<T> {
-        T from;
-        T to;
-        int weight;
-
-        EdgeRecord(T from, T to, int weight) {
-            this.from = from;
-            this.to = to;
-            this.weight = weight;
-        }
+    public ArrayList<AdjMatrixLine<T>> getVertices() {
+        return vertices;
     }
-    private static class AdjMatrixLine<T> implements Vertice<T> {
-        T value;
-        ArrayList<AdjMatrixLCell<T>> line;
 
-        public AdjMatrixLine(T value) {
-            this.value = value;
-            this.line = new ArrayList<>();
-        }
-    }
+
+    public record AdjMatrixLine<T> (T value, ArrayList<Edge<T>> line) {}
 
     public GraphAdjMatrix() {
         this.vertices = new ArrayList<>();
     }
 
     public Vertice<T> addVertice(T value) {
-        AdjMatrixLine<T> newVertice = new AdjMatrixLine<>(value);
-
-        for (AdjMatrixLine<T> line : this.vertices) {
-            line.line.add(new AdjMatrixLCell<>(value, Integer.MAX_VALUE));
-            newVertice.line.add(new AdjMatrixLCell<>(line.value, Integer.MAX_VALUE));
+        AdjMatrixLine<T> newVerticeLine = new AdjMatrixLine<>(value, new ArrayList<>());
+        Vertice<T> newVertice = new Vertice<>(value);
+        for (AdjMatrixLine<T> vertice : this.vertices) {
+            vertice.line.add(new Edge<>(new Vertice<>(vertice.value()), newVertice, Integer.MAX_VALUE));
+            newVerticeLine.line.add(new Edge<>(newVertice, new Vertice<>(vertice.value()), Integer.MAX_VALUE));
         }
-        newVertice.line.add(new AdjMatrixLCell<>(newVertice.value, 0));
+        newVerticeLine.line.add(new Edge<>(newVertice, newVertice, 0));
 
-        this.vertices.add(newVertice);
+        this.vertices.add(newVerticeLine);
 
         return newVertice;
     }
 
     public void deleteVertice(Vertice<T> verticeToDelete) {
-        AdjMatrixLine<T> toDelete = (AdjMatrixLine<T>) verticeToDelete;
-        this.vertices.removeIf((AdjMatrixLine<T> line) -> line.value == toDelete.value);
+        this.vertices.removeIf((AdjMatrixLine<T> line) -> line.value.equals(verticeToDelete.value()));
 
         for (AdjMatrixLine<T> vertice : this.vertices) {
-            vertice.line.removeIf((AdjMatrixLCell<T> cell) -> cell.value == toDelete.value);
+            vertice.line.removeIf((Edge<T> edge) -> edge.to().equals(verticeToDelete));
         }
     }
 
-    public Edge<T> addEdge(Vertice<T> from, Vertice<T> to, int weight) {
-//        EdgeRecord<T> edge = (EdgeRecord<T>) edgeToAdd;
-        AdjMatrixLine<T> fromLine = (AdjMatrixLine<T>) from;
-        AdjMatrixLine<T> toLine = (AdjMatrixLine<T>) to;
-        AdjMatrixLCell<T> cell = new AdjMatrixLCell<>(toLine.value, weight);
-
-        for (AdjMatrixLine<T> vertice : this.vertices) {
-            if (vertice.value == fromLine.value) {
-                for (int i = 0; i < vertice.line.size(); i++) {
-                    if (vertice.line.get(i).value == toLine.value) {
-                        vertice.line.set(i, cell);
-                        break;
-                    }
-                }
+    public Edge<T> addEdge(Edge<T> edgeToAdd) {
+        int indexTo = -1, indexFrom = -1;
+        for (int i = 0; i < this.vertices.size(); i++) {
+            if (this.vertices.get(i).value.equals(edgeToAdd.to())) {
+                indexTo = i;
+            }
+            if (this.vertices.get(i).value.equals(edgeToAdd.from())) {
+                indexFrom = i;
             }
         }
-        return null;
+
+        this.vertices.get(indexFrom).line.set(indexTo, edgeToAdd);
+
+        return edgeToAdd;
     }
+
 
     public void setVertice(Vertice<T> verticeToChange, T value) {
-        AdjMatrixLine<T> toChange = (AdjMatrixLine<T>) verticeToChange;
-
+        Vertice<T> newVertice = new Vertice<>(value);
         for (AdjMatrixLine<T> vertice : this.vertices) {
-            if (vertice.value == toChange.value) {
-                vertice.value = value;
+            if (vertice.value.equals(verticeToChange.value())) {
+                vertice = new AdjMatrixLine<>(value, vertice.line);
             }
-            for (AdjMatrixLCell<T> cell : vertice.line) {
-                if (cell.value == toChange.value) {
-//                    cell.value = value;
-                    cell = new AdjMatrixLCell<>(value, cell.weight());
+            for (Edge<T> edge : vertice.line) {
+                if (edge.to() == verticeToChange.value()) {
+                    edge = new Edge<>(newVertice, edge.to(), edge.weight());
                 }
             }
         }
@@ -94,20 +73,18 @@ public class GraphAdjMatrix<T> implements Graph<T> {
     public Vertice<T> getVertice(T value) {
         for (AdjMatrixLine<T> vertice : this.vertices) {
             if (vertice.value == value) {
-                return vertice;
+                return new Vertice<>(vertice.value());
             }
         }
         return null;
     }
 
     public void setEdge(Edge<T> edgeToChange, int weight) {
-        EdgeRecord<T> toChange = (EdgeRecord<T>) edgeToChange;
         for (AdjMatrixLine<T> vertice : this.vertices) {
-            if (vertice.value == toChange.from) {
-                for (AdjMatrixLCell<T> cell : vertice.line) {
-                    if (cell.value == toChange.to) {
-//                        cell.weight = weight;
-                        cell = new AdjMatrixLCell<>(toChange.to, weight);
+            if (vertice.value == edgeToChange.from()) {
+                for (Edge<T> edge : vertice.line) {
+                    if (edge.to().equals(edgeToChange.to())) {
+                        edge = new Edge<>(edgeToChange.from(), edgeToChange.to(), weight);
                     }
                 }
             }
@@ -117,7 +94,4 @@ public class GraphAdjMatrix<T> implements Graph<T> {
     public void deleteEdge(Edge<T> edgeToDelete) {
         this.setEdge(edgeToDelete, Integer.MAX_VALUE);
     }
-
-
-
 }

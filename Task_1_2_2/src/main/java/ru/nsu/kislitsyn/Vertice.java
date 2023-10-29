@@ -1,4 +1,3 @@
 package ru.nsu.kislitsyn;
 
-public interface Vertice<T>{
-}
+public record Vertice<T>(T value) {}

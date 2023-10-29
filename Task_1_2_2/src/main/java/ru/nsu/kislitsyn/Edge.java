@@ -1,4 +1,3 @@
 package ru.nsu.kislitsyn;
 
-public interface Edge<T>{
-}
+public record Edge<T>(Vertice<T> from, Vertice<T> to, int weight) {}

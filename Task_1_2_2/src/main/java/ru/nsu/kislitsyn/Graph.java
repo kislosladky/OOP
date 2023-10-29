@@ -6,7 +6,7 @@ public interface Graph<T> {
     void setVertice(Vertice<T> verticeToChange, T value);
     Vertice<T> getVertice(T value);
 
-    Edge<T> addEdge(Vertice<T> from, Vertice<T> to, int weight);
+    Edge<T> addEdge(Edge<T> edgeToAd);
     void deleteEdge(Edge<T> edgeToDelete);
     void setEdge(Edge<T> edgeToChange, int weight);
 }
