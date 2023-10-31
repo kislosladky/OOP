@@ -2,6 +2,8 @@ package ru.nsu.kislitsyn;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GraphTest {
@@ -51,8 +53,14 @@ class GraphTest {
         assertEquals(1, graph.getVertices().size());
     }
 
+    @Test
+    void fileInput() throws FileNotFoundException {
+        GraphList<String> graph = new GraphList<>();
 
+        graph.readFile("src/test/resources/graph.txt");
 
+        graph.sortWithPathLengthAndPrint("C");
+    }
 
 
 }
