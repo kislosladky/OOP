@@ -22,7 +22,7 @@ public class GraphIncMatrix<T> implements Graph<T> {
     public GraphIncMatrix() {
         this.lines = new ArrayList<>();
         //here I am adding an empty edge to have ability to add vertice into empty graph
-        this.lines.add(new IncMatrixLine<>(new Edge<>(null, null,0), new ArrayList<>()));
+        this.lines.add(new IncMatrixLine<>(new Edge<>(null, null, 0), new ArrayList<>()));
 
     }
 
@@ -38,8 +38,24 @@ public class GraphIncMatrix<T> implements Graph<T> {
         return this.lines.get(0).vertices;
     }
 
-    public record Cell<T> (Vertice<T> thisVertice, Vertice<T> incVertice, int incident) {}
-    public record IncMatrixLine<T> (Edge<T> edge, ArrayList<Cell<T>> vertices) {}
+    /**
+     * Record of the class.
+     *
+     * @param thisVertice vertice.
+     * @param incVertice incident vertice.
+     * @param incident 1 or -1 if incident.
+     * @param <T> parameter of type.
+     */
+    public record Cell<T>(Vertice<T> thisVertice, Vertice<T> incVertice, int incident) {}
+
+    /**
+     * Record class for line of incidence matrix.
+     *
+     * @param edge edge.
+     * @param vertices vertice.
+     * @param <T> parameter of type.
+     */
+    public record IncMatrixLine<T>(Edge<T> edge, ArrayList<Cell<T>> vertices) {}
 
     /**
     * Adds vertice to the graph.
@@ -50,7 +66,6 @@ public class GraphIncMatrix<T> implements Graph<T> {
     */
     public Vertice<T> addVertice(T value) {
         Vertice<T> newVertice = new Vertice<>(value);
-//        Cell<T> newCell = new Cell<>(newVertice, 0);
         for (IncMatrixLine<T> line : this.lines) {
             line.vertices.add(new Cell<>(line.edge.from(), newVertice, 0));
         }
@@ -64,9 +79,9 @@ public class GraphIncMatrix<T> implements Graph<T> {
     */
     public void deleteVertice(Vertice<T> verticeToDelete) {
         this.lines.removeIf((IncMatrixLine<T> line) ->
-                line.edge.to() != null &&
-                (line.edge().to().equals(verticeToDelete) ||
-                line.edge().from().equals(verticeToDelete)));
+                line.edge.to() != null
+                        && (line.edge().to().equals(verticeToDelete)
+                        || line.edge().from().equals(verticeToDelete)));
         for (IncMatrixLine<T> line : this.lines) {
             line.vertices.removeIf((Cell<T> vertice) ->
                     vertice.incVertice().equals(verticeToDelete));
@@ -74,7 +89,7 @@ public class GraphIncMatrix<T> implements Graph<T> {
     }
 
     /**
-    * Sets the value of vertice
+    * Sets the value of vertice.
     *
     * @param verticeToChange the vertice we want to update.
     * @param value new value for vertice.

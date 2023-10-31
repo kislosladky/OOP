@@ -2,7 +2,8 @@ package ru.nsu.kislitsyn;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
 * Implementation of graph in matrix of adjacency.
@@ -24,6 +25,15 @@ public class GraphAdjMatrix<T> implements Graph<T> {
     }
 
 
+    /**
+    * Record of line of matrix.
+    *
+    * @param value value.
+    * @param line line of edges.
+    * @param distance distance from source.
+    * @param predecessor predecessor in path.
+    * @param <T> parameter of type.
+    */
     public record AdjMatrixLine<T> (Vertice<T> value,
                                     ArrayList<Edge<T>> line,
                                     int distance, AdjMatrixLine<T> predecessor) {}
@@ -168,7 +178,7 @@ public class GraphAdjMatrix<T> implements Graph<T> {
     @SuppressWarnings("unchecked")
     public void readFile(String fileName) throws FileNotFoundException {
         try {
-            File file = new File(fileName);
+            File file = new File(fileName); //should use get resource as stream
             Scanner scanner = new Scanner(file);
 
             int verticeCount = 0;
@@ -183,7 +193,8 @@ public class GraphAdjMatrix<T> implements Graph<T> {
             for (int i = 0; i < verticeCount; i++) {
                 for (int j = 0; j < verticeCount; j++) {
                     if (scanner.hasNextInt()) {
-                        this.addEdge(new Edge<>(this.getVertice(i), this.getVertice(j), scanner.nextInt()));
+                        this.addEdge(new Edge<>(this.getVertice(i),
+                                this.getVertice(j), scanner.nextInt()));
                     } else {
                         if (scanner.hasNext()) {
                             scanner.next();
