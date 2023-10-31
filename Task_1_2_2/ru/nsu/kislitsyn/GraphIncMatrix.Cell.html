@@ -80,7 +80,7 @@ loadScripts(document, 'script');</script>
 <dd><a href="GraphIncMatrix.html" title="class in ru.nsu.kislitsyn">GraphIncMatrix</a>&lt;<a href="GraphIncMatrix.html" title="type parameter in GraphIncMatrix">T</a>&gt;</dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public static record </span><span class="element-name type-name-label">GraphIncMatrix.Cell&lt;T&gt;</span>(<a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphIncMatrix.Cell.html" title="type parameter in GraphIncMatrix.Cell">T</a>&gt;&nbsp;incVertice, int&nbsp;incident)
+<div class="type-signature"><span class="modifiers">public static record </span><span class="element-name type-name-label">GraphIncMatrix.Cell&lt;T&gt;</span>(<a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphIncMatrix.Cell.html" title="type parameter in GraphIncMatrix.Cell">T</a>&gt;&nbsp;thisVertice, <a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphIncMatrix.Cell.html" title="type parameter in GraphIncMatrix.Cell">T</a>&gt;&nbsp;incVertice, int&nbsp;incident)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
 </section>
 <section class="summary">
@@ -93,7 +93,8 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(ru.nsu.kislitsyn.Vertice,int)" class="member-name-link">Cell</a><wbr>(<a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphIncMatrix.Cell.html" title="type parameter in GraphIncMatrix.Cell">T</a>&gt;&nbsp;incVertice,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(ru.nsu.kislitsyn.Vertice,ru.nsu.kislitsyn.Vertice,int)" class="member-name-link">Cell</a><wbr>(<a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphIncMatrix.Cell.html" title="type parameter in GraphIncMatrix.Cell">T</a>&gt;&nbsp;thisVertice,
+ <a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphIncMatrix.Cell.html" title="type parameter in GraphIncMatrix.Cell">T</a>&gt;&nbsp;incVertice,
  int&nbsp;incident)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates an instance of a <code>Cell</code> record class.</div>
@@ -132,9 +133,14 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>incVertice</code> record component.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphIncMatrix.Cell.html" title="type parameter in GraphIncMatrix.Cell">T</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#thisVertice()" class="member-name-link">thisVertice</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the value of the <code>thisVertice</code> record component.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns a string representation of this record class.</div>
 </div>
 </div>
@@ -155,13 +161,15 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(ru.nsu.kislitsyn.Vertice,int)">
+<section class="detail" id="&lt;init&gt;(ru.nsu.kislitsyn.Vertice,ru.nsu.kislitsyn.Vertice,int)">
 <h3>Cell</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Cell</span><wbr><span class="parameters">(<a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphIncMatrix.Cell.html" title="type parameter in GraphIncMatrix.Cell">T</a>&gt;&nbsp;incVertice,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Cell</span><wbr><span class="parameters">(<a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphIncMatrix.Cell.html" title="type parameter in GraphIncMatrix.Cell">T</a>&gt;&nbsp;thisVertice,
+ <a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphIncMatrix.Cell.html" title="type parameter in GraphIncMatrix.Cell">T</a>&gt;&nbsp;incVertice,
  int&nbsp;incident)</span></div>
 <div class="block">Creates an instance of a <code>Cell</code> record class.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
+<dd><code>thisVertice</code> - the value for the <code>thisVertice</code> record component</dd>
 <dd><code>incVertice</code> - the value for the <code>incVertice</code> record component</dd>
 <dd><code>incident</code> - the value for the <code>incident</code> record component</dd>
 </dl>
@@ -213,6 +221,17 @@ loadScripts(document, 'script');</script>
 <dd><code>o</code> - the object with which to compare</dd>
 <dt>Returns:</dt>
 <dd><code>true</code> if this object is the same as the <code>o</code> argument; <code>false</code> otherwise.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="thisVertice()">
+<h3>thisVertice</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphIncMatrix.Cell.html" title="type parameter in GraphIncMatrix.Cell">T</a>&gt;</span>&nbsp;<span class="element-name">thisVertice</span>()</div>
+<div class="block">Returns the value of the <code>thisVertice</code> record component.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the value of the <code>thisVertice</code> record component</dd>
 </dl>
 </section>
 </li>

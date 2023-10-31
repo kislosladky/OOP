@@ -80,7 +80,7 @@ loadScripts(document, 'script');</script>
 <dd><a href="GraphAdjMatrix.html" title="class in ru.nsu.kislitsyn">GraphAdjMatrix</a>&lt;<a href="GraphAdjMatrix.html" title="type parameter in GraphAdjMatrix">T</a>&gt;</dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public static record </span><span class="element-name type-name-label">GraphAdjMatrix.AdjMatrixLine&lt;T&gt;</span>(<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&nbsp;value, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="Edge.html" title="class in ru.nsu.kislitsyn">Edge</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;&gt;&nbsp;line)
+<div class="type-signature"><span class="modifiers">public static record </span><span class="element-name type-name-label">GraphAdjMatrix.AdjMatrixLine&lt;T&gt;</span>(<a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;&nbsp;value, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="Edge.html" title="class in ru.nsu.kislitsyn">Edge</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;&gt;&nbsp;line, int&nbsp;distance, <a href="GraphAdjMatrix.AdjMatrixLine.html" title="class in ru.nsu.kislitsyn">GraphAdjMatrix.AdjMatrixLine</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;&nbsp;predecessor)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
 </section>
 <section class="summary">
@@ -93,8 +93,10 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(T,java.util.ArrayList)" class="member-name-link">AdjMatrixLine</a><wbr>(<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&nbsp;value,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="Edge.html" title="class in ru.nsu.kislitsyn">Edge</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;&gt;&nbsp;line)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(ru.nsu.kislitsyn.Vertice,java.util.ArrayList,int,ru.nsu.kislitsyn.GraphAdjMatrix.AdjMatrixLine)" class="member-name-link">AdjMatrixLine</a><wbr>(<a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;&nbsp;value,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="Edge.html" title="class in ru.nsu.kislitsyn">Edge</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;&gt;&nbsp;line,
+ int&nbsp;distance,
+ <a href="GraphAdjMatrix.AdjMatrixLine.html" title="class in ru.nsu.kislitsyn">GraphAdjMatrix.AdjMatrixLine</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;&nbsp;predecessor)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates an instance of a <code>AdjMatrixLine</code> record class.</div>
 </div>
@@ -112,27 +114,37 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;o)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#distance()" class="member-name-link">distance</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the value of the <code>distance</code> record component.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;o)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hashCode()" class="member-name-link">hashCode</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hashCode()" class="member-name-link">hashCode</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns a hash code value for this object.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="Edge.html" title="class in ru.nsu.kislitsyn">Edge</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#line()" class="member-name-link">line</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="Edge.html" title="class in ru.nsu.kislitsyn">Edge</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#line()" class="member-name-link">line</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>line</code> record component.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="GraphAdjMatrix.AdjMatrixLine.html" title="class in ru.nsu.kislitsyn">GraphAdjMatrix.AdjMatrixLine</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#predecessor()" class="member-name-link">predecessor</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the value of the <code>predecessor</code> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns a string representation of this record class.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#value()" class="member-name-link">value</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>value</code> record component.</div>
@@ -155,15 +167,19 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(T,java.util.ArrayList)">
-<h3 id="&lt;init&gt;(java.lang.Object,java.util.ArrayList)">AdjMatrixLine</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">AdjMatrixLine</span><wbr><span class="parameters">(<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&nbsp;value,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="Edge.html" title="class in ru.nsu.kislitsyn">Edge</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;&gt;&nbsp;line)</span></div>
+<section class="detail" id="&lt;init&gt;(ru.nsu.kislitsyn.Vertice,java.util.ArrayList,int,ru.nsu.kislitsyn.GraphAdjMatrix.AdjMatrixLine)">
+<h3>AdjMatrixLine</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">AdjMatrixLine</span><wbr><span class="parameters">(<a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;&nbsp;value,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="Edge.html" title="class in ru.nsu.kislitsyn">Edge</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;&gt;&nbsp;line,
+ int&nbsp;distance,
+ <a href="GraphAdjMatrix.AdjMatrixLine.html" title="class in ru.nsu.kislitsyn">GraphAdjMatrix.AdjMatrixLine</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;&nbsp;predecessor)</span></div>
 <div class="block">Creates an instance of a <code>AdjMatrixLine</code> record class.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>value</code> - the value for the <code>value</code> record component</dd>
 <dd><code>line</code> - the value for the <code>line</code> record component</dd>
+<dd><code>distance</code> - the value for the <code>distance</code> record component</dd>
+<dd><code>predecessor</code> - the value for the <code>predecessor</code> record component</dd>
 </dl>
 </section>
 </li>
@@ -205,7 +221,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="equals(java.lang.Object)">
 <h3>equals</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">equals</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;o)</span></div>
-<div class="block">Indicates whether some other object is "equal to" this one. The objects are equal if the other object is of the same class and if all the record components are equal. All components in this record class are compared with <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Objects.html#equals(java.lang.Object,java.lang.Object)" title="class or interface in java.util" class="external-link"><code>Objects::equals(Object,Object)</code></a>.</div>
+<div class="block">Indicates whether some other object is "equal to" this one. The objects are equal if the other object is of the same class and if all the record components are equal. Reference components are compared with <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Objects.html#equals(java.lang.Object,java.lang.Object)" title="class or interface in java.util" class="external-link"><code>Objects::equals(Object,Object)</code></a>; primitive components are compared with '=='.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></code></dd>
@@ -219,7 +235,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="value()">
 <h3>value</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a></span>&nbsp;<span class="element-name">value</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;</span>&nbsp;<span class="element-name">value</span>()</div>
 <div class="block">Returns the value of the <code>value</code> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -235,6 +251,28 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the value of the <code>line</code> record component</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="distance()">
+<h3>distance</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">distance</span>()</div>
+<div class="block">Returns the value of the <code>distance</code> record component.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the value of the <code>distance</code> record component</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="predecessor()">
+<h3>predecessor</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="GraphAdjMatrix.AdjMatrixLine.html" title="class in ru.nsu.kislitsyn">GraphAdjMatrix.AdjMatrixLine</a>&lt;<a href="GraphAdjMatrix.AdjMatrixLine.html" title="type parameter in GraphAdjMatrix.AdjMatrixLine">T</a>&gt;</span>&nbsp;<span class="element-name">predecessor</span>()</div>
+<div class="block">Returns the value of the <code>predecessor</code> record component.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the value of the <code>predecessor</code> record component</dd>
 </dl>
 </section>
 </li>

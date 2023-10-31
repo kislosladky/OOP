@@ -74,6 +74,10 @@ loadScripts(document, 'script');</script>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - parameter of type.</dd>
+</dl>
+<dl class="notes">
 <dt>All Implemented Interfaces:</dt>
 <dd><code><a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&lt;T&gt;</code></dd>
 </dl>
@@ -81,6 +85,7 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">GraphList&lt;T&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&lt;T&gt;</span></div>
+<div class="block">Implementation of graph in list of incidence.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -108,7 +113,9 @@ implements <a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">GraphList</a>()</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Constructor.</div>
+</div>
 </div>
 </section>
 </li>
@@ -125,30 +132,56 @@ implements <a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Edge.html" title="class in ru.nsu.kislitsyn">Edge</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addEdge(ru.nsu.kislitsyn.Edge)" class="member-name-link">addEdge</a><wbr>(<a href="Edge.html" title="class in ru.nsu.kislitsyn">Edge</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;&nbsp;edgeToAdd)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Adds edge to the graph.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addVertice(T)" class="member-name-link">addVertice</a><wbr>(<a href="GraphList.html" title="type parameter in GraphList">T</a>&nbsp;value)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Adds vertice to the graph.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deleteEdge(ru.nsu.kislitsyn.Edge)" class="member-name-link">deleteEdge</a><wbr>(<a href="Edge.html" title="class in ru.nsu.kislitsyn">Edge</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;&nbsp;edgeToDelete)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Deletes edge.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deleteVertice(ru.nsu.kislitsyn.Vertice)" class="member-name-link">deleteVertice</a><wbr>(<a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;&nbsp;verticeToDelete)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Deletes vertice from graph.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getVertice(T)" class="member-name-link">getVertice</a><wbr>(<a href="GraphList.html" title="type parameter in GraphList">T</a>&nbsp;value)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getVertice(int)" class="member-name-link">getVertice</a><wbr>(int&nbsp;index)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Getter for vertice.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="GraphList.VerticeList.html" title="class in ru.nsu.kislitsyn">GraphList.VerticeList</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getVertices()" class="member-name-link">getVertices</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Getter of vertices.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setEdge(ru.nsu.kislitsyn.Edge,int)" class="member-name-link">setEdge</a><wbr>(<a href="Edge.html" title="class in ru.nsu.kislitsyn">Edge</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;&nbsp;edgeToChange,
- int&nbsp;weight)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#readFile(java.lang.String)" class="member-name-link">readFile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;fileName)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Builds graph out of file data.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setVertice(ru.nsu.kislitsyn.Vertice,T)" class="member-name-link">setVertice</a><wbr>(<a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;&nbsp;verticeToChange,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setEdge(ru.nsu.kislitsyn.Edge,int)" class="member-name-link">setEdge</a><wbr>(<a href="Edge.html" title="class in ru.nsu.kislitsyn">Edge</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;&nbsp;edgeToChange,
+ int&nbsp;weight)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Setter for edge weight.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setVertice(ru.nsu.kislitsyn.Vertice,T)" class="member-name-link">setVertice</a><wbr>(<a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;&nbsp;verticeToChange,
  <a href="GraphList.html" title="type parameter in GraphList">T</a>&nbsp;value)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets the value of vertice</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#sortWithPathLengthAndPrint(T)" class="member-name-link">sortWithPathLengthAndPrint</a><wbr>(<a href="GraphList.html" title="type parameter in GraphList">T</a>&nbsp;fromValue)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sorts and prints vertices in order length of path from source.</div>
+</div>
 </div>
 </div>
 </div>
@@ -170,6 +203,7 @@ implements <a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&
 <section class="detail" id="&lt;init&gt;()">
 <h3>GraphList</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">GraphList</span>()</div>
+<div class="block">Constructor.</div>
 </section>
 </li>
 </ul>
@@ -184,15 +218,25 @@ implements <a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&
 <section class="detail" id="getVertices()">
 <h3>getVertices</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="GraphList.VerticeList.html" title="class in ru.nsu.kislitsyn">GraphList.VerticeList</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;&gt;</span>&nbsp;<span class="element-name">getVertices</span>()</div>
+<div class="block">Getter of vertices.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>this.vertices.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="addVertice(T)">
 <h3 id="addVertice(java.lang.Object)">addVertice</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;</span>&nbsp;<span class="element-name">addVertice</span><wbr><span class="parameters">(<a href="GraphList.html" title="type parameter in GraphList">T</a>&nbsp;value)</span></div>
+<div class="block">Adds vertice to the graph.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Graph.html#addVertice(T)">addVertice</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;</code></dd>
+<dt>Parameters:</dt>
+<dd><code>value</code> - the value to add.</dd>
+<dt>Returns:</dt>
+<dd>the vertice with new value.</dd>
 </dl>
 </section>
 </li>
@@ -200,9 +244,12 @@ implements <a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&
 <section class="detail" id="deleteVertice(ru.nsu.kislitsyn.Vertice)">
 <h3>deleteVertice</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">deleteVertice</span><wbr><span class="parameters">(<a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;&nbsp;verticeToDelete)</span></div>
+<div class="block">Deletes vertice from graph.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Graph.html#deleteVertice(ru.nsu.kislitsyn.Vertice)">deleteVertice</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;</code></dd>
+<dt>Parameters:</dt>
+<dd><code>verticeToDelete</code> - vertice we want tot delete.</dd>
 </dl>
 </section>
 </li>
@@ -210,9 +257,14 @@ implements <a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&
 <section class="detail" id="addEdge(ru.nsu.kislitsyn.Edge)">
 <h3>addEdge</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Edge.html" title="class in ru.nsu.kislitsyn">Edge</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;</span>&nbsp;<span class="element-name">addEdge</span><wbr><span class="parameters">(<a href="Edge.html" title="class in ru.nsu.kislitsyn">Edge</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;&nbsp;edgeToAdd)</span></div>
+<div class="block">Adds edge to the graph.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Graph.html#addEdge(ru.nsu.kislitsyn.Edge)">addEdge</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;</code></dd>
+<dt>Parameters:</dt>
+<dd><code>edgeToAdd</code> - edge we need to add.</dd>
+<dt>Returns:</dt>
+<dd>the edge we added.</dd>
 </dl>
 </section>
 </li>
@@ -221,19 +273,28 @@ implements <a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&
 <h3 id="setVertice(ru.nsu.kislitsyn.Vertice,java.lang.Object)">setVertice</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setVertice</span><wbr><span class="parameters">(<a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;&nbsp;verticeToChange,
  <a href="GraphList.html" title="type parameter in GraphList">T</a>&nbsp;value)</span></div>
+<div class="block">Sets the value of vertice</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Graph.html#setVertice(ru.nsu.kislitsyn.Vertice,T)">setVertice</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;</code></dd>
+<dt>Parameters:</dt>
+<dd><code>verticeToChange</code> - the vertice we want to update.</dd>
+<dd><code>value</code> - new value for vertice.</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="getVertice(T)">
-<h3 id="getVertice(java.lang.Object)">getVertice</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;</span>&nbsp;<span class="element-name">getVertice</span><wbr><span class="parameters">(<a href="GraphList.html" title="type parameter in GraphList">T</a>&nbsp;value)</span></div>
+<section class="detail" id="getVertice(int)">
+<h3>getVertice</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;</span>&nbsp;<span class="element-name">getVertice</span><wbr><span class="parameters">(int&nbsp;index)</span></div>
+<div class="block">Getter for vertice.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="Graph.html#getVertice(T)">getVertice</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;</code></dd>
+<dd><code><a href="Graph.html#getVertice(int)">getVertice</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;</code></dd>
+<dt>Parameters:</dt>
+<dd><code>index</code> - the index of vertex we need.</dd>
+<dt>Returns:</dt>
+<dd>the vertice with this value.</dd>
 </dl>
 </section>
 </li>
@@ -242,9 +303,13 @@ implements <a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&
 <h3>setEdge</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setEdge</span><wbr><span class="parameters">(<a href="Edge.html" title="class in ru.nsu.kislitsyn">Edge</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;&nbsp;edgeToChange,
  int&nbsp;weight)</span></div>
+<div class="block">Setter for edge weight.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Graph.html#setEdge(ru.nsu.kislitsyn.Edge,int)">setEdge</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;</code></dd>
+<dt>Parameters:</dt>
+<dd><code>edgeToChange</code> - the edge to change.</dd>
+<dd><code>weight</code> - new weight of edge.</dd>
 </dl>
 </section>
 </li>
@@ -252,9 +317,37 @@ implements <a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&
 <section class="detail" id="deleteEdge(ru.nsu.kislitsyn.Edge)">
 <h3>deleteEdge</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">deleteEdge</span><wbr><span class="parameters">(<a href="Edge.html" title="class in ru.nsu.kislitsyn">Edge</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;&nbsp;edgeToDelete)</span></div>
+<div class="block">Deletes edge.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Graph.html#deleteEdge(ru.nsu.kislitsyn.Edge)">deleteEdge</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.kislitsyn">Graph</a>&lt;<a href="GraphList.html" title="type parameter in GraphList">T</a>&gt;</code></dd>
+<dt>Parameters:</dt>
+<dd><code>edgeToDelete</code> - edge to delete.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="readFile(java.lang.String)">
+<h3>readFile</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">readFile</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;fileName)</span>
+              throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></span></div>
+<div class="block">Builds graph out of file data.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>fileName</code> - name of file with graph data.</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/FileNotFoundException.html" title="class or interface in java.io" class="external-link">FileNotFoundException</a></code> - exception if there is no file.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="sortWithPathLengthAndPrint(T)">
+<h3 id="sortWithPathLengthAndPrint(java.lang.Object)">sortWithPathLengthAndPrint</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">sortWithPathLengthAndPrint</span><wbr><span class="parameters">(<a href="GraphList.html" title="type parameter in GraphList">T</a>&nbsp;fromValue)</span></div>
+<div class="block">Sorts and prints vertices in order length of path from source.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>fromValue</code> - source of the path.</dd>
 </dl>
 </section>
 </li>
