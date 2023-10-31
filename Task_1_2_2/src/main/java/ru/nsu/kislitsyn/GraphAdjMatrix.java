@@ -34,7 +34,7 @@ public class GraphAdjMatrix<T> implements Graph<T> {
     * @param predecessor predecessor in path.
     * @param <T> parameter of type.
     */
-    public record AdjMatrixLine<T> (Vertice<T> value,
+    public record AdjMatrixLine<T>(Vertice<T> value,
                                     ArrayList<Edge<T>> line,
                                     int distance, AdjMatrixLine<T> predecessor) {}
 
@@ -74,7 +74,8 @@ public class GraphAdjMatrix<T> implements Graph<T> {
     * @param verticeToDelete vertice we want tot delete.
     */
     public void deleteVertice(Vertice<T> verticeToDelete) {
-        this.vertices.removeIf((AdjMatrixLine<T> line) -> line.value.equals(verticeToDelete.value()));
+        this.vertices.removeIf((AdjMatrixLine<T> line) ->
+                line.value.equals(verticeToDelete.value()));
 
         for (AdjMatrixLine<T> vertice : this.vertices) {
             vertice.line.removeIf((Edge<T> edge) -> edge.to().equals(verticeToDelete));

@@ -279,7 +279,6 @@ public class GraphList<T> implements Graph<T> {
         deque.add(from);
         while (!deque.isEmpty()) {
             VerticeList<T> u = this.extractMin(deque);
-//            deque.remove(u);
             set.add(u);
             for (Edge<T> edge : u.incidentVertices()) {
                 for (VerticeList<T> vertice : this.vertices) {
