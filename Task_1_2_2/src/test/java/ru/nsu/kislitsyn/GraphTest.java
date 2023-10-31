@@ -1,35 +1,35 @@
 package ru.nsu.kislitsyn;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileNotFoundException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class GraphTest {
     @Test
-    void addVerticeInListTest(){
+    void addVerticeInListTest() {
         GraphList<String> graph = new GraphList<>();
         graph.addVertice("Crow");
         assertEquals("Crow", graph.getVertices().get(0).value().value());
     }
 
     @Test
-    void addVerticeInAdjMxTest(){
+    void addVerticeInAdjMxTest() {
         GraphAdjMatrix<String> graph = new GraphAdjMatrix<>();
         graph.addVertice("Crow");
         assertEquals("Crow", graph.getVertices().get(0).value().value());
     }
 
     @Test
-    void addVerticeInIncMxTest(){
+    void addVerticeInIncMxTest() {
         GraphIncMatrix<String> graph = new GraphIncMatrix<>();
         graph.addVertice("Crow");
         assertEquals("Crow", graph.getVertices().get(0).incVertice().value());
     }
 
     @Test
-    void deleteVerticeInListTest(){
+    void deleteVerticeInListTest() {
         GraphList<String> graph = new GraphList<>();
         graph.addVertice("Crow");
         graph.addVertice("Squirrel");
@@ -37,7 +37,7 @@ class GraphTest {
     }
 
     @Test
-    void deleteVerticeInAdjMxTest(){
+    void deleteVerticeInAdjMxTest() {
         GraphAdjMatrix<String> graph = new GraphAdjMatrix<>();
         graph.addVertice("Crow");
         graph.addVertice("Squirrel");
@@ -45,7 +45,7 @@ class GraphTest {
     }
 
     @Test
-    void deleteVerticeInIncMxTest(){
+    void deleteVerticeInIncMxTest() {
         GraphIncMatrix<String> graph = new GraphIncMatrix<>();
         graph.addVertice("Crow");
         graph.addVertice("Squirrel");

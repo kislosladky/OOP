@@ -24,7 +24,9 @@ public class GraphAdjMatrix<T> implements Graph<T> {
     }
 
 
-    public record AdjMatrixLine<T> (Vertice<T> value, ArrayList<Edge<T>> line, int distance, AdjMatrixLine<T> predecessor) {}
+    public record AdjMatrixLine<T> (Vertice<T> value,
+                                    ArrayList<Edge<T>> line,
+                                    int distance, AdjMatrixLine<T> predecessor) {}
 
     /**
     * Constructor.
@@ -41,11 +43,13 @@ public class GraphAdjMatrix<T> implements Graph<T> {
     * @return the vertice with new value.
     */
     public Vertice<T> addVertice(T value) {
-        AdjMatrixLine<T> newVerticeLine = new AdjMatrixLine<>(new Vertice<>(value), new ArrayList<>(), Integer.MAX_VALUE, null);
+        AdjMatrixLine<T> newVerticeLine = new AdjMatrixLine<>(new Vertice<>(value),
+                new ArrayList<>(), Integer.MAX_VALUE, null);
         Vertice<T> newVertice = new Vertice<>(value);
         for (AdjMatrixLine<T> vertice : this.vertices) {
             vertice.line.add(new Edge<>(vertice.value, newVertice, Integer.MAX_VALUE / 2));
-            newVerticeLine.line.add(new Edge<>(newVertice, vertice.value(), Integer.MAX_VALUE / 2));
+            newVerticeLine.line.add(new Edge<>(newVertice, vertice.value(),
+                    Integer.MAX_VALUE / 2));
         }
         newVerticeLine.line.add(new Edge<>(newVertice, newVertice, Integer.MAX_VALUE / 2));
 
@@ -75,7 +79,8 @@ public class GraphAdjMatrix<T> implements Graph<T> {
     * @return the edge we added.
     */
     public Edge<T> addEdge(Edge<T> edgeToAdd) {
-        int indexTo = -1, indexFrom = -1;
+        int indexTo = -1;
+        int indexFrom = -1;
         for (int i = 0; i < this.vertices.size(); i++) {
             if (this.vertices.get(i).value.equals(edgeToAdd.to())) {
                 indexTo = i;
@@ -91,7 +96,7 @@ public class GraphAdjMatrix<T> implements Graph<T> {
     }
 
     /**
-    * Sets the value of vertice
+    * Sets the value of vertice.
     *
     * @param verticeToChange the vertice we want to update.
     * @param value new value for vertice.
@@ -100,7 +105,8 @@ public class GraphAdjMatrix<T> implements Graph<T> {
         Vertice<T> newVertice = new Vertice<>(value);
         for (AdjMatrixLine<T> vertice : this.vertices) {
             if (vertice.value.equals(verticeToChange.value())) {
-                vertice = new AdjMatrixLine<>(new Vertice<>(value), vertice.line, Integer.MAX_VALUE, null);
+                vertice = new AdjMatrixLine<>(new Vertice<>(value),
+                        vertice.line, Integer.MAX_VALUE, null);
             }
             for (Edge<T> edge : vertice.line) {
                 if (edge.to() == verticeToChange.value()) {

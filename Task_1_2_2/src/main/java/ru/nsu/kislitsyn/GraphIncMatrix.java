@@ -81,7 +81,7 @@ public class GraphIncMatrix<T> implements Graph<T> {
     */
     public void setVertice(Vertice<T> verticeToChange, T value) {
         Vertice<T> newVertice = new Vertice<>(value);
-        for (IncMatrixLine<T> line: this.lines) {
+        for (IncMatrixLine<T> line : this.lines) {
             if (line.edge().to().equals(verticeToChange)) {
                 line = new IncMatrixLine<>(
                         new Edge<>(line.edge.from(), newVertice, line.edge.weight()),

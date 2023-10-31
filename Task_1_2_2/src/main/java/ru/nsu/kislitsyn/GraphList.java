@@ -2,7 +2,12 @@ package ru.nsu.kislitsyn;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Scanner;
+
 
 /**
 * Implementation of graph in list of incidence.
@@ -28,6 +33,15 @@ public class GraphList<T> implements Graph<T> {
         return this.vertices;
     }
 
+    /**
+     * Record class to store vertice and it's incident vertices.
+     *
+     * @param value value of vertice.
+     * @param incidentVertices list of the incident vertices.
+     * @param distance lentgh of the path from source to this vertice.
+     * @param predecessor predecessor of this vertice in the path.
+     * @param <T> parameter of the type of value we store.
+     */
     public record VerticeList<T>(Vertice<T> value, ArrayList<Edge<T>> incidentVertices,
                                  int distance, VerticeList<T> predecessor) {
     }
@@ -77,7 +91,7 @@ public class GraphList<T> implements Graph<T> {
     }
 
     /**
-    * Sets the value of vertice
+    * Sets the value of vertice.
     *
     * @param verticeToChange the vertice we want to update.
     * @param value new value for vertice.
@@ -176,7 +190,8 @@ public class GraphList<T> implements Graph<T> {
             for (int i = 0; i < verticeCount; i++) {
                 for (int j = 0; j < verticeCount; j++) {
                     if (scanner.hasNextInt()) {
-                        this.addEdge(new Edge<>(this.getVertice(i), this.getVertice(j), scanner.nextInt()));
+                        this.addEdge(new Edge<>(this.getVertice(i),
+                                this.getVertice(j), scanner.nextInt()));
                     } else {
                         if (scanner.hasNext()) {
                             scanner.next();
@@ -211,7 +226,8 @@ public class GraphList<T> implements Graph<T> {
         for (VerticeList<T> vertice : this.vertices) {
             this.resetVertice(vertice);
         }
-        this.vertices.set(this.vertices.indexOf(from), new VerticeList<>(from.value(), from.incidentVertices(), 0, null));
+        this.vertices.set(this.vertices.indexOf(from),
+                new VerticeList<>(from.value(), from.incidentVertices(), 0, null));
     }
 
     /**
@@ -225,7 +241,8 @@ public class GraphList<T> implements Graph<T> {
             if (edge.to().equals(to.value)) {
                 if (to.distance > from.distance + edge.weight()) {
                     this.vertices.set(this.vertices.indexOf(to), new VerticeList<>(
-                            to.value(), to.incidentVertices(), from.distance + edge.weight(), from));
+                            to.value(), to.incidentVertices(),
+                            from.distance + edge.weight(), from));
                 }
             }
         }
