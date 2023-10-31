@@ -18,7 +18,7 @@ class GraphTest {
     void addVerticeInAdjMxTest(){
         GraphAdjMatrix<String> graph = new GraphAdjMatrix<>();
         graph.addVertice("Crow");
-        assertEquals("Crow", graph.getVertices().get(0).value());
+        assertEquals("Crow", graph.getVertices().get(0).value().value());
     }
 
     @Test
