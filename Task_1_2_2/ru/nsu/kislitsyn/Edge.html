@@ -84,7 +84,7 @@ loadScripts(document, 'script');</script>
 <dd><code><span id="param-weight">weight</span></code> - weight of the edge.</dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">Edge&lt;T&gt;</span>(<a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;from, <a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;to, int&nbsp;weight)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">Edge&lt;T&gt;</span>(<a href="Vertex.html" title="class in ru.nsu.kislitsyn">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;from, <a href="Vertex.html" title="class in ru.nsu.kislitsyn">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;to, int&nbsp;weight)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
 <div class="block">Record class to store edge.</div>
 </section>
@@ -98,8 +98,8 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(ru.nsu.kislitsyn.Vertice,ru.nsu.kislitsyn.Vertice,int)" class="member-name-link">Edge</a><wbr>(<a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;from,
- <a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;to,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(ru.nsu.kislitsyn.Vertex,ru.nsu.kislitsyn.Vertex,int)" class="member-name-link">Edge</a><wbr>(<a href="Vertex.html" title="class in ru.nsu.kislitsyn">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;from,
+ <a href="Vertex.html" title="class in ru.nsu.kislitsyn">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;to,
  int&nbsp;weight)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates an instance of a <code>Edge</code> record class.</div>
@@ -123,7 +123,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Vertex.html" title="class in ru.nsu.kislitsyn">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#from()" class="member-name-link">from</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <a href="#param-from"><code>from</code></a> record component.</div>
@@ -133,7 +133,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns a hash code value for this object.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Vertex.html" title="class in ru.nsu.kislitsyn">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#to()" class="member-name-link">to</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <a href="#param-to"><code>to</code></a> record component.</div>
@@ -166,10 +166,10 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(ru.nsu.kislitsyn.Vertice,ru.nsu.kislitsyn.Vertice,int)">
+<section class="detail" id="&lt;init&gt;(ru.nsu.kislitsyn.Vertex,ru.nsu.kislitsyn.Vertex,int)">
 <h3>Edge</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Edge</span><wbr><span class="parameters">(<a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;from,
- <a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;to,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Edge</span><wbr><span class="parameters">(<a href="Vertex.html" title="class in ru.nsu.kislitsyn">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;from,
+ <a href="Vertex.html" title="class in ru.nsu.kislitsyn">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;to,
  int&nbsp;weight)</span></div>
 <div class="block">Creates an instance of a <code>Edge</code> record class.</div>
 <dl class="notes">
@@ -232,7 +232,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="from()">
 <h3>from</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;</span>&nbsp;<span class="element-name">from</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Vertex.html" title="class in ru.nsu.kislitsyn">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;</span>&nbsp;<span class="element-name">from</span>()</div>
 <div class="block">Returns the value of the <a href="#param-from"><code>from</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
@@ -243,7 +243,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="to()">
 <h3>to</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Vertice.html" title="class in ru.nsu.kislitsyn">Vertice</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;</span>&nbsp;<span class="element-name">to</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Vertex.html" title="class in ru.nsu.kislitsyn">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;</span>&nbsp;<span class="element-name">to</span>()</div>
 <div class="block">Returns the value of the <a href="#param-to"><code>to</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
