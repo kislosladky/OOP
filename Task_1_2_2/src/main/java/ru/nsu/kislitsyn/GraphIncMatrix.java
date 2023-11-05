@@ -1,61 +1,79 @@
 package ru.nsu.kislitsyn;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
 * Implementation of graph in matrix if incidence.
 *
 * @param <T> parameter of type.
 */
-public class GraphIncMatrix<T> implements Graph<T> {
+public class GraphIncMatrix<T> extends Graph<T> {
 
-    ArrayList<IncMatrixLine<T>> lines;
+    private Matrix<Edge<T>, IncMatrixVertex> matrix;
 
     /**
     * Constructor.
     */
     public GraphIncMatrix() {
-        this.lines = new ArrayList<>();
         //here I am adding an empty edge to have ability to add vertice into empty graph
-        this.lines.add(new IncMatrixLine<>(new Edge<>(null, null, 0), new ArrayList<>()));
+        matrix = new Matrix<>();
+        this.matrix.addLine(new Edge<>(null, null, 0));
+    }
 
+    public Matrix<Edge<T>, IncMatrixVertex> getMatrix() {
+        return matrix;
+    }
+
+    public void setMatrix(Matrix<Edge<T>, IncMatrixVertex> matrix) {
+        this.matrix = matrix;
     }
 
     /**
-    * Getter of vertices.
-    *
-    * @return this.vertices.
-    */
-    public ArrayList<Cell<T>> getVertices() {
-        if (this.lines.isEmpty()) {
-            return null;
+     * Class for storing data in matrix.
+     * Equals checks only values of the vertices, ignoring other fields of objects.
+     */
+    public class IncMatrixVertex{
+        private Vertex<T> vertex;
+        private Incinence incident;
+
+        public IncMatrixVertex(Vertex<T> vertex) {
+            this.vertex = vertex;
+            this.incident = Incinence.NOT_INCIDENT;
         }
-        return this.lines.get(0).vertices;
+
+        public Vertex<T> getVertex() {
+            return vertex;
+        }
+
+        public void setVertex(Vertex<T> vertex) {
+            this.vertex = vertex;
+        }
+
+        public Incinence getIncident() {
+            return incident;
+        }
+
+        public void setIncident(Incinence incident) {
+            this.incident = incident;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o.getClass() != this.getClass()) return false;
+            IncMatrixVertex that = (IncMatrixVertex) o;
+            return Objects.equals(getVertex(), that.getVertex());
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(getVertex());
+        }
     }
 
-    /**
-     * Record of the class.
-     *
-     * @param thisVertice vertice.
-     * @param incVertice incident vertice.
-     * @param incident 1 or -1 if incident.
-     * @param <T> parameter of type.
-     */
-    public record Cell<T>(Vertice<T> thisVertice, Vertice<T> incVertice, int incident) {}
-
-    /**
-     * Record class for line of incidence matrix.
-     *
-     * @param edge edge.
-     * @param vertices vertice.
-     * @param <T> parameter of type.
-     */
-    public record IncMatrixLine<T>(Edge<T> edge, ArrayList<Cell<T>> vertices) {}
 
     /**
     * Adds vertice to the graph.
@@ -64,55 +82,36 @@ public class GraphIncMatrix<T> implements Graph<T> {
     *
     * @return the vertice with new value.
     */
-    public Vertice<T> addVertice(T value) {
-        Vertice<T> newVertice = new Vertice<>(value);
-        for (IncMatrixLine<T> line : this.lines) {
-            line.vertices.add(new Cell<>(line.edge.from(), newVertice, 0));
-        }
-        return newVertice;
+    public Vertex<T> addVertex(T value) {
+        Vertex<T> newVertex = new Vertex<>(value);
+        this.matrix.addColumn(new IncMatrixVertex(newVertex));
+
+        return newVertex;
     }
 
     /**
     * Deletes vertice from graph.
     *
-    * @param verticeToDelete vertice we want tot delete.
+    * @param vertexToDelete vertice we want tot delete.
     */
-    public void deleteVertice(Vertice<T> verticeToDelete) {
-        this.lines.removeIf((IncMatrixLine<T> line) ->
-                line.edge.to() != null
-                        && (line.edge().to().equals(verticeToDelete)
-                        || line.edge().from().equals(verticeToDelete)));
-        for (IncMatrixLine<T> line : this.lines) {
-            line.vertices.removeIf((Cell<T> vertice) ->
-                    vertice.incVertice().equals(verticeToDelete));
-        }
+    public void deleteVertex(Vertex<T> vertexToDelete) {
+        this.matrix.removeColumnByValue(new IncMatrixVertex(vertexToDelete));
     }
 
     /**
     * Sets the value of vertice.
     *
-    * @param verticeToChange the vertice we want to update.
+    * @param vertexToChange the vertice we want to update.
     * @param value new value for vertice.
     */
-    public void setVertice(Vertice<T> verticeToChange, T value) {
-        Vertice<T> newVertice = new Vertice<>(value);
-        for (IncMatrixLine<T> line : this.lines) {
-            if (line.edge().to().equals(verticeToChange)) {
-                line = new IncMatrixLine<>(
-                        new Edge<>(line.edge.from(), newVertice, line.edge.weight()),
-                        line.vertices);
-            }
+    public void setVertex(Vertex<T> vertexToChange, T value) {
+        Vertex<T> newVertex = new Vertex<>(value);
+        int index = this.matrix.getLine(0).indexOf(new IncMatrixVertex(newVertex));
 
-            if (line.edge().from().equals(verticeToChange)) {
-                line = new IncMatrixLine<>(
-                        new Edge<>(newVertice, line.edge.to(), line.edge.weight()),
-                        line.vertices);
-            }
-            for (Cell<T> cell : line.vertices) {
-                if (cell.incVertice().equals(verticeToChange)) {
-                    cell = new Cell<>(line.edge.from(), new Vertice<>(value), cell.incident);
-                }
-            }
+        for (Line<Edge<T>, IncMatrixVertex> line : matrix.getMatrix()) {
+            IncMatrixVertex newIncVertex = line.getColumns().get(index);
+            newIncVertex.setVertex(newVertex);
+            line.setColumn(index, newIncVertex);
         }
     }
 
@@ -123,11 +122,11 @@ public class GraphIncMatrix<T> implements Graph<T> {
     *
     * @return the vertice with this value.
     */
-    public Vertice<T> getVertice(int index) {
-        if (this.lines.isEmpty()) {
+    public Vertex<T> getVertex(int index) {
+        if (this.matrix.getMatrix().isEmpty()) {
             return null;
         } else {
-            return this.lines.get(0).vertices.get(index).thisVertice;
+            return this.matrix.getLine(0).get(index).getVertex();
         }
     }
 
@@ -140,16 +139,15 @@ public class GraphIncMatrix<T> implements Graph<T> {
     */
     @SuppressWarnings("unchecked")
     public Edge<T> addEdge(Edge<T> edgeToAdd) {
-        IncMatrixLine<T> toAdd = new IncMatrixLine<T>(edgeToAdd,
-                (ArrayList<Cell<T>>) this.lines.get(0).vertices.clone());
-        for (Cell<T> vertice : toAdd.vertices) {
-            if (vertice.incVertice().equals(edgeToAdd.from())) {
-                vertice = new Cell<>(vertice.thisVertice, vertice.incVertice(), 1);
-            } else if (vertice.incVertice.equals(edgeToAdd.to())) {
-                vertice = new Cell<>(vertice.thisVertice, vertice.incVertice(), -1);
+        this.matrix.addLine(edgeToAdd);
+        int index = this.matrix.getMatrix().size() - 1;
+        for (IncMatrixVertex vertex : this.matrix.getLine(index)) {
+            if (vertex.getVertex().equals(edgeToAdd.from())) {
+                vertex.setIncident(Incinence.FROM);
+            } else if (vertex.getVertex().equals(edgeToAdd.to())) {
+                vertex.setIncident(Incinence.TO);
             }
         }
-        this.lines.add(toAdd);
         return edgeToAdd;
     }
 
@@ -159,12 +157,7 @@ public class GraphIncMatrix<T> implements Graph<T> {
     * @param edgeToDelete edge to delete.
     */
     public void deleteEdge(Edge<T> edgeToDelete) {
-
-        this.lines.removeIf((IncMatrixLine<T> line) ->
-                ((line.edge().weight() == edgeToDelete.weight())
-                        && (line.edge().to() == edgeToDelete.to())
-                        && (line.edge().from() == edgeToDelete.from())));
-
+        this.matrix.removeLineByValue(edgeToDelete);
     }
 
     /**
@@ -174,13 +167,14 @@ public class GraphIncMatrix<T> implements Graph<T> {
     * @param weight new weight of edge.
     */
     public void setEdge(Edge<T> edgeToChange, int weight) {
-        for (IncMatrixLine<T> line : this.lines) {
-            if (line.edge().equals(edgeToChange)) {
-                line = new IncMatrixLine<>(
-                        new Edge<>(edgeToChange.from(), edgeToChange.to(), weight),
-                        line.vertices);
-                break;
-            }
-        }
+        Edge<T> newEdge = new Edge<>(edgeToChange.from(), edgeToChange.to(), weight);
+        int index = this.matrix.indexOfLine(edgeToChange);
+        this.matrix.getMatrix().set(index, new Line<>(newEdge, this.matrix.getLine(index)));
+    }
+
+    public enum Incinence {
+        FROM,
+        TO,
+        NOT_INCIDENT
     }
 }

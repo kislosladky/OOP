@@ -1,12 +1,7 @@
 package ru.nsu.kislitsyn;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Scanner;
+
+import java.util.*;
 
 
 /**
@@ -14,7 +9,7 @@ import java.util.Scanner;
 *
 * @param <T> parameter of type.
 */
-public class GraphList<T> implements Graph<T> {
+public class GraphList<T> extends Graph<T> {
     private final List<VerticeList<T>> vertices;
 
     /**
@@ -42,7 +37,7 @@ public class GraphList<T> implements Graph<T> {
      * @param predecessor predecessor of this vertice in the path.
      * @param <T> parameter of the type of value we store.
      */
-    public record VerticeList<T>(Vertice<T> value, ArrayList<Edge<T>> incidentVertices,
+    public record VerticeList<T>(Vertex<T> value, ArrayList<Edge<T>> incidentVertices,
                                  int distance, VerticeList<T> predecessor) {
     }
 
@@ -53,9 +48,9 @@ public class GraphList<T> implements Graph<T> {
     *
     * @return the vertice with new value.
     */
-    public Vertice<T> addVertice(T value) {
-        Vertice<T> newValue = new Vertice<>(value);
-        VerticeList<T> newVertice = new VerticeList<T>(new Vertice<>(value), new ArrayList<>(),
+    public Vertex<T> addVertex(T value) {
+        Vertex<T> newValue = new Vertex<>(value);
+        VerticeList<T> newVertice = new VerticeList<T>(new Vertex<>(value), new ArrayList<>(),
                 Integer.MAX_VALUE / 2, null);
         this.vertices.add(newVertice);
         return newValue;
@@ -64,12 +59,12 @@ public class GraphList<T> implements Graph<T> {
     /**
     * Deletes vertice from graph.
     *
-    * @param verticeToDelete vertice we want tot delete.
+    * @param vertexToDelete vertice we want tot delete.
     */
-    public void deleteVertice(Vertice<T> verticeToDelete) {
-        vertices.removeIf((VerticeList<T> vertice) -> vertice.value.equals(verticeToDelete));
+    public void deleteVertex(Vertex<T> vertexToDelete) {
+        vertices.removeIf((VerticeList<T> vertice) -> vertice.value.equals(vertexToDelete));
         for (var vertice : this.vertices) {
-            ((VerticeList<T>) vertice).incidentVertices.remove(verticeToDelete);
+            ((VerticeList<T>) vertice).incidentVertices.remove(vertexToDelete);
         }
     }
 
@@ -93,14 +88,14 @@ public class GraphList<T> implements Graph<T> {
     /**
     * Sets the value of vertice.
     *
-    * @param verticeToChange the vertice we want to update.
+    * @param vertexToChange the vertice we want to update.
     * @param value new value for vertice.
     */
-    public void setVertice(Vertice<T> verticeToChange, T value) {
+    public void setVertex(Vertex<T> vertexToChange, T value) {
         for (VerticeList<T> vert : this.vertices) {
-            if (vert.value().equals(verticeToChange)) {
+            if (vert.value().equals(vertexToChange)) {
                 this.vertices.set(this.vertices.indexOf(vert),
-                        new VerticeList<>(new Vertice<>(value),
+                        new VerticeList<>(new Vertex<>(value),
                                 vert.incidentVertices,
                                 Integer.MAX_VALUE / 2, null));
                 break;
@@ -115,7 +110,7 @@ public class GraphList<T> implements Graph<T> {
     *
     * @return the vertice with this value.
     */
-    public Vertice<T> getVertice(int index) {
+    public Vertex<T> getVertex(int index) {
         if (index < this.vertices.size()) {
             return this.vertices.get(index).value();
         } else {
@@ -162,47 +157,6 @@ public class GraphList<T> implements Graph<T> {
                     }
                 }
             }
-        }
-    }
-
-    /**
-    * Builds graph out of file data.
-    *
-    * @param fileName name of file with graph data.
-    *
-    * @throws FileNotFoundException exception if there is no file.
-    */
-    @SuppressWarnings("unchecked")
-    public void readFile(String fileName) throws FileNotFoundException {
-        try {
-            File file = new File(fileName);
-            Scanner scanner = new Scanner(file);
-
-            int verticeCount = 0;
-            if (scanner.hasNextInt()) {
-                verticeCount = scanner.nextInt();
-            }
-            for (int i = 0; i < verticeCount; i++) {
-                if (scanner.hasNext()) {
-                    this.addVertice((T) scanner.next());
-                }
-            }
-            for (int i = 0; i < verticeCount; i++) {
-                for (int j = 0; j < verticeCount; j++) {
-                    if (scanner.hasNextInt()) {
-                        this.addEdge(new Edge<>(this.getVertice(i),
-                                this.getVertice(j), scanner.nextInt()));
-                    } else {
-                        if (scanner.hasNext()) {
-                            scanner.next();
-                        }
-                    }
-                }
-            }
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-            throw e;
         }
     }
 
@@ -309,15 +263,7 @@ public class GraphList<T> implements Graph<T> {
         }
 
         this.dijkstra(from);
-        this.vertices.sort((vertice1, vertice2) -> {
-            //можно ли заменить разностью расстояний?
-            if (vertice1.distance() < vertice2.distance()) {
-                return -1;
-            } else if (vertice1.distance() == vertice2.distance()) {
-                return 0;
-            }
-            return 1;
-        });
+        this.vertices.sort(Comparator.comparingInt(vertice -> vertice.distance));
 
         System.out.print("[");
         for (VerticeList<T> vertice : this.vertices) {

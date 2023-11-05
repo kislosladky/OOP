@@ -8,4 +8,4 @@ package ru.nsu.kislitsyn;
 * @param weight weight of the edge.
 * @param <T> parameter of the class.
 */
-public record Edge<T>(Vertice<T> from, Vertice<T> to, int weight) {}
+public record Edge<T>(Vertex<T> from, Vertex<T> to, int weight) {}

@@ -6,4 +6,4 @@ package ru.nsu.kislitsyn;
 * @param value value of the vertice.
 * @param <T> parameter of the type.
 */
-public record Vertice<T>(T value) {}
+public record Vertex<T>(T value) {}
