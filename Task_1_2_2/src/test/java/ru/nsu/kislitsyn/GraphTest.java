@@ -106,7 +106,7 @@ class GraphTest {
 
     @Test
     void matrixDeleteTest() {
-         Matrix<Integer, Integer> matrix = new Matrix<>();
+        Matrix<Integer, Integer> matrix = new Matrix<>();
         matrix.addLine(0);
         matrix.addLine(1);
         matrix.addLine(4);
@@ -119,5 +119,36 @@ class GraphTest {
         assertEquals(3, matrix.getMatrix().size());
         assertEquals(1, matrix.getLineValue(0).getColumns().size());
         assertEquals(-2, matrix.getLineValue(2).getValue());
+    }
+
+
+    @Test
+    void adjMxAddEdgeTest() {
+        GraphAdjMatrix<String> graph = new GraphAdjMatrix<>();
+        graph.addVertex("Crow");
+        graph.addVertex("Raven");
+        graph.addEdge(new Edge<>(new Vertex<>("Crow"), new Vertex<>("Raven"), 4));
+
+        assertEquals(4, graph.getMatrix().getLine(0).get(1).getWeight());
+    }
+
+    @Test
+    void adjMxDeleteEdgeTest() {
+        GraphAdjMatrix<String> graph = new GraphAdjMatrix<>();
+        graph.addVertex("Crow");
+        graph.addVertex("Raven");
+        var edge = graph.addEdge(new Edge<>(new Vertex<>("Crow"), new Vertex<>("Raven"), 4));
+        graph.deleteEdge(edge);
+        assertEquals(-1, graph.getMatrix().getLine(0).get(1).getWeight());
+    }
+
+    @Test
+    void adjMxSetEdgeTest() {
+        GraphAdjMatrix<String> graph = new GraphAdjMatrix<>();
+        graph.addVertex("Crow");
+        graph.addVertex("Raven");
+        var edge = graph.addEdge(new Edge<>(new Vertex<>("Crow"), new Vertex<>("Raven"), 4));
+        graph.setEdge(edge, 82);
+        assertEquals(82, graph.getMatrix().getLine(0).get(1).getWeight());
     }
 }
