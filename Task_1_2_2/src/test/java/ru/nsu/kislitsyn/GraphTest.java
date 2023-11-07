@@ -2,9 +2,7 @@ package ru.nsu.kislitsyn;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import org.junit.jupiter.api.Test;
 
 class GraphTest {
@@ -12,7 +10,7 @@ class GraphTest {
     void addVerticeInListTest() {
         GraphList<String> graph = new GraphList<>();
         graph.addVertex("Crow");
-        assertEquals("Crow", graph.getVertices().get(0).value().value());
+        assertEquals("Crow", graph.getVertices().get(0).getValue().value());
     }
 
     @Test
@@ -61,7 +59,40 @@ class GraphTest {
         graph.readFile("src/test/resources/graph.txt");
 
         graph.sortWithPathLengthAndPrint("C");
+        assertEquals(2, graph.getFullVertex(1).getDistance());
+        assertEquals(10, graph.getFullVertex(5).getDistance());
+
     }
+
+    @Test
+    void vertexSetInListTest() {
+        GraphList<Integer> graph = new GraphList<>();
+
+        graph.addVertex(2);
+        assertEquals(2, graph.getVertex(0).value());
+        graph.setVertex(new Vertex<>(2), 4);
+        assertEquals(4, graph.getVertex(0).value());
+    }
+
+    @Test
+    void vertexSetInAdjMxTest() {
+        GraphAdjMatrix<Integer> graph = new GraphAdjMatrix<>();
+
+        graph.addVertex(2);
+        assertEquals(2, graph.getVertex(0).value());
+        graph.setVertex(new Vertex<>(2), 4);
+        assertEquals(4, graph.getVertex(0).value());
+    }
+    @Test
+    void vertexSetInIncMxTest() {
+        GraphIncMatrix<Integer> graph = new GraphIncMatrix<>();
+
+        graph.addVertex(2);
+        assertEquals(2, graph.getVertex(0).value());
+        graph.setVertex(new Vertex<>(2), 4);
+        assertEquals(4, graph.getVertex(0).value());
+    }
+
 
 
 }

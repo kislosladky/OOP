@@ -1,8 +1,11 @@
 package ru.nsu.kislitsyn;
 
 
-import java.util.*;
-
+import java.util.List;
+import java.util.ArrayList;
+import java.util.ArrayDeque;
+import java.util.HashSet;
+import java.util.Comparator;
 
 /**
 * Implementation of graph in list of incidence.
@@ -10,7 +13,8 @@ import java.util.*;
 * @param <T> parameter of type.
 */
 public class GraphList<T> extends Graph<T> {
-    private final List<VerticeList<T>> vertices;
+    private final int MAX_DISTANCE = Integer.MAX_VALUE / 2;
+    private final List<VertexList> vertices;
 
     /**
     * Constructor.
@@ -24,21 +28,55 @@ public class GraphList<T> extends Graph<T> {
     *
     * @return this.vertices.
     */
-    public List<VerticeList<T>> getVertices() {
+    public List<VertexList> getVertices() {
         return this.vertices;
     }
 
     /**
-     * Record class to store vertice and it's incident vertices.
-     *
-     * @param value value of vertice.
-     * @param incidentVertices list of the incident vertices.
-     * @param distance lentgh of the path from source to this vertice.
-     * @param predecessor predecessor of this vertice in the path.
-     * @param <T> parameter of the type of value we store.
+     * Class to store vertice and it's incident vertices.
      */
-    public record VerticeList<T>(Vertex<T> value, ArrayList<Edge<T>> incidentVertices,
-                                 int distance, VerticeList<T> predecessor) {
+
+    public class VertexList {
+        private Vertex<T> value;
+        private final ArrayList<Edge<T>> incidentVertices;
+        private int distance;
+
+        public VertexList(Vertex<T> value, ArrayList<Edge<T>> incidentVertices, int distance) {
+            this.value = value;
+            this.incidentVertices = incidentVertices;
+            this.distance = distance;
+        }
+        public VertexList(Vertex<T> value, ArrayList<Edge<T>> incidentVertices) {
+            this.value = value;
+            this.incidentVertices = incidentVertices;
+            this.distance = MAX_DISTANCE;
+        }
+
+        public VertexList(Vertex<T> value) {
+            this.value = value;
+            this.incidentVertices = new ArrayList<>();
+            this.distance = MAX_DISTANCE;
+        }
+
+        public Vertex<T> getValue() {
+            return value;
+        }
+
+        public void setValue(Vertex<T> value) {
+            this.value = value;
+        }
+
+        public ArrayList<Edge<T>> getIncidentVertices() {
+            return incidentVertices;
+        }
+
+        public int getDistance() {
+            return distance;
+        }
+
+        public void setDistance(int distance) {
+            this.distance = distance;
+        }
     }
 
     /**
@@ -50,9 +88,8 @@ public class GraphList<T> extends Graph<T> {
     */
     public Vertex<T> addVertex(T value) {
         Vertex<T> newValue = new Vertex<>(value);
-        VerticeList<T> newVertice = new VerticeList<T>(new Vertex<>(value), new ArrayList<>(),
-                Integer.MAX_VALUE / 2, null);
-        this.vertices.add(newVertice);
+        VertexList newVertex = new VertexList(new Vertex<>(value));
+        this.vertices.add(newVertex);
         return newValue;
     }
 
@@ -62,9 +99,10 @@ public class GraphList<T> extends Graph<T> {
     * @param vertexToDelete vertice we want tot delete.
     */
     public void deleteVertex(Vertex<T> vertexToDelete) {
-        vertices.removeIf((VerticeList<T> vertice) -> vertice.value.equals(vertexToDelete));
-        for (var vertice : this.vertices) {
-            ((VerticeList<T>) vertice).incidentVertices.remove(vertexToDelete);
+        vertices.removeIf((VertexList vertex) -> vertex.value.equals(vertexToDelete));
+        for (VertexList vertex : this.vertices) {
+            vertex.incidentVertices.removeIf((Edge<T> edge) ->
+                    edge.to().equals(vertexToDelete) || edge.from().equals(vertexToDelete));
         }
     }
 
@@ -77,9 +115,9 @@ public class GraphList<T> extends Graph<T> {
     */
     public Edge<T> addEdge(Edge<T> edgeToAdd) {
 
-        for (VerticeList<T> vertice : this.vertices) {
-            if (vertice.value.equals(edgeToAdd.from())) {
-                vertice.incidentVertices.add(edgeToAdd);
+        for (VertexList vertex : this.vertices) {
+            if (vertex.value.equals(edgeToAdd.from())) {
+                vertex.incidentVertices.add(edgeToAdd);
             }
         }
         return edgeToAdd;
@@ -92,12 +130,9 @@ public class GraphList<T> extends Graph<T> {
     * @param value new value for vertice.
     */
     public void setVertex(Vertex<T> vertexToChange, T value) {
-        for (VerticeList<T> vert : this.vertices) {
-            if (vert.value().equals(vertexToChange)) {
-                this.vertices.set(this.vertices.indexOf(vert),
-                        new VerticeList<>(new Vertex<>(value),
-                                vert.incidentVertices,
-                                Integer.MAX_VALUE / 2, null));
+        for (VertexList vert : this.vertices) {
+            if (vert.getValue().equals(vertexToChange)) {
+                this.vertices.get(this.vertices.indexOf(vert)).setValue(new Vertex<>(value));
                 break;
             }
         }
@@ -112,7 +147,16 @@ public class GraphList<T> extends Graph<T> {
     */
     public Vertex<T> getVertex(int index) {
         if (index < this.vertices.size()) {
-            return this.vertices.get(index).value();
+            return this.vertices.get(index).getValue();
+        } else {
+            return null;
+        }
+    }
+
+
+    public VertexList getFullVertex(int index) {
+        if (index < this.vertices.size()) {
+            return this.vertices.get(index);
         } else {
             return null;
         }
@@ -127,11 +171,11 @@ public class GraphList<T> extends Graph<T> {
     */
     public void setEdge(Edge<T> edgeToChange, int weight) {
 
-        for (VerticeList<T> vertice : this.vertices) {
-            if (vertice.value.equals(edgeToChange.from())) {
-                for (Edge<T> edge : vertice.incidentVertices) {
+        for (VertexList vertex : this.vertices) {
+            if (vertex.value.equals(edgeToChange.from())) {
+                for (Edge<T> edge : vertex.incidentVertices) {
                     if (edge.equals(edgeToChange)) {
-                        vertice.incidentVertices.set(vertice.incidentVertices.indexOf(edge),
+                        vertex.incidentVertices.set(vertex.incidentVertices.indexOf(edge),
                                 new Edge<>(edge.from(), edge.to(), weight));
                         break;
                     }
@@ -148,11 +192,11 @@ public class GraphList<T> extends Graph<T> {
     */
     public void deleteEdge(Edge<T> edgeToDelete) {
 
-        for (VerticeList<T> vertice : this.vertices) {
-            if (edgeToDelete.from().equals(vertice)) {
-                for (Edge<T> edge : vertice.incidentVertices()) {
+        for (VertexList vertex : this.vertices) {
+            if (edgeToDelete.from().equals(vertex.getValue())) {
+                for (Edge<T> edge : vertex.getIncidentVertices()) {
                     if (edgeToDelete.equals(edge)) {
-                        vertice.incidentVertices().remove(edge);
+                        vertex.getIncidentVertices().remove(edge);
                         break;
                     }
                 }
@@ -163,12 +207,10 @@ public class GraphList<T> extends Graph<T> {
     /**
     * Sets vertice's distance to MAX_VALUE and predecessor to null.
     *
-    * @param vertice vertice to reset.
+    * @param vertex vertice to reset.
     */
-    private void resetVertice(VerticeList<T> vertice) {
-        this.vertices.set(this.vertices.indexOf(vertice),
-                new VerticeList<>(vertice.value(), vertice.incidentVertices(),
-                Integer.MAX_VALUE / 2, null));
+    private void resetVertice(VertexList vertex) {
+        this.vertices.get(this.vertices.indexOf(vertex)).setDistance(MAX_DISTANCE);
     }
 
     /**
@@ -176,27 +218,27 @@ public class GraphList<T> extends Graph<T> {
     *
     * @param from the source of the pathes.
     */
-    private void dijkstraInit(VerticeList<T> from) {
-        for (VerticeList<T> vertice : this.vertices) {
-            this.resetVertice(vertice);
+    private void dijkstraInit(VertexList from) {
+        for (VertexList vertex : this.vertices) {
+            this.resetVertice(vertex);
         }
-        this.vertices.set(this.vertices.indexOf(from),
-                new VerticeList<>(from.value(), from.incidentVertices(), 0, null));
+//        this.vertices.set(this.vertices.indexOf(from),
+//                new VertexList<>(from.alue(), from.incidentVertices(), 0));
+        this.vertices.get(this.vertices.indexOf(from)).setDistance(0);
     }
 
     /**
     * Implementation of relaxation for dijkstra's algorithm.
     *
-    * @param from vertice.
-    * @param to vertice.
+    * @param from vertex.
+    * @param to vertex.
     */
-    private void relax(VerticeList<T> from, VerticeList<T> to) {
-        for (Edge<T> edge : from.incidentVertices()) {
+    private void relax(VertexList from, VertexList to) {
+        for (Edge<T> edge : from.getIncidentVertices()) {
             if (edge.to().equals(to.value)) {
                 if (to.distance > from.distance + edge.weight()) {
-                    this.vertices.set(this.vertices.indexOf(to), new VerticeList<>(
-                            to.value(), to.incidentVertices(),
-                            from.distance + edge.weight(), from));
+                    this.vertices.get(this.vertices.indexOf(to))
+                            .setDistance(from.distance + edge.weight());
                 }
             }
         }
@@ -210,10 +252,10 @@ public class GraphList<T> extends Graph<T> {
     *
     * @return vertice with the lowest distance.
     */
-    private VerticeList<T> extractMin(ArrayDeque<VerticeList<T>> deque) {
-        VerticeList<T> answ = deque.peek();
-        for (VerticeList<T> i : deque) {
-            if (i.distance() < answ.distance()) {
+    private VertexList extractMin(ArrayDeque<VertexList> deque) {
+        VertexList answ = deque.peek();
+        for (VertexList i : deque) {
+            if (i.getDistance() < answ.getDistance()) {
                 answ = i;
             }
         }
@@ -226,21 +268,21 @@ public class GraphList<T> extends Graph<T> {
     *
     * @param from the source of the path.
     */
-    private void dijkstra(VerticeList<T> from) {
+    private void dijkstra(VertexList from) {
         this.dijkstraInit(from);
-        ArrayDeque<VerticeList<T>> deque = new ArrayDeque<>();
-        HashSet<VerticeList<T>> set = new HashSet<>();
+        ArrayDeque<VertexList> deque = new ArrayDeque<>();
+        HashSet<VertexList> set = new HashSet<>();
         deque.add(from);
         while (!deque.isEmpty()) {
-            VerticeList<T> u = this.extractMin(deque);
+            VertexList u = this.extractMin(deque);
             set.add(u);
-            for (Edge<T> edge : u.incidentVertices()) {
-                for (VerticeList<T> vertice : this.vertices) {
-                    if (!set.contains(vertice)) {
-                        deque.add(vertice);
+            for (Edge<T> edge : u.getIncidentVertices()) {
+                for (VertexList vertex : this.vertices) {
+                    if (!set.contains(vertex)) {
+                        deque.add(vertex);
                     }
-                    if (edge.to().equals(vertice.value())) {
-                        this.relax(u, vertice);
+                    if (edge.to().equals(vertex.getValue())) {
+                        this.relax(u, vertex);
                     }
                 }
             }
@@ -253,10 +295,10 @@ public class GraphList<T> extends Graph<T> {
     * @param fromValue source of the path.
     */
     public void sortWithPathLengthAndPrint(T fromValue) {
-        VerticeList<T> from = null;
-        for (VerticeList<T> vertice : this.vertices) {
-            if (vertice.value().value().equals(fromValue)) {
-                from = vertice;
+        VertexList from = null;
+        for (VertexList vertex : this.vertices) {
+            if (vertex.getValue().value().equals(fromValue)) {
+                from = vertex;
                 break;
             }
 
@@ -266,8 +308,8 @@ public class GraphList<T> extends Graph<T> {
         this.vertices.sort(Comparator.comparingInt(vertice -> vertice.distance));
 
         System.out.print("[");
-        for (VerticeList<T> vertice : this.vertices) {
-            System.out.print(vertice.value().value() + "(" + vertice.distance() + "), ");
+        for (VertexList vertex : this.vertices) {
+            System.out.print(vertex.getValue().value() + "(" + vertex.getDistance() + "), ");
         }
         System.out.print("]");
     }

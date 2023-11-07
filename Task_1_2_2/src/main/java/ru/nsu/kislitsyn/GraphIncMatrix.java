@@ -34,7 +34,7 @@ public class GraphIncMatrix<T> extends Graph<T> {
      * Class for storing data in matrix.
      * Equals checks only values of the vertices, ignoring other fields of objects.
      */
-    public class IncMatrixVertex{
+    public class IncMatrixVertex {
         private Vertex<T> vertex;
         private Incinence incident;
 
@@ -62,8 +62,12 @@ public class GraphIncMatrix<T> extends Graph<T> {
         @SuppressWarnings("unchecked")
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o.getClass() != this.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o.getClass() != this.getClass()) {
+                return false;
+            }
             IncMatrixVertex that = (IncMatrixVertex) o;
             return Objects.equals(getVertex(), that.getVertex());
         }
@@ -106,7 +110,7 @@ public class GraphIncMatrix<T> extends Graph<T> {
     */
     public void setVertex(Vertex<T> vertexToChange, T value) {
         Vertex<T> newVertex = new Vertex<>(value);
-        int index = this.matrix.getLine(0).indexOf(new IncMatrixVertex(newVertex));
+        int index = this.matrix.getLine(0).indexOf(new IncMatrixVertex(vertexToChange));
 
         for (Line<Edge<T>, IncMatrixVertex> line : matrix.getMatrix()) {
             IncMatrixVertex newIncVertex = line.getColumns().get(index);

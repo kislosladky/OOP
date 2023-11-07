@@ -73,8 +73,12 @@ public class GraphAdjMatrix<T> extends Graph<T> {
         @SuppressWarnings("unchecked")
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o.getClass() != this.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o.getClass() != this.getClass()) {
+                return false;
+            }
             AdjMatrixVertex that = (AdjMatrixVertex) o;
             return Objects.equals(this.getValue(), that.getValue());
         }
