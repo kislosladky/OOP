@@ -69,5 +69,8 @@ public class Matrix<LineT, ColumnT> {
         return -1;
     }
 
+    public ColumnT getColumnByIndex(int indexOfLine, int indexOfColumn) {
+        return this.getLineValue(indexOfColumn).getColumnByIndex(indexOfColumn);
+    }
 
 }

@@ -12,6 +12,9 @@ public class Line<LineT, ColumnT> {
         return columns;
     }
 
+    public ColumnT getColumnByIndex(int index) {
+        return columns.get(index);
+    }
     Line(LineT value) {
         this.value = value;
         this.columns = new ArrayList<>();

@@ -93,6 +93,31 @@ class GraphTest {
         assertEquals(4, graph.getVertex(0).value());
     }
 
+    @Test
+    void matrixTest() {
+        Matrix<Integer, Integer> matrix = new Matrix<>();
+        matrix.addLine(0);
+        matrix.addLine(1);
+        matrix.addColumn(0);
+        matrix.addColumn(1);
+        assertEquals(0, matrix.getLineValue(0).getValue());
+        assertEquals(1, matrix.getColumnByIndex(0,1));
+    }
 
+    @Test
+    void matrixDeleteTest() {
+         Matrix<Integer, Integer> matrix = new Matrix<>();
+        matrix.addLine(0);
+        matrix.addLine(1);
+        matrix.addLine(4);
+        matrix.addLine(-2);
+        matrix.addColumn(0);
+        matrix.addColumn(1);
 
+        matrix.removeColumnByIndex(0);
+        matrix.removeLineByValue(4);
+        assertEquals(3, matrix.getMatrix().size());
+        assertEquals(1, matrix.getLineValue(0).getColumns().size());
+        assertEquals(-2, matrix.getLineValue(2).getValue());
+    }
 }
