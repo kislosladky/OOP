@@ -3,16 +3,17 @@ package ru.nsu.kislitsyn;
 import java.util.ArrayList;
 
 
-public class Matrix<LineT,ColumnT> {
-    private final ArrayList<Line<LineT,ColumnT>> matrix;
+public class Matrix<LineT, ColumnT> {
+    private final ArrayList<Line<LineT, ColumnT>> matrix;
 
     public Matrix() {
         this.matrix = new ArrayList<>();
     }
 
-    public ArrayList<Line<LineT,ColumnT>> getMatrix() {
+    public ArrayList<Line<LineT, ColumnT>> getMatrix() {
         return this.matrix;
     }
+
     public ArrayList<ColumnT> getLine(int index) {
         if (this.matrix.isEmpty()) {
             return null;
@@ -28,6 +29,7 @@ public class Matrix<LineT,ColumnT> {
             return matrix.get(index);
         }
     }
+
     public void addColumn(ColumnT columnToAdd) {
         for (Line<LineT, ColumnT> line : this.matrix) {
             line.add(columnToAdd);

@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
-* Implementation of graph in matrix if incidence.
-*
-* @param <T> parameter of type.
-*/
+ * Implementation of graph in matrix if incidence.
+ *
+ * @param <T> parameter of type.
+ */
 public class GraphIncMatrix<T> extends Graph<T> {
 
     private Matrix<Edge<T>, IncMatrixVertex> matrix;
 
     /**
-    * Constructor.
-    */
+     * Constructor.
+     */
     public GraphIncMatrix() {
         //here I am adding an empty edge to have ability to add vertice into empty graph
         matrix = new Matrix<>();
@@ -34,7 +34,7 @@ public class GraphIncMatrix<T> extends Graph<T> {
      * Class for storing data in matrix.
      * Equals checks only values of the vertices, ignoring other fields of objects.
      */
-    public class IncMatrixVertex{
+    public class IncMatrixVertex {
         private Vertex<T> vertex;
         private Incinence incident;
 
@@ -62,8 +62,12 @@ public class GraphIncMatrix<T> extends Graph<T> {
         @SuppressWarnings("unchecked")
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o.getClass() != this.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o.getClass() != this.getClass()) {
+                return false;
+            }
             IncMatrixVertex that = (IncMatrixVertex) o;
             return Objects.equals(getVertex(), that.getVertex());
         }
@@ -76,12 +80,12 @@ public class GraphIncMatrix<T> extends Graph<T> {
 
 
     /**
-    * Adds vertice to the graph.
-    *
-    * @param value the value to add.
-    *
-    * @return the vertice with new value.
-    */
+     * Adds vertice to the graph.
+     *
+     * @param value the value to add.
+     *
+     * @return the vertice with new value.
+     */
     public Vertex<T> addVertex(T value) {
         Vertex<T> newVertex = new Vertex<>(value);
         this.matrix.addColumn(new IncMatrixVertex(newVertex));
@@ -90,23 +94,23 @@ public class GraphIncMatrix<T> extends Graph<T> {
     }
 
     /**
-    * Deletes vertice from graph.
-    *
-    * @param vertexToDelete vertice we want tot delete.
-    */
+     * Deletes vertice from graph.
+     *
+     * @param vertexToDelete vertice we want tot delete.
+     */
     public void deleteVertex(Vertex<T> vertexToDelete) {
         this.matrix.removeColumnByValue(new IncMatrixVertex(vertexToDelete));
     }
 
     /**
-    * Sets the value of vertice.
-    *
-    * @param vertexToChange the vertice we want to update.
-    * @param value new value for vertice.
-    */
+     * Sets the value of vertice.
+     *
+     * @param vertexToChange the vertice we want to update.
+     * @param value new value for vertice.
+     */
     public void setVertex(Vertex<T> vertexToChange, T value) {
         Vertex<T> newVertex = new Vertex<>(value);
-        int index = this.matrix.getLine(0).indexOf(new IncMatrixVertex(newVertex));
+        int index = this.matrix.getLine(0).indexOf(new IncMatrixVertex(vertexToChange));
 
         for (Line<Edge<T>, IncMatrixVertex> line : matrix.getMatrix()) {
             IncMatrixVertex newIncVertex = line.getColumns().get(index);
@@ -116,12 +120,12 @@ public class GraphIncMatrix<T> extends Graph<T> {
     }
 
     /**
-    * Getter for vertice.
-    *
-    * @param index the index of the vertice we need.
-    *
-    * @return the vertice with this value.
-    */
+     * Getter for vertice.
+     *
+     * @param index the index of the vertice we need.
+     *
+     * @return the vertice with this value.
+     */
     public Vertex<T> getVertex(int index) {
         if (this.matrix.getMatrix().isEmpty()) {
             return null;
@@ -131,12 +135,12 @@ public class GraphIncMatrix<T> extends Graph<T> {
     }
 
     /**
-    * Adds edge to the graph.
-    *
-    * @param edgeToAdd edge we need to add.
-    *
-    * @return the edge we added.
-    */
+     * Adds edge to the graph.
+     *
+     * @param edgeToAdd edge we need to add.
+     *
+     * @return the edge we added.
+     */
     @SuppressWarnings("unchecked")
     public Edge<T> addEdge(Edge<T> edgeToAdd) {
         this.matrix.addLine(edgeToAdd);
@@ -152,20 +156,20 @@ public class GraphIncMatrix<T> extends Graph<T> {
     }
 
     /**
-    * Deletes edge.
-    *
-    * @param edgeToDelete edge to delete.
-    */
+     * Deletes edge.
+     *
+     * @param edgeToDelete edge to delete.
+     */
     public void deleteEdge(Edge<T> edgeToDelete) {
         this.matrix.removeLineByValue(edgeToDelete);
     }
 
     /**
-    * Setter for edge weight.
-    *
-    * @param edgeToChange the edge to change.
-    * @param weight new weight of edge.
-    */
+     * Setter for edge weight.
+     *
+     * @param edgeToChange the edge to change.
+     * @param weight new weight of edge.
+     */
     public void setEdge(Edge<T> edgeToChange, int weight) {
         Edge<T> newEdge = new Edge<>(edgeToChange.from(), edgeToChange.to(), weight);
         int index = this.matrix.indexOfLine(edgeToChange);

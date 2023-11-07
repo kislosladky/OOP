@@ -1,6 +1,5 @@
 package ru.nsu.kislitsyn;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -49,8 +48,12 @@ public class Line<LineT, ColumnT> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Line<?, ?> line)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Line<?, ?> line)) {
+            return false;
+        }
         return Objects.equals(getValue(), line.getValue());
     }
 
