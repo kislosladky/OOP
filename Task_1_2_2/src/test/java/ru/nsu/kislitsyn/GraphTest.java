@@ -32,7 +32,8 @@ class GraphTest {
         GraphList<String> graph = new GraphList<>();
         graph.addVertex("Crow");
         graph.addVertex("Squirrel");
-        assertEquals(2, graph.getVertices().size());
+        graph.deleteVertex(new Vertex<>("Squirrel"));
+        assertEquals(1, graph.getVertices().size());
     }
 
     @Test
@@ -40,7 +41,8 @@ class GraphTest {
         GraphAdjMatrix<String> graph = new GraphAdjMatrix<>();
         graph.addVertex("Crow");
         graph.addVertex("Squirrel");
-        assertEquals(2, graph.getVertices().size());
+        graph.deleteVertex(new Vertex<>("Squirrel"));
+        assertEquals(1, graph.getVertices().size());
     }
 
     @Test
@@ -150,5 +152,22 @@ class GraphTest {
         var edge = graph.addEdge(new Edge<>(new Vertex<>("Crow"), new Vertex<>("Raven"), 4));
         graph.setEdge(edge, 82);
         assertEquals(82, graph.getMatrix().getLine(0).get(1).getWeight());
+    }
+
+    @Test
+    void adjMxSetVertexTest() {
+        GraphAdjMatrix<String> graph = new GraphAdjMatrix<>();
+        graph.addVertex("Crow");
+        graph.addVertex("Raven");
+        graph.setVertex(new Vertex<>("Crow"), "Seagull");
+        assertEquals("Seagull", graph.getVertex(0).value());
+    }
+    @Test
+    void adjIncSetVertexTest() {
+        GraphIncMatrix<String> graph = new GraphIncMatrix<>();
+        graph.addVertex("Crow");
+        graph.addVertex("Raven");
+        graph.setVertex(new Vertex<>("Crow"), "Seagull");
+        assertEquals("Seagull", graph.getVertex(0).value());
     }
 }
