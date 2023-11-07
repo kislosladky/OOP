@@ -176,6 +176,14 @@ public class GraphIncMatrix<T> extends Graph<T> {
         this.matrix.getMatrix().set(index, new Line<>(newEdge, this.matrix.getLine(index)));
     }
 
+    public  Edge<T> getEdge(Vertex<T> from, Vertex<T> to) {
+        for (Line<Edge<T>, IncMatrixVertex> line : this.matrix.getMatrix()) {
+            if (line.getValue().from().equals(from) && line.getValue().to().equals(to)) {
+                return line.getValue();
+            }
+        }
+    }
+
     public enum Incinence {
         FROM,
         TO,

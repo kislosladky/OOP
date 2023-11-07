@@ -25,6 +25,8 @@ public abstract class Graph<T> {
 
     public abstract void setEdge(Edge<T> edgeToChange, int weight);
 
+    public abstract Edge<T> getEdge(Vertex<T> from, Vertex<T> to);
+
     /**
      * Builds graph out of file data.
      *

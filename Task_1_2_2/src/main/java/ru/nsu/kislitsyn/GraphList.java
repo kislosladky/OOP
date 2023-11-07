@@ -41,17 +41,6 @@ public class GraphList<T> extends Graph<T> {
         private final ArrayList<Edge<T>> incidentVertices;
         private int distance;
 
-        public VertexList(Vertex<T> value, ArrayList<Edge<T>> incidentVertices, int distance) {
-            this.value = value;
-            this.incidentVertices = incidentVertices;
-            this.distance = distance;
-        }
-        public VertexList(Vertex<T> value, ArrayList<Edge<T>> incidentVertices) {
-            this.value = value;
-            this.incidentVertices = incidentVertices;
-            this.distance = MAX_DISTANCE;
-        }
-
         public VertexList(Vertex<T> value) {
             this.value = value;
             this.incidentVertices = new ArrayList<>();
@@ -191,7 +180,6 @@ public class GraphList<T> extends Graph<T> {
      * @param edgeToDelete edge to delete.
      */
     public void deleteEdge(Edge<T> edgeToDelete) {
-
         for (VertexList vertex : this.vertices) {
             if (edgeToDelete.from().equals(vertex.getValue())) {
                 for (Edge<T> edge : vertex.getIncidentVertices()) {
@@ -222,8 +210,7 @@ public class GraphList<T> extends Graph<T> {
         for (VertexList vertex : this.vertices) {
             this.resetVertice(vertex);
         }
-//        this.vertices.set(this.vertices.indexOf(from),
-//                new VertexList<>(from.alue(), from.incidentVertices(), 0));
+
         this.vertices.get(this.vertices.indexOf(from)).setDistance(0);
     }
 

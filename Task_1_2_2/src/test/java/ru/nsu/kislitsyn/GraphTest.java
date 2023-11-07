@@ -201,4 +201,50 @@ class GraphTest {
         assertEquals(line, line2);
     }
 
+    @Test
+    void lineRemoveByValueTest() {
+        Line<String, String> line = new Line<>("Crow");
+        line.add("Seagull");
+        line.add("Raven");
+
+        line.removeByValue("Raven");
+        assertEquals(1, line.getColumns().size());
+    }
+
+    @Test
+    void lineSetValue() {
+        Line<String, String> line = new Line<>("Crow");
+        line.setValue("Seagull");
+        assertEquals("Seagull", line.getValue());
+    }
+
+    @Test
+    void lineHashcodeTest() {
+        Line<String, String> line = new Line<>("Crow");
+        line.add("Seagull");
+        line.add("Raven");
+
+        Line<String, String> line2 = new Line<>("Crow");
+        assertEquals("Crow", line2.getValue());
+        line2.add("Seagull");
+
+        assertEquals(line.hashCode(), line2.hashCode());
+    }
+
+    @Test
+    void setEdgeIncMatrixTest() {
+        GraphIncMatrix<Integer> graph = new GraphIncMatrix<>();
+
+        graph.addVertex(2);
+        graph.addVertex(3);
+        Vertex<Integer> from = new Vertex<>(2);
+        Vertex<Integer> to = new Vertex<>(3);
+        graph.addEdge(new Edge<>(from, to, 10));
+        assertEquals(10, graph.getEdge(from, to).weight());
+
+        graph.setEdge(new Edge<>(from, to, 10), 11);
+        assertEquals(11, graph.getEdge(from, to).weight());
+
+    }
+
 }
