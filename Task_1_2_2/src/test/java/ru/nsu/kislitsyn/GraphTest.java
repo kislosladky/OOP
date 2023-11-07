@@ -170,4 +170,35 @@ class GraphTest {
         graph.setVertex(new Vertex<>("Crow"), "Seagull");
         assertEquals("Seagull", graph.getVertex(0).value());
     }
+
+    @Test
+    void lineTest() {
+        Line<String, String> line = new Line<>("Crow");
+        assertEquals("Crow", line.getValue());
+
+        line.add("Seagull");
+        line.add("Raven");
+        assertEquals("Raven", line.getColumnByIndex(1));
+
+        line.removeByIndex(1);
+        assertEquals(1, line.getColumns().size());
+
+        line.removeByValue("Seagull");
+        assertEquals(0, line.getColumns().size());
+    }
+
+    @Test
+    void lineEqTest() {
+        Line<String, String> line = new Line<>("Crow");
+        line.add("Seagull");
+        line.add("Raven");
+
+        Line<String, String> line2 = new Line<>("Crow");
+        assertEquals("Crow", line2.getValue());
+        line2.add("Seagull");
+        line2.add("Raven");
+
+        assertEquals(line, line2);
+    }
+
 }
