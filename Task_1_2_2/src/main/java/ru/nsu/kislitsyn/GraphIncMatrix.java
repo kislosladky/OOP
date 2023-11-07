@@ -182,6 +182,7 @@ public class GraphIncMatrix<T> extends Graph<T> {
                 return line.getValue();
             }
         }
+        return null;
     }
 
     public enum Incinence {

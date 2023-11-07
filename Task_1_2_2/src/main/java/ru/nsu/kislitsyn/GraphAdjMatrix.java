@@ -184,4 +184,8 @@ public class GraphAdjMatrix<T> extends Graph<T> {
     public void deleteEdge(Edge<T> edgeToDelete) {
         this.setEdge(edgeToDelete, -1);
     }
+
+    public Edge<T> getEdge(Vertex<T> from, Vertex<T> to) {
+        int weight = matrix.getColumnByIndex(matrix.indexOfLine(from), matrix.indexOfLine(to));
+    }
 }
