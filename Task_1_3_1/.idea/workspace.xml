@@ -6,12 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="81924f85-2545-4499-a278-d2d6520fc9d7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/nsu/kislitsyn/substring/SubstringSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/nsu/kislitsyn/substring/SubstringSearch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +68,7 @@
       <recent name="ru.nsu.kislitsyn.substring" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.SubstringSearchTest.arabicTextTest">
+  <component name="RunManager" selected="Gradle.SubstringSearchTest.largeFile">
     <configuration name="SubstringSearch" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ru.nsu.kislitsyn.substring.SubstringSearch" />
       <module name="Task_1_3_1.main" />
@@ -100,6 +96,30 @@
             <option value=":test" />
             <option value="--tests" />
             <option value="&quot;ru.nsu.kislitsyn.substring.SubstringSearchTest.arabicTextTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="SubstringSearchTest.largeFile" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;ru.nsu.kislitsyn.substring.SubstringSearchTest.largeFile&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -160,6 +180,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.SubstringSearchTest.largeFile" />
         <item itemvalue="Gradle.SubstringSearchTest.arabicTextTest" />
         <item itemvalue="Gradle.SubstringSearchTest.largeFileTest" />
         <item itemvalue="Gradle.SubstringSearchTest.tzTest" />
