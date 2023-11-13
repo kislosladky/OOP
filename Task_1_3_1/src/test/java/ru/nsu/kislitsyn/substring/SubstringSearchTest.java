@@ -2,12 +2,12 @@ package ru.nsu.kislitsyn.substring;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import org.junit.jupiter.api.Test;
 
 
 class SubstringSearchTest {
