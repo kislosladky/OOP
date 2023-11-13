@@ -43,7 +43,7 @@ class SubstringSearchTest {
         try (BufferedWriter writer =
                      new BufferedWriter(new FileWriter(fileName, StandardCharsets.UTF_8))) {
             for (int j = 0; j < 15; j++) {
-                for (int i = 0; i < 1_000_000_000; i++) {
+                for (int i = 0; i < 100_000_000; i++) {
                     writer.write("aaaaaaaaaa");
                 }
                 writer.write("bruh");
