@@ -1,7 +1,6 @@
 package ru.nsu.kislitsyn.substring;
 
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -48,8 +47,11 @@ public class FileToString {
     public boolean updateString(StringBuilder string) throws IOException {
         if (!inited) {
             inited = true;
-            Path path = Paths.get(filename);
-            reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filename);
+            if (inputStream == null) {
+                inputStream = new FileInputStream(filename);
+            }
+            reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             readFromFile = reader.read(buffer, 0, BUFFER_SIZE);
             if (readFromFile == -1) {
                 reader.close();

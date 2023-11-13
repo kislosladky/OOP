@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 class SubstringSearchTest {
     @Test
     void tzTest() {
-        SubstringSearch search = new SubstringSearch("bra", "src/main/resources/input.txt");
+        SubstringSearch search = new SubstringSearch("bra", "input.txt");
         search.rabinKarp();
         assertEquals(1, search.getAnswer().get(0));
         assertEquals(8, search.getAnswer().get(1));
@@ -21,7 +21,7 @@ class SubstringSearchTest {
 
     @Test
     void hebrewTextTest() {
-        SubstringSearch search = new SubstringSearch("ש", "src/main/resources/hebrew.txt");
+        SubstringSearch search = new SubstringSearch("ש", "hebrew.txt");
         search.rabinKarp();
         assertEquals(22, search.getAnswer().get(0));
         assertEquals(26, search.getAnswer().get(1));
@@ -30,7 +30,7 @@ class SubstringSearchTest {
 
     @Test
     void arabicTextTest() {
-        SubstringSearch search = new SubstringSearch("ق", "src/main/resources/arabic.txt");
+        SubstringSearch search = new SubstringSearch("ق", "arabic.txt");
         search.rabinKarp();
         assertEquals(6, search.getAnswer().get(0));
         assertEquals(12, search.getAnswer().get(1));
@@ -42,8 +42,8 @@ class SubstringSearchTest {
         String fileName = "large.txt";
         try (BufferedWriter writer =
                      new BufferedWriter(new FileWriter(fileName, StandardCharsets.UTF_8))) {
-            for (int j = 0; j < 2; j++) {
-                for (int i = 0; i < 100000000; i++) {
+            for (int j = 0; j < 15; j++) {
+                for (int i = 0; i < 1_000_000_000; i++) {
                     writer.write("aaaaaaaaaa");
                 }
                 writer.write("bruh");
@@ -54,24 +54,25 @@ class SubstringSearchTest {
 
         SubstringSearch search = new SubstringSearch("bru", "large.txt");
         search.rabinKarp();
-        assertEquals(1000000000, search.getAnswer().get(0));
-        assertEquals(2000000004, search.getAnswer().get(1));
-
         File file = new File("large.txt");
         file.delete();
+        assertEquals(1_000_000_000, search.getAnswer().get(0));
+        assertEquals(2_000_000_004, search.getAnswer().get(1));
+
+
     }
 
     @Test
     void noFileTest() {
 
-        SubstringSearch search = new SubstringSearch("Aa", "src/main/resources/file.txt");
+        SubstringSearch search = new SubstringSearch("Aa", "file.txt");
         search.rabinKarp();
         assertEquals(0, search.getAnswer().size());
     }
 
     @Test
     void wordBetweenBatchesTest() {
-        SubstringSearch search = new SubstringSearch("capy", "src/main/resources/10k.txt");
+        SubstringSearch search = new SubstringSearch("capy", "10k.txt");
         search.rabinKarp();
         assertEquals(9994, search.getAnswer().get(0));
     }
