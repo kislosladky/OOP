@@ -61,4 +61,18 @@ class SubstringSearchTest {
         file.delete();
     }
 
+    @Test
+    void noFileTest() {
+
+        SubstringSearch search = new SubstringSearch("Aa", "src/main/resources/file.txt");
+        search.rabinKarp();
+        assertEquals(0, search.getAnswer().size());
+    }
+
+    @Test
+    void wordBetweenBatchesTest() {
+        SubstringSearch search = new SubstringSearch("capy", "src/main/resources/10k.txt");
+        search.rabinKarp();
+        assertEquals(9994, search.getAnswer().get(0));
+    }
 }
