@@ -1,14 +1,35 @@
 package ru.nsu.kislitsyn.substring;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
+/**
+* Class that searches substring using Rabin Carp algorithm.
+*/
 public class SubstringSearch {
-    private String substring;
-    private final ArrayList<Long> answer;
+    private final String substring;
+    private final List<Long> answer;
     private final long PRIME_NUMBER = 17;
+    private final FileToString fileToString;
+
+    /**
+    * Getter for answer arrayList.
+    *
+    * @return answer arrayList.
+    */
+    public List<Long> getAnswer() {
+        return answer;
+    }
+
+
+    /**
+    * My hash function.
+    *
+    * @param string string we need to hash.
+    *
+    * @return hash.
+    */
     private long myHash(String string) {
         long answ = 0;
         long power = PRIME_NUMBER;
@@ -19,50 +40,51 @@ public class SubstringSearch {
         return answ;
     }
 
-    public SubstringSearch(String substring) {
+    /**
+    * Constructor of class.
+    *
+    * @param substring substring we need to search.
+    * @param filename  file where we need to search the substring.
+    */
+    public SubstringSearch(String substring, String filename) {
         this.substring = substring;
         this.answer = new ArrayList<>();
+        this.fileToString = new FileToString(filename, substring.length());
     }
-    private void arrayShift(char[] str) {
-        for (int i = 1; i < str.length; i++) {
-            str[i - 1] = str[i];
+
+    /**
+    * Function that finds the substring.
+    */
+    public void rabinKarp() {
+        StringBuilder string = new StringBuilder();
+
+        try {
+            fileToString.updateString(string);
+        } catch (IOException e) {
+            System.out.println("Unable to read file");
+            return;
         }
-    }
-    public void rabinKarp(String filename) throws IOException {
-        int read = 0;
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            char[] string = new char[substring.length()];
-            int readCnt = reader.read(string);
-            if (readCnt < substring.length()) {
+        long hashSubStr = myHash(substring);
+        long hashInpStr = myHash(String.valueOf(string));
+        char first_char;
+        long powerOfPrime = (long) Math.pow(PRIME_NUMBER, substring.length());
+        long i = 0;
+        boolean run = true;
+        do {
+            first_char = string.charAt(0);
+
+            if (hashInpStr == hashSubStr) {
+                answer.add(i);
+            }
+            try {
+                run = fileToString.updateString(string);
+            } catch (IOException e) {
                 return;
             }
-
-            long hashSubStr = myHash(substring);
-            long hashInpStr = myHash(String.valueOf(string));
-            long powerOfPrime = (long) Math.pow(PRIME_NUMBER, substring.length());
-            long i = 0;
-            char first_char;
-            do {
-                if (hashInpStr == hashSubStr) {
-                    answer.add(i);
-                }
-                first_char = string[0];
-                arrayShift(string);
-                //TODO переделать на считывание батчами
-                read = reader.read(string, string.length - 1, 1);
-                hashInpStr = ((hashInpStr
-                        - (PRIME_NUMBER * first_char)) / PRIME_NUMBER)
-                        + powerOfPrime * string[string.length - 1];
-                i++;
-            } while (read > 0);
-        }
-    }
-
-    public static void main(String[] args) throws IOException {
-        SubstringSearch search = new SubstringSearch("bra");
-        search.rabinKarp("src/main/resources/input.txt");
-        for (Long answ : search.answer) {
-            System.out.println(answ);
-        }
+            hashInpStr = ((hashInpStr
+                    - (PRIME_NUMBER * first_char)) / PRIME_NUMBER)
+                    + powerOfPrime * string.charAt(string.length() - 1);
+            i++;
+        } while (run);
     }
 }
