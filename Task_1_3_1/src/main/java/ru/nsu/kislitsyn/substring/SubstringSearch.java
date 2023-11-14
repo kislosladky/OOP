@@ -59,9 +59,9 @@ public class SubstringSearch {
         StringBuilder string = new StringBuilder();
 
         try {
-            fileToString.updateString(string);
+            fileToString.initializeString(string);
         } catch (IOException e) {
-            System.out.println("Unable to read file");
+            System.err.println("Unable to read file");
             return;
         }
         long hashSubStr = myHash(substring);
@@ -69,22 +69,24 @@ public class SubstringSearch {
         char firstChar;
         long powerOfPrime = (long) Math.pow(PRIME_NUMBER, substring.length());
         long i = 0;
-        boolean run = true;
-        do {
-            firstChar = string.charAt(0);
 
-            if (hashInpStr == hashSubStr) {
-                answer.add(i);
+        firstChar = string.charAt(0);
+        if (hashInpStr == hashSubStr) {
+            answer.add(i);
+        }
+        try {
+            while (fileToString.updateString(string)) {
+                hashInpStr = ((hashInpStr
+                        - (PRIME_NUMBER * firstChar)) / PRIME_NUMBER)
+                        + powerOfPrime * string.charAt(string.length() - 1);
+                i++;
+                firstChar = string.charAt(0);
+                if (hashInpStr == hashSubStr) {
+                    answer.add(i);
+                }
             }
-            try {
-                run = fileToString.updateString(string);
-            } catch (IOException e) {
-                return;
-            }
-            hashInpStr = ((hashInpStr
-                    - (PRIME_NUMBER * firstChar)) / PRIME_NUMBER)
-                    + powerOfPrime * string.charAt(string.length() - 1);
-            i++;
-        } while (run);
+        } catch (IOException e) {
+            System.err.println("Unable to read file");
+        }
     }
 }
