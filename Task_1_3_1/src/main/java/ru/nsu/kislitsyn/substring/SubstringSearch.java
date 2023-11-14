@@ -71,7 +71,7 @@ public class SubstringSearch {
         long i = 0;
 
         firstChar = string.charAt(0);
-        if (hashInpStr == hashSubStr) {
+        if (hashInpStr == hashSubStr && substring.equals(String.valueOf(string))) {
             answer.add(i);
         }
         try {
