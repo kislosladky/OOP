@@ -1,4 +1,4 @@
-package ru.nsu.kislitsyn.studentsBook;
+package ru.nsu.kislitsyn.StudentsBook;
 
 
 import java.util.ArrayList;
@@ -27,8 +27,7 @@ public class StudentsBook {
         this.surname = surname;
         this.groupNumber = groupNumber;
         this.subjects = new ArrayList<>();
-        int NUMBER_OF_SEMESTERS = 8;
-        for (int i = 0; i < NUMBER_OF_SEMESTERS; i++) {
+        for (int i = 0; i < 8; i++) {
             this.subjects.add(new HashMap<>());
         }
     }

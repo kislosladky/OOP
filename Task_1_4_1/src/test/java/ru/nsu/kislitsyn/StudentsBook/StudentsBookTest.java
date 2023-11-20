@@ -1,4 +1,4 @@
-package ru.nsu.kislitsyn.studentsBook;
+package ru.nsu.kislitsyn.StudentsBook;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

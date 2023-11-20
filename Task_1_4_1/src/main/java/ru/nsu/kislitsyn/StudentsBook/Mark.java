@@ -1,5 +1,8 @@
-package ru.nsu.kislitsyn.studentsBook;
+package ru.nsu.kislitsyn.StudentsBook;
 
+/**
+* Enum for mark for subject.
+*/
 public enum Mark {
 
     EXCELLENT(5),
@@ -8,6 +11,7 @@ public enum Mark {
     UNACCEPTABLE(2),
     NOT_STATED(0);
     private final int markValue;
+
     Mark(int mark) {
         this.markValue = mark;
     }
