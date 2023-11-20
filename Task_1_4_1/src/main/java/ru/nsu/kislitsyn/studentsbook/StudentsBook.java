@@ -1,4 +1,4 @@
-package ru.nsu.kislitsyn.StudentsBook;
+package ru.nsu.kislitsyn.studentsbook;
 
 
 import java.util.ArrayList;
