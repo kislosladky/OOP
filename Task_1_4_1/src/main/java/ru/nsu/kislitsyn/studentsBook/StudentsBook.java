@@ -11,7 +11,6 @@ public class StudentsBook {
     private String surname;
     private int groupNumber;
     private final ArrayList<HashMap<String, Mark>> subjects;
-//    private final HashMap<String, SemesterAndMark> finalMarks;
     private Mark qualificationTask;
 
     public StudentsBook(String firstname, String surname, int groupNumber) {
@@ -26,7 +25,6 @@ public class StudentsBook {
 //        this.finalMarks = new HashMap<>();
     }
 
-    private record SemesterAndMark(int semester, Mark mark) {}
     public String getFirstname() {
         return firstname;
     }
