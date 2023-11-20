@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -132,6 +132,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">StudentsBook</span>
 extends java.lang.Object</pre>
+<div class="block">Class that solves the task.</div>
 </li>
 </ul>
 </div>
@@ -155,7 +156,9 @@ extends java.lang.Object</pre>
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,java.lang.String,int)">StudentsBook</a></span>&#8203;(java.lang.String&nbsp;firstname,
             java.lang.String&nbsp;surname,
             int&nbsp;groupNumber)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructor of the class.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -177,66 +180,83 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addQualificationMark(ru.nsu.kislitsyn.studentsBook.Mark)">addQualificationMark</a></span>&#8203;(<a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsBook">Mark</a>&nbsp;mark)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addSubject(java.lang.Integer,java.lang.String)">addSubject</a></span>&#8203;(java.lang.Integer&nbsp;semesterNumber,
           java.lang.String&nbsp;subject)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Adds subject to the hashmap.</div>
+</td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addTotalMark(java.lang.Integer,java.lang.String,ru.nsu.kislitsyn.studentsBook.Mark)">addTotalMark</a></span>&#8203;(java.lang.Integer&nbsp;semesterNumber,
             java.lang.String&nbsp;subject,
             <a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsBook">Mark</a>&nbsp;mark)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Adds mark for the subject (and adds subject if needed).</div>
+</td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#averageMark()">averageMark</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Computes the average of all marks.</div>
+</td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFirstname()">getFirstname</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Getter of name.</div>
+</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGroupNumber()">getGroupNumber</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Getter of group number.</div>
+</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsBook">Mark</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getQualificationTask()">getQualificationTask</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Getter for mark of qualification task.</div>
+</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>java.util.ArrayList&lt;java.util.HashMap&lt;java.lang.String,&#8203;<a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsBook">Mark</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSubjects()">getSubjects</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Getter of subjects hashmap.</div>
+</td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSurname()">getSurname</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Getter for surname.</div>
+</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#receiveScholarship(int)">receiveScholarship</a></span>&#8203;(int&nbsp;semester)</code></th>
+<td class="colLast">
+<div class="block">Checks if student receives scholarship in particular semester.</div>
+</td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#receiveScholarship(int)">receiveScholarship</a></span>&#8203;(int&nbsp;semester)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#redDiploma()">redDiploma</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Checks if student can get red diploma.</div>
+</td>
 </tr>
 <tr id="i10" class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#redDiploma()">redDiploma</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setQualificationTask(ru.nsu.kislitsyn.studentsBook.Mark)">setQualificationTask</a></span>&#8203;(<a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsBook">Mark</a>&nbsp;mark)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Setter for mark of qualification task.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -271,6 +291,13 @@ extends java.lang.Object</pre>
 <pre>public&nbsp;StudentsBook&#8203;(java.lang.String&nbsp;firstname,
                     java.lang.String&nbsp;surname,
                     int&nbsp;groupNumber)</pre>
+<div class="block">Constructor of the class.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>firstname</code> - name of the student.</dd>
+<dd><code>surname</code> - surname of the student.</dd>
+<dd><code>groupNumber</code> - number of student's group.</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -290,6 +317,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getFirstname</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getFirstname()</pre>
+<div class="block">Getter of name.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>firstname.</dd>
+</dl>
 </li>
 </ul>
 <a id="getSubjects()">
@@ -299,6 +331,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getSubjects</h4>
 <pre class="methodSignature">public&nbsp;java.util.ArrayList&lt;java.util.HashMap&lt;java.lang.String,&#8203;<a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsBook">Mark</a>&gt;&gt;&nbsp;getSubjects()</pre>
+<div class="block">Getter of subjects hashmap.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>this.subjects.</dd>
+</dl>
 </li>
 </ul>
 <a id="getSurname()">
@@ -308,6 +345,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getSurname</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getSurname()</pre>
+<div class="block">Getter for surname.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>surname.</dd>
+</dl>
 </li>
 </ul>
 <a id="getGroupNumber()">
@@ -317,6 +359,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getGroupNumber</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;getGroupNumber()</pre>
+<div class="block">Getter of group number.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>number of group.</dd>
+</dl>
 </li>
 </ul>
 <a id="setQualificationTask(ru.nsu.kislitsyn.studentsBook.Mark)">
@@ -326,6 +373,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>setQualificationTask</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setQualificationTask&#8203;(<a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsBook">Mark</a>&nbsp;mark)</pre>
+<div class="block">Setter for mark of qualification task.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>mark</code> - mark of qualification task.</dd>
+</dl>
 </li>
 </ul>
 <a id="getQualificationTask()">
@@ -335,6 +387,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getQualificationTask</h4>
 <pre class="methodSignature">public&nbsp;<a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsBook">Mark</a>&nbsp;getQualificationTask()</pre>
+<div class="block">Getter for mark of qualification task.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>mark of qualification task.</dd>
+</dl>
 </li>
 </ul>
 <a id="addSubject(java.lang.Integer,java.lang.String)">
@@ -345,6 +402,12 @@ extends java.lang.Object</pre>
 <h4>addSubject</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;addSubject&#8203;(java.lang.Integer&nbsp;semesterNumber,
                        java.lang.String&nbsp;subject)</pre>
+<div class="block">Adds subject to the hashmap.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>semesterNumber</code> - number of semester.</dd>
+<dd><code>subject</code> - name of the subject.</dd>
+</dl>
 </li>
 </ul>
 <a id="addTotalMark(java.lang.Integer,java.lang.String,ru.nsu.kislitsyn.studentsBook.Mark)">
@@ -356,15 +419,13 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;void&nbsp;addTotalMark&#8203;(java.lang.Integer&nbsp;semesterNumber,
                          java.lang.String&nbsp;subject,
                          <a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsBook">Mark</a>&nbsp;mark)</pre>
-</li>
-</ul>
-<a id="addQualificationMark(ru.nsu.kislitsyn.studentsBook.Mark)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>addQualificationMark</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;addQualificationMark&#8203;(<a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsBook">Mark</a>&nbsp;mark)</pre>
+<div class="block">Adds mark for the subject (and adds subject if needed).</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>semesterNumber</code> - number of semester.</dd>
+<dd><code>subject</code> - name of subject.</dd>
+<dd><code>mark</code> - mark for the subject.</dd>
+</dl>
 </li>
 </ul>
 <a id="averageMark()">
@@ -374,6 +435,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>averageMark</h4>
 <pre class="methodSignature">public&nbsp;double&nbsp;averageMark()</pre>
+<div class="block">Computes the average of all marks.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>average mark.</dd>
+</dl>
 </li>
 </ul>
 <a id="redDiploma()">
@@ -383,6 +449,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>redDiploma</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;redDiploma()</pre>
+<div class="block">Checks if student can get red diploma.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if student still can get red diploma, otherwise false.</dd>
+</dl>
 </li>
 </ul>
 <a id="receiveScholarship(int)">
@@ -392,6 +463,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>receiveScholarship</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;receiveScholarship&#8203;(int&nbsp;semester)</pre>
+<div class="block">Checks if student receives scholarship in particular semester.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>semester</code> - the semester we need to check.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>false if student won't have scholarship.</dd>
+</dl>
 </li>
 </ul>
 </li>
