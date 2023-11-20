@@ -1,8 +1,11 @@
 package ru.nsu.kislitsyn.studentsBook;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class StudentsBookTest {
     @Test
@@ -17,7 +20,7 @@ class StudentsBookTest {
     void qualiMarktest() {
         StudentsBook book = new StudentsBook("Ilya", "Kislitsyn", 22213);
 
-        book.addQualificationMark(Mark.EXCELLENT);
+        book.setQualificationTask(Mark.EXCELLENT);
 
         assertEquals(5, book.getQualificationTask().getMark());
     }
@@ -105,9 +108,6 @@ class StudentsBookTest {
 
         assertTrue(book.redDiploma());
     }
-
-
-
 
 
 }

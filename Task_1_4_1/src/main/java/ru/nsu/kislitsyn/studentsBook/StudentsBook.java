@@ -5,63 +5,114 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+/**
+* Class that solves the task.
+*/
 public class StudentsBook {
-    private final int NUMBER_OF_SEMESTERS = 8;
-    private String firstname;
-    private String surname;
-    private int groupNumber;
+    private final String firstname;
+    private final String surname;
+    private final int groupNumber;
     private final ArrayList<HashMap<String, Mark>> subjects;
     private Mark qualificationTask;
 
+    /**
+    * Constructor of the class.
+    *
+    * @param firstname name of the student.
+    * @param surname surname of the student.
+    * @param groupNumber number of student's group.
+    */
     public StudentsBook(String firstname, String surname, int groupNumber) {
         this.firstname = firstname;
         this.surname = surname;
         this.groupNumber = groupNumber;
-//        this.subjects = new HashMap<>();
         this.subjects = new ArrayList<>();
+        int NUMBER_OF_SEMESTERS = 8;
         for (int i = 0; i < NUMBER_OF_SEMESTERS; i++) {
             this.subjects.add(new HashMap<>());
         }
-//        this.finalMarks = new HashMap<>();
     }
 
+    /**
+    * Getter of name.
+    *
+    * @return firstname.
+    */
     public String getFirstname() {
         return firstname;
     }
 
-//    public HashMap<Integer, HashMap<String, Mark>> getSubjects() {
+    /**
+    * Getter of subjects hashmap.
+    *
+    * @return this.subjects.
+    */
     public ArrayList<HashMap<String, Mark>> getSubjects() {
         return this.subjects;
     }
+
+    /**
+    * Getter for surname.
+    *
+    * @return surname.
+    */
     public String getSurname() {
         return surname;
     }
 
+    /**
+    * Getter of group number.
+    *
+    * @return number of group.
+    */
     public int getGroupNumber() {
         return groupNumber;
     }
 
+    /**
+    * Setter for mark of qualification task.
+    *
+    * @param mark mark of qualification task.
+    */
     public void setQualificationTask(Mark mark) {
         this.qualificationTask = mark;
     }
 
+    /**
+    * Getter for mark of qualification task.
+    *
+    * @return mark of qualification task.
+    */
     public Mark getQualificationTask() {
         return this.qualificationTask;
     }
 
+    /**
+    * Adds subject to the hashmap.
+    *
+    * @param semesterNumber number of semester.
+    * @param subject name of the subject.
+    */
     public void addSubject(Integer semesterNumber, String subject) {
         this.subjects.get(semesterNumber - 1).put(subject, Mark.NOT_STATED);
     }
 
+    /**
+    * Adds mark for the subject (and adds subject if needed).
+    *
+    * @param semesterNumber number of semester.
+    * @param subject name of subject.
+    * @param mark mark for the subject.
+    */
     public void addTotalMark(Integer semesterNumber, String subject, Mark mark) {
         this.subjects.get(semesterNumber - 1).put(subject, mark);
     }
 
-    public void addQualificationMark(Mark mark) {
-        this.qualificationTask = mark;
-    }
-
-
+    /**
+    * Computes the average of all marks.
+    *
+    * @return average mark.
+    */
     public double averageMark() {
         return subjects.stream()
                 .flatMapToInt(subject -> subject.values().stream().mapToInt(Mark::getMark))
@@ -69,11 +120,15 @@ public class StudentsBook {
                 .getAverage();
     }
 
+    /**
+    * Checks if student can get red diploma.
+    *
+    * @return true if student still can get red diploma, otherwise false.
+    */
     public boolean redDiploma() {
         if (qualificationTask != Mark.EXCELLENT) {
             return false;
         }
-
         int cntOfExcellent = 0;
         int cntMarks = 0;
         HashSet<String> finalSubjects = new HashSet<>();
@@ -97,6 +152,13 @@ public class StudentsBook {
         return !((double) cntOfExcellent / cntMarks < 0.75);
     }
 
+    /**
+     * Checks if student receives scholarship in particular semester.
+     *
+     * @param semester the semester we need to check.
+     *
+     * @return false if student won't have scholarship.
+     */
     public boolean receiveScholarship(int semester) {
         if (semester == 1) {
             return true;
