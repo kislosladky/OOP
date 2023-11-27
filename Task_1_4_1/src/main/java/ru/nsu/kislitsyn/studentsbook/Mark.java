@@ -4,7 +4,8 @@ package ru.nsu.kislitsyn.studentsbook;
 * Enum for mark for subject.
 */
 public enum Mark {
-
+    PASS(-1),
+    FAIL(2),
     EXCELLENT(5),
     GOOD(4),
     ACCEPTABLE(3),

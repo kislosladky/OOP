@@ -3,17 +3,21 @@ package ru.nsu.kislitsyn.studentsbook;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.IntSummaryStatistics;
+
 
 /**
 * Class that solves the task.
 */
 public class StudentsBook {
+    private final int durationOfStudying;
     private final String firstname;
     private final String surname;
     private final int groupNumber;
-    private final ArrayList<HashMap<String, Mark>> subjects;
-    private Mark qualificationTask;
+    private final List<Map<String, Mark>> subjects;
+    private Mark diplomaWork;
 
     /**
     * Constructor of the class.
@@ -22,14 +26,17 @@ public class StudentsBook {
     * @param surname surname of the student.
     * @param groupNumber number of student's group.
     */
-    public StudentsBook(String firstname, String surname, int groupNumber) {
+    public StudentsBook(String firstname, String surname, int groupNumber, int durationOfStudying) {
         this.firstname = firstname;
         this.surname = surname;
         this.groupNumber = groupNumber;
         this.subjects = new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
+        this.durationOfStudying = durationOfStudying;
+        for (int i = 0; i < this.durationOfStudying; i++) {
             this.subjects.add(new HashMap<>());
         }
+        this.diplomaWork = Mark.NOT_STATED;
+
     }
 
     /**
@@ -46,7 +53,7 @@ public class StudentsBook {
     *
     * @return this.subjects.
     */
-    public ArrayList<HashMap<String, Mark>> getSubjects() {
+    public List<Map<String, Mark>> getSubjects() {
         return this.subjects;
     }
 
@@ -73,8 +80,8 @@ public class StudentsBook {
     *
     * @param mark mark of qualification task.
     */
-    public void setQualificationTask(Mark mark) {
-        this.qualificationTask = mark;
+    public void setDiplomaWork(Mark mark) {
+        this.diplomaWork = mark;
     }
 
     /**
@@ -82,18 +89,39 @@ public class StudentsBook {
     *
     * @return mark of qualification task.
     */
-    public Mark getQualificationTask() {
-        return this.qualificationTask;
+    public Mark getDiplomaWork() {
+        return this.diplomaWork;
     }
 
     /**
-    * Adds subject to the hashmap.
-    *
-    * @param semesterNumber number of semester.
-    * @param subject name of the subject.
-    */
-    public void addSubject(Integer semesterNumber, String subject) {
-        this.subjects.get(semesterNumber - 1).put(subject, Mark.NOT_STATED);
+     * Getter of the number of semesters.
+     *
+     * @return the duration of studying in semesters.
+     */
+    public int getDurationOfStudying() {
+        return durationOfStudying;
+    }
+
+    /**
+     * Getter for some particular mark.
+     *
+     * @param semesterNumber number of semester.
+     * @param subject name of the subject.
+     *
+     * @return a mark for the subject.
+     */
+    public Mark getMark(int semesterNumber, String subject) {
+        if (semesterNumber > durationOfStudying || semesterNumber < 1) {
+            System.out.println("Number of semester is out of bound");
+            return null;
+        }
+
+        if (!this.subjects.get(semesterNumber - 1).containsKey(subject)) {
+            System.out.println("There is no such subject");
+            return null;
+        }
+
+        return this.subjects.get(semesterNumber - 1).get(subject);
     }
 
     /**
@@ -104,6 +132,10 @@ public class StudentsBook {
     * @param mark mark for the subject.
     */
     public void addTotalMark(Integer semesterNumber, String subject, Mark mark) {
+        if (semesterNumber > durationOfStudying || semesterNumber < 1) {
+            System.out.println("Number of semester is out of bound");
+            return;
+        }
         this.subjects.get(semesterNumber - 1).put(subject, mark);
     }
 
@@ -114,7 +146,9 @@ public class StudentsBook {
     */
     public double averageMark() {
         return subjects.stream()
-                .flatMapToInt(subject -> subject.values().stream().mapToInt(Mark::getMark))
+                .flatMapToInt(subject -> subject.values().stream()
+                        .filter(mark -> mark != Mark.PASS && mark != Mark.NOT_STATED)
+                        .mapToInt(Mark::getMark))
                 .summaryStatistics()
                 .getAverage();
     }
@@ -125,43 +159,42 @@ public class StudentsBook {
     * @return true if student still can get red diploma, otherwise false.
     */
     public boolean redDiploma() {
-        if (qualificationTask != Mark.EXCELLENT) {
+        if (diplomaWork != Mark.EXCELLENT) {
             return false;
         }
-        int cntOfExcellent = 0;
-        int cntMarks = 0;
-        HashSet<String> finalSubjects = new HashSet<>();
-        int mark;
-        for (int i = subjects.size() - 1; i >= 0; i--) {
-            for (String subjectName : subjects.get(i).keySet()) {
-                if (!finalSubjects.contains(subjectName)) {
-                    finalSubjects.add(subjectName);
-                    cntMarks++;
-                    mark = subjects.get(i).get(subjectName).getMark();
-                    if (mark < 4) {
-                        return false;
-                    } else {
-                        if (mark == 5) {
-                            cntOfExcellent++;
-                        }
-                    }
-                }
-            }
-        }
-        return !((double) cntOfExcellent / cntMarks < 0.75);
+
+        Map<String, Mark> finalSubjects = new HashMap<>();
+
+        this.subjects.stream()
+                .flatMap(hashmap -> hashmap.entrySet().stream())
+                .filter(pair -> pair.getValue() != Mark.NOT_STATED && pair.getValue() != Mark.PASS)
+                .forEach(pair -> finalSubjects.put(pair.getKey(), pair.getValue()));
+
+        IntSummaryStatistics stats = finalSubjects.values().stream()
+                .mapToInt(Mark::getMark).summaryStatistics();
+
+        return stats.getMin() >= 4 && stats.getAverage() >= 4.75;
     }
 
     /**
      * Checks if student receives scholarship in particular semester.
+     * Here I suppose that every student studies for free, just like on out course.
      *
      * @param semester the semester we need to check.
      *
      * @return false if student won't have scholarship.
      */
     public boolean receiveScholarship(int semester) {
+        if (semester < 1 || semester > durationOfStudying) {
+            System.out.println("Number of semester is out of bound");
+            return false;
+        }
         if (semester == 1) {
             return true;
         }
+
+        // -1, because the indexation starts with 0 and -1,
+        // because we are checking for the previous semester.
         for (Mark mark : subjects.get(semester - 2).values()) {
             if (mark.getMark() < 4) {
                 return false;
@@ -169,6 +202,4 @@ public class StudentsBook {
         }
         return true;
     }
-
-
 }
