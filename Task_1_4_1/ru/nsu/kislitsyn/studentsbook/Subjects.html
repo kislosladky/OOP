@@ -132,6 +132,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Subjects</span>
 extends java.lang.Object</pre>
+<div class="block">Class to store marks.</div>
 </li>
 </ul>
 </div>
@@ -153,7 +154,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(int)">Subjects</a></span>&#8203;(int&nbsp;numberOfSemesters)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructor that makes the exact number of semesters.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -178,28 +181,38 @@ extends java.lang.Object</pre>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#add(int,java.lang.String,ru.nsu.kislitsyn.studentsbook.Mark)">add</a></span>&#8203;(int&nbsp;semester,
    java.lang.String&nbsp;subject,
    <a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsbook">Mark</a>&nbsp;mark)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Adds mark.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;java.util.Map&lt;java.lang.String,&#8203;<a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsbook">Mark</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getList()">getList</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Getter for the whole table.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsbook">Mark</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMark(int,java.lang.String)">getMark</a></span>&#8203;(int&nbsp;semester,
        java.lang.String&nbsp;subject)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Getter for particular mark.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRetake()">getRetake</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Getter for retake flag</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>java.util.Map&lt;java.lang.String,&#8203;<a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsbook">Mark</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSemester(int)">getSemester</a></span>&#8203;(int&nbsp;semester)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Getter for particular semester.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -232,6 +245,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>Subjects</h4>
 <pre>public&nbsp;Subjects&#8203;(int&nbsp;numberOfSemesters)</pre>
+<div class="block">Constructor that makes the exact number of semesters.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>numberOfSemesters</code> - number of semesters.</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -251,6 +269,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getRetake</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;getRetake()</pre>
+<div class="block">Getter for retake flag</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>retake flag</dd>
+</dl>
 </li>
 </ul>
 <a id="getList()">
@@ -260,6 +283,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getList</h4>
 <pre class="methodSignature">public&nbsp;java.util.List&lt;java.util.Map&lt;java.lang.String,&#8203;<a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsbook">Mark</a>&gt;&gt;&nbsp;getList()</pre>
+<div class="block">Getter for the whole table.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>subjects list.</dd>
+</dl>
 </li>
 </ul>
 <a id="add(int,java.lang.String,ru.nsu.kislitsyn.studentsbook.Mark)">
@@ -271,6 +299,13 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;void&nbsp;add&#8203;(int&nbsp;semester,
                 java.lang.String&nbsp;subject,
                 <a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsbook">Mark</a>&nbsp;mark)</pre>
+<div class="block">Adds mark.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>semester</code> - semester where we need to add mark.</dd>
+<dd><code>subject</code> - subject with mark we add.</dd>
+<dd><code>mark</code> - mark itself.</dd>
+</dl>
 </li>
 </ul>
 <a id="getSemester(int)">
@@ -280,6 +315,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getSemester</h4>
 <pre class="methodSignature">public&nbsp;java.util.Map&lt;java.lang.String,&#8203;<a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsbook">Mark</a>&gt;&nbsp;getSemester&#8203;(int&nbsp;semester)</pre>
+<div class="block">Getter for particular semester.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>semester</code> - number of semester.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>map of the semester.</dd>
+</dl>
 </li>
 </ul>
 <a id="getMark(int,java.lang.String)">
@@ -290,6 +332,14 @@ extends java.lang.Object</pre>
 <h4>getMark</h4>
 <pre class="methodSignature">public&nbsp;<a href="Mark.html" title="enum in ru.nsu.kislitsyn.studentsbook">Mark</a>&nbsp;getMark&#8203;(int&nbsp;semester,
                     java.lang.String&nbsp;subject)</pre>
+<div class="block">Getter for particular mark.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>semester</code> - number of semester.</dd>
+<dd><code>subject</code> - name of subject.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Mark.</dd>
+</dl>
 </li>
 </ul>
 </li>
