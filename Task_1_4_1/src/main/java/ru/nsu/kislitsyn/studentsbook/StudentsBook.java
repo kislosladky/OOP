@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -162,14 +163,13 @@ public class StudentsBook {
             return false;
         }
 
-        Map<String, Mark> finalSubjects = new HashMap<>();
-
-        this.subjects.stream()
+        IntSummaryStatistics stats = this.subjects.stream()
                 .flatMap(hashmap -> hashmap.entrySet().stream())
-                .filter(pair -> pair.getValue() != Mark.NOT_STATED && pair.getValue() != Mark.PASS)
-                .forEach(pair -> finalSubjects.put(pair.getKey(), pair.getValue()));
-
-        IntSummaryStatistics stats = finalSubjects.values().stream()
+                .filter(pair -> pair.getValue() != Mark.NOT_STATED
+                        && pair.getValue() != Mark.PASS)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (exist, replace) -> replace))
+                .values().stream()
                 .mapToInt(Mark::getMark).summaryStatistics();
 
         return stats.getMin() >= 4 && stats.getAverage() >= 4.75;
