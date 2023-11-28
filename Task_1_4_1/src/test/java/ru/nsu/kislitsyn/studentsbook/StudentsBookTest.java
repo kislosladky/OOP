@@ -39,7 +39,7 @@ class StudentsBookTest {
         assertEquals(22213, book.getGroupNumber());
         assertEquals(Mark.NOT_STATED, book.getDiplomaWork());
         assertEquals(8, book.getDurationOfStudying());
-        assertEquals(8, book.getSubjects().size());
+        assertEquals(8, book.getSubjects().getList().size());
     }
 
     @Test
@@ -58,7 +58,7 @@ class StudentsBookTest {
         book.addTotalMark(1, "Imperative programming", Mark.GOOD);
         book.addTotalMark(1, "Functional programming", Mark.EXCELLENT);
 
-        assertEquals(4, book.getSubjects().get(0).size());
+        assertEquals(4, book.getSubjects().getList().get(0).size());
     }
 
 

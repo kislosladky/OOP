@@ -1,9 +1,6 @@
 package ru.nsu.kislitsyn.studentsbook;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.IntSummaryStatistics;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -16,7 +13,7 @@ public class StudentsBook {
     private final String firstname;
     private final String surname;
     private final int groupNumber;
-    private final List<Map<String, Mark>> subjects;
+    private final Subjects subjects;
     private Mark diplomaWork;
 
     /**
@@ -26,17 +23,16 @@ public class StudentsBook {
     * @param surname surname of the student.
     * @param groupNumber number of student's group.
     */
-    public StudentsBook(String firstname, String surname, int groupNumber, int durationOfStudying) {
+    public StudentsBook(String firstname,
+                        String surname,
+                        int groupNumber,
+                        int durationOfStudying) {
         this.firstname = firstname;
         this.surname = surname;
         this.groupNumber = groupNumber;
-        this.subjects = new ArrayList<>();
+        this.subjects = new Subjects(durationOfStudying);
         this.durationOfStudying = durationOfStudying;
-        for (int i = 0; i < this.durationOfStudying; i++) {
-            this.subjects.add(new HashMap<>());
-        }
         this.diplomaWork = Mark.NOT_STATED;
-
     }
 
     /**
@@ -53,7 +49,7 @@ public class StudentsBook {
     *
     * @return this.subjects.
     */
-    public List<Map<String, Mark>> getSubjects() {
+    public Subjects getSubjects() {
         return this.subjects;
     }
 
@@ -116,12 +112,7 @@ public class StudentsBook {
             return null;
         }
 
-        if (!this.subjects.get(semesterNumber - 1).containsKey(subject)) {
-            System.out.println("There is no such subject");
-            return null;
-        }
-
-        return this.subjects.get(semesterNumber - 1).get(subject);
+        return this.subjects.getMark(semesterNumber, subject);
     }
 
     /**
@@ -136,7 +127,7 @@ public class StudentsBook {
             System.out.println("Number of semester is out of bound");
             return;
         }
-        this.subjects.get(semesterNumber - 1).put(subject, mark);
+        this.subjects.add(semesterNumber, subject, mark);
     }
 
     /**
@@ -145,7 +136,7 @@ public class StudentsBook {
     * @return average mark.
     */
     public double averageMark() {
-        return subjects.stream()
+        return subjects.getList().stream()
                 .flatMapToInt(subject -> subject.values().stream()
                         .filter(mark -> mark != Mark.PASS && mark != Mark.NOT_STATED)
                         .mapToInt(Mark::getMark))
@@ -163,7 +154,7 @@ public class StudentsBook {
             return false;
         }
 
-        IntSummaryStatistics stats = this.subjects.stream()
+        IntSummaryStatistics stats = this.subjects.getList().stream()
                 .flatMap(hashmap -> hashmap.entrySet().stream())
                 .filter(pair -> pair.getValue() != Mark.NOT_STATED
                         && pair.getValue() != Mark.PASS)
@@ -192,13 +183,8 @@ public class StudentsBook {
             return true;
         }
 
-        // -1, because the indexation starts with 0 and -1,
-        // because we are checking for the previous semester.
-        for (Mark mark : subjects.get(semester - 2).values()) {
-            if (mark.getMark() < 4) {
-                return false;
-            }
-        }
-        return true;
+        // -1, because we are checking for the previous semester
+        return subjects.getSemester(semester - 1).values().stream()
+                .mapToInt(Mark::getMark).summaryStatistics().getMin() >= 4 && !subjects.getRetake();
     }
 }
