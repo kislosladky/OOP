@@ -26,9 +26,9 @@ public class Subjects {
     }
 
     /**
-    * Getter for retake flag
+    * Getter for retake flag.
     *
-    * @return retake flag
+    * @return retake flag.
     */
     public boolean getRetake() {
         return this.retake;
