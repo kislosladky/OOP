@@ -96,6 +96,10 @@ public class Calculator {
             }
         }
 
+        if (numbers.size() != 1) {
+            throw new IOException();
+        }
+
         return numbers.pop();
     }
 

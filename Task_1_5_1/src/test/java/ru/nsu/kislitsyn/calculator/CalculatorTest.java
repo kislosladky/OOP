@@ -71,6 +71,56 @@ class CalculatorTest {
     }
 
     @Test
+    void powerTest() {
+        final ByteArrayInputStream bais =
+                new ByteArrayInputStream("pow 3 2\nmeow".getBytes());
+        System.setIn(bais);
+        String[] args = null;
+        Calculator.main(args);
+        assertEquals("9.0\nThe end", output.toString().trim());
+    }
+
+    @Test
+    void cosTest() {
+        final ByteArrayInputStream bais =
+                new ByteArrayInputStream("cos 0\nmeow".getBytes());
+        System.setIn(bais);
+        String[] args = null;
+        Calculator.main(args);
+        assertEquals("1.0\nThe end", output.toString().trim());
+    }
+
+    @Test
+    void sqrtTest() {
+        final ByteArrayInputStream bais =
+                new ByteArrayInputStream("sqrt 9\nmeow".getBytes());
+        System.setIn(bais);
+        String[] args = null;
+        Calculator.main(args);
+        assertEquals("3.0\nThe end", output.toString().trim());
+    }
+
+    @Test
+    void wrongFormatTest() {
+        final ByteArrayInputStream bais =
+                new ByteArrayInputStream("skgj\nmeow".getBytes());
+        System.setIn(bais);
+        String[] args = null;
+        Calculator.main(args);
+        assertEquals("The format is wrong\nThe end", output.toString().trim());
+    }
+
+    @Test
+    void wrongFormatComplicatedTest() {
+        final ByteArrayInputStream bais =
+                new ByteArrayInputStream("sin 2 1\nmeow".getBytes());
+        System.setIn(bais);
+        String[] args = null;
+        Calculator.main(args);
+        assertEquals("The format is wrong\nThe end", output.toString().trim());
+    }
+
+    @Test
     void wikiTest() {
         final ByteArrayInputStream bais =
                 new ByteArrayInputStream("- * / 15 - 7 + 1 1 3 + 2 + 1 1\nmeow".getBytes());
