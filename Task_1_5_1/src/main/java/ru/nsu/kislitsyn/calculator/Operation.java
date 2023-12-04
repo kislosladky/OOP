@@ -21,8 +21,4 @@ public enum Operation {
     Operation(int arity) {
         this.arity = arity;
     }
-
-    public int getArity() {
-        return arity;
-    }
 }
