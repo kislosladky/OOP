@@ -1,5 +1,8 @@
 package ru.nsu.kislitsyn.calculator;
 
+/**
+* Enum for all the operations of calculator.
+*/
 public enum Operation {
     ADD(2),
     SUBTRACT(2),

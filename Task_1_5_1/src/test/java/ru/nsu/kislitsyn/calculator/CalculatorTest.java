@@ -1,13 +1,15 @@
 package ru.nsu.kislitsyn.calculator;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
-import java.io.*;
-
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CalculatorTest {
     OutputStream output = new ByteArrayOutputStream();
@@ -16,6 +18,7 @@ class CalculatorTest {
     public void setUp() {
         System.setOut(new PrintStream(output));
     }
+
     @AfterAll
     public static void tearDown() {
         System.setOut(System.out);
@@ -23,7 +26,8 @@ class CalculatorTest {
 
     @Test
     void taskTest() {
-        final ByteArrayInputStream bais= new ByteArrayInputStream("sin + - 1 2 1\nmeow".getBytes());
+        final ByteArrayInputStream bais =
+                new ByteArrayInputStream("sin + - 1 2 1\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
         Calculator.main(args);
@@ -32,7 +36,7 @@ class CalculatorTest {
 
     @Test
     void simpleTest() {
-        final ByteArrayInputStream bais= new ByteArrayInputStream("+ 1 1\nmeow".getBytes());
+        final ByteArrayInputStream bais = new ByteArrayInputStream("+ 1 1\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
         Calculator.main(args);
@@ -41,7 +45,7 @@ class CalculatorTest {
 
     @Test
     void nanTest() {
-        final ByteArrayInputStream bais= new ByteArrayInputStream("log -1\nmeow".getBytes());
+        final ByteArrayInputStream bais = new ByteArrayInputStream("log -1\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
         Calculator.main(args);
@@ -50,7 +54,7 @@ class CalculatorTest {
 
     @Test
     void infinityTest() {
-        final ByteArrayInputStream bais= new ByteArrayInputStream("/ 12 0\nmeow".getBytes());
+        final ByteArrayInputStream bais = new ByteArrayInputStream("/ 12 0\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
         Calculator.main(args);
@@ -59,7 +63,7 @@ class CalculatorTest {
 
     @Test
     void negativeInfinityTest() {
-        final ByteArrayInputStream bais= new ByteArrayInputStream("/ -12 0\nmeow".getBytes());
+        final ByteArrayInputStream bais = new ByteArrayInputStream("/ -12 0\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
         Calculator.main(args);
@@ -68,7 +72,8 @@ class CalculatorTest {
 
     @Test
     void wikiTest() {
-        final ByteArrayInputStream bais= new ByteArrayInputStream("- * / 15 - 7 + 1 1 3 + 2 + 1 1\nmeow".getBytes());
+        final ByteArrayInputStream bais =
+                new ByteArrayInputStream("- * / 15 - 7 + 1 1 3 + 2 + 1 1\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
         Calculator.main(args);
