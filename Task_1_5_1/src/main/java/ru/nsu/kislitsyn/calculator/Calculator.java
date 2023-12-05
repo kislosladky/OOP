@@ -97,6 +97,7 @@ public class Calculator {
         }
 
         if (numbers.size() != 1) {
+            numbers.clear();
             throw new IOException();
         }
 
