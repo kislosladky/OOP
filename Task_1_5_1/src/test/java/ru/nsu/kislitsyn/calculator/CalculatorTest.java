@@ -49,7 +49,7 @@ class CalculatorTest {
         System.setIn(bais);
         String[] args = null;
         Calculator.main(args);
-        assertEquals("NaN\nThe end", output.toString().trim());
+        assertEquals("The format is wrong\nThe end", output.toString().trim());
     }
 
     @Test

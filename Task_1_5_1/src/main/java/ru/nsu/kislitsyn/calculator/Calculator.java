@@ -101,7 +101,12 @@ public class Calculator {
             throw new IOException();
         }
 
-        return numbers.pop();
+        Double answer = numbers.pop();
+        if (answer.isNaN()) {
+            throw new IOException();
+        } else {
+            return answer;
+        }
     }
 
     /**
