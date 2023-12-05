@@ -1,32 +1,24 @@
 package ru.nsu.kislitsyn.calculator;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Scanner;
-import java.util.Stack;
 
 /**
 * A class implementing a calculator with some basic functions.
 */
 public class Calculator {
-    private final Stack<StackCell> stack;
-    private final Stack<Double> numbers;
+    private final Deque<Expression> stack;
+    private final Deque<Double> numbers;
     private final Scanner inputScanner;
-
-    /**
-    * A record class to store either a number or an operation.
-    *
-    * @param number number to store.
-    * @param operation operation to store.
-    */
-    private record StackCell(Double number, Operation operation) {
-    }
 
     /**
     * Constructor of class.
     */
     public Calculator() {
-        this.stack = new Stack<>();
-        this.numbers = new Stack<>();
+        this.stack = new ArrayDeque<>();
+        this.numbers = new ArrayDeque<>();
         this.inputScanner = new Scanner(System.in);
     }
 
@@ -37,9 +29,9 @@ public class Calculator {
         String[] input = inputScanner.nextLine().split("\s", 0);
         for (String string : input) {
             try {
-                stack.push(new StackCell(Double.parseDouble(string), null));
+                stack.push(new Number(Double.parseDouble(string)));
             } catch (NumberFormatException e) {
-                stack.push(new StackCell(null, findOperation(string)));
+                stack.push(findOperation(string));
             }
         }
     }
@@ -76,11 +68,11 @@ public class Calculator {
     * @throws IOException is thrown if format of expression is wrong.
     */
     private double calculate() throws FinishException, IOException {
-        while (!stack.empty()) {
-            if (stack.peek().operation == null) { // contains number
-                numbers.push(stack.pop().number());
+        while (!stack.isEmpty()) {
+            if (stack.peek().getClass()== Number.class) { // contains number
+                numbers.push(((Number) stack.pop()).number());
             } else {
-                switch (stack.pop().operation()) {
+                switch ((Operation) stack.pop()) {
                     case ADD -> numbers.push(numbers.pop() + numbers.pop());
                     case SUBTRACT -> numbers.push(numbers.pop() - numbers.pop());
                     case MULTIPLY -> numbers.push(numbers.pop() * numbers.pop());

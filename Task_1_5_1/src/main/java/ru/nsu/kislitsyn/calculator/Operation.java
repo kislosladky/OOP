@@ -3,7 +3,7 @@ package ru.nsu.kislitsyn.calculator;
 /**
 * Enum for all the operations of calculator.
 */
-public enum Operation {
+public enum Operation implements Expression {
     ADD(2),
     SUBTRACT(2),
     DIVIDE(2),

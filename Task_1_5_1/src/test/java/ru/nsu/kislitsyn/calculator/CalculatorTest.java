@@ -83,11 +83,11 @@ class CalculatorTest {
     @Test
     void cosTest() {
         final ByteArrayInputStream bais =
-                new ByteArrayInputStream("cos 0\nmeow".getBytes());
+                new ByteArrayInputStream("cos 0.414\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
         Calculator.main(args);
-        assertEquals("1.0\nThe end", output.toString().trim());
+        assertEquals("0.9155190527996969\nThe end", output.toString().trim());
     }
 
     @Test
