@@ -81,6 +81,6 @@ public class Subjects {
             System.out.println("There is no such subject");
             return null;
         }
-        return this.getSemester(semester).get(subject);
+        return this.getSemester(semester).getOrDefault(subject, Mark.NOT_STATED);
     }
 }
