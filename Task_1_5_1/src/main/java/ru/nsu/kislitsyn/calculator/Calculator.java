@@ -69,7 +69,7 @@ public class Calculator {
     */
     private double calculate() throws FinishException, IOException {
         while (!stack.isEmpty()) {
-            if (stack.peek().getClass() == Number.class) { // contains number
+            if (stack.peek() instanceof Number) { // contains number
                 numbers.push(((Number) stack.pop()).number());
             } else {
                 switch ((Operation) stack.pop()) {
@@ -93,11 +93,10 @@ public class Calculator {
             throw new IOException();
         }
 
-        Double answer = numbers.pop();
-        if (answer.isNaN()) {
+        if (numbers.peek().isNaN()) {
             throw new IOException();
         } else {
-            return answer;
+            return numbers.pop();
         }
     }
 

@@ -44,6 +44,15 @@ class CalculatorTest {
     }
 
     @Test
+    void simpleDoubleTest() {
+        final ByteArrayInputStream bais = new ByteArrayInputStream("+ 1.002 0.998\nmeow".getBytes());
+        System.setIn(bais);
+        String[] args = null;
+        Calculator.main(args);
+        assertEquals("2.0\nThe end", output.toString().trim());
+    }
+
+    @Test
     void nanTest() {
         final ByteArrayInputStream bais = new ByteArrayInputStream("log -1\nmeow".getBytes());
         System.setIn(bais);
@@ -71,6 +80,15 @@ class CalculatorTest {
     }
 
     @Test
+    void divideTest() {
+        final ByteArrayInputStream bais = new ByteArrayInputStream("/ -12 0.5\nmeow".getBytes());
+        System.setIn(bais);
+        String[] args = null;
+        Calculator.main(args);
+        assertEquals("-24.0\nThe end", output.toString().trim());
+    }
+
+    @Test
     void powerTest() {
         final ByteArrayInputStream bais =
                 new ByteArrayInputStream("pow 3 2\nmeow".getBytes());
@@ -78,6 +96,16 @@ class CalculatorTest {
         String[] args = null;
         Calculator.main(args);
         assertEquals("9.0\nThe end", output.toString().trim());
+    }
+
+    @Test
+    void powerFloatTest() {
+        final ByteArrayInputStream bais =
+                new ByteArrayInputStream("pow 9 0.5\nmeow".getBytes());
+        System.setIn(bais);
+        String[] args = null;
+        Calculator.main(args);
+        assertEquals("3.0\nThe end", output.toString().trim());
     }
 
     @Test
