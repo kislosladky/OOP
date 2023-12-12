@@ -46,7 +46,7 @@ public class Calculator {
     *
     * @return enum of operation.
     */
-    private Operation findOperation(String operation) throws IOException{
+    private Operation findOperation(String operation) throws IOException {
         return switch (operation.toLowerCase()) {
             case "/" -> Operation.DIVIDE;
             case "*" -> Operation.MULTIPLY;
@@ -62,21 +62,6 @@ public class Calculator {
         };
     }
 
-//    private void switchOperation(Operation operation) throws IOException, FinishException {
-//        switch (operation) {
-//            case ADD -> numbers.push(numbers.pop() + numbers.pop());
-//            case SUBTRACT -> numbers.push(numbers.pop() - numbers.pop());
-//            case MULTIPLY -> numbers.push(numbers.pop() * numbers.pop());
-//            case DIVIDE -> numbers.push(numbers.pop() / numbers.pop());
-//            case POWER -> numbers.push(Math.pow(numbers.pop(), numbers.pop()));
-//            case SQRT -> numbers.push(Math.sqrt(numbers.pop()));
-//            case SIN -> numbers.push((Math.sin(numbers.pop())));
-//            case COS -> numbers.push((Math.cos(numbers.pop())));
-//            case LOG -> numbers.push((Math.log(numbers.pop())));
-//            case MEOW -> throw new FinishException("The end");
-//            default -> throw new IOException();
-//        }
-//    }
     /**
     * A function that calculates the input expression.
     *
@@ -87,12 +72,12 @@ public class Calculator {
     */
     private double calculate() throws FinishException, IOException {
         while (!stack.isEmpty()) {
-//            switch (stack.pop()) {
-//                case Number num          -> numbers.push(num.number());
-//                case Operation operation -> switchOperation(operation);
-//                default                  -> throw new IOException();
-//            }
-//        }
+        //    switch (stack.pop()) {
+        //        case Number num          -> numbers.push(num.number());
+        //        case Operation operation -> switchOperation(operation);
+        //        default                  -> throw new IOException();
+        //    }
+        //}
             if (stack.peek() instanceof Number) { // contains number
                 numbers.push(((Number) stack.pop()).number());
             } else {
