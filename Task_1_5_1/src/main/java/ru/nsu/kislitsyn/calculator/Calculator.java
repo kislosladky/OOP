@@ -62,21 +62,21 @@ public class Calculator {
         };
     }
 
-    private void switchOperation(Operation operation) throws IOException, FinishException {
-        switch (operation) {
-            case ADD -> numbers.push(numbers.pop() + numbers.pop());
-            case SUBTRACT -> numbers.push(numbers.pop() - numbers.pop());
-            case MULTIPLY -> numbers.push(numbers.pop() * numbers.pop());
-            case DIVIDE -> numbers.push(numbers.pop() / numbers.pop());
-            case POWER -> numbers.push(Math.pow(numbers.pop(), numbers.pop()));
-            case SQRT -> numbers.push(Math.sqrt(numbers.pop()));
-            case SIN -> numbers.push((Math.sin(numbers.pop())));
-            case COS -> numbers.push((Math.cos(numbers.pop())));
-            case LOG -> numbers.push((Math.log(numbers.pop())));
-            case MEOW -> throw new FinishException("The end");
-            default -> throw new IOException();
-        }
-    }
+//    private void switchOperation(Operation operation) throws IOException, FinishException {
+//        switch (operation) {
+//            case ADD -> numbers.push(numbers.pop() + numbers.pop());
+//            case SUBTRACT -> numbers.push(numbers.pop() - numbers.pop());
+//            case MULTIPLY -> numbers.push(numbers.pop() * numbers.pop());
+//            case DIVIDE -> numbers.push(numbers.pop() / numbers.pop());
+//            case POWER -> numbers.push(Math.pow(numbers.pop(), numbers.pop()));
+//            case SQRT -> numbers.push(Math.sqrt(numbers.pop()));
+//            case SIN -> numbers.push((Math.sin(numbers.pop())));
+//            case COS -> numbers.push((Math.cos(numbers.pop())));
+//            case LOG -> numbers.push((Math.log(numbers.pop())));
+//            case MEOW -> throw new FinishException("The end");
+//            default -> throw new IOException();
+//        }
+//    }
     /**
     * A function that calculates the input expression.
     *
