@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import org.junit.jupiter.api.AfterAll;
@@ -26,7 +27,7 @@ class CalculatorTest {
 
     @Test
     void taskTest() {
-        final ByteArrayInputStream bais =
+        final InputStream bais =
                 new ByteArrayInputStream("sin + - 1 2 1\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
@@ -36,7 +37,7 @@ class CalculatorTest {
 
     @Test
     void simpleTest() {
-        final ByteArrayInputStream bais = new ByteArrayInputStream("+ 1 1\nmeow".getBytes());
+        final InputStream bais = new ByteArrayInputStream("+ 1 1\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
         Calculator.main(args);
@@ -45,7 +46,7 @@ class CalculatorTest {
 
     @Test
     void simpleDoubleTest() {
-        final ByteArrayInputStream bais = new ByteArrayInputStream("+ 1.002 0.998\nmeow".getBytes());
+        final InputStream bais = new ByteArrayInputStream("+ 1.002 0.998\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
         Calculator.main(args);
@@ -54,7 +55,7 @@ class CalculatorTest {
 
     @Test
     void nanTest() {
-        final ByteArrayInputStream bais = new ByteArrayInputStream("log -1\nmeow".getBytes());
+        final InputStream bais = new ByteArrayInputStream("log -1\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
         Calculator.main(args);
@@ -63,7 +64,7 @@ class CalculatorTest {
 
     @Test
     void infinityTest() {
-        final ByteArrayInputStream bais = new ByteArrayInputStream("/ 12 0\nmeow".getBytes());
+        final InputStream bais = new ByteArrayInputStream("/ 12 0\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
         Calculator.main(args);
@@ -72,7 +73,7 @@ class CalculatorTest {
 
     @Test
     void negativeInfinityTest() {
-        final ByteArrayInputStream bais = new ByteArrayInputStream("/ -12 0\nmeow".getBytes());
+        final InputStream bais = new ByteArrayInputStream("/ -12 0\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
         Calculator.main(args);
@@ -81,7 +82,7 @@ class CalculatorTest {
 
     @Test
     void divideTest() {
-        final ByteArrayInputStream bais = new ByteArrayInputStream("/ -12 0.5\nmeow".getBytes());
+        final InputStream bais = new ByteArrayInputStream("/ -12 0.5\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
         Calculator.main(args);
@@ -90,7 +91,7 @@ class CalculatorTest {
 
     @Test
     void powerTest() {
-        final ByteArrayInputStream bais =
+        final InputStream bais =
                 new ByteArrayInputStream("pow 3 2\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
@@ -100,7 +101,7 @@ class CalculatorTest {
 
     @Test
     void powerFloatTest() {
-        final ByteArrayInputStream bais =
+        final InputStream bais =
                 new ByteArrayInputStream("pow 9 0.5\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
@@ -110,7 +111,7 @@ class CalculatorTest {
 
     @Test
     void cosTest() {
-        final ByteArrayInputStream bais =
+        final InputStream bais =
                 new ByteArrayInputStream("cos 0.414\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
@@ -120,7 +121,7 @@ class CalculatorTest {
 
     @Test
     void sqrtTest() {
-        final ByteArrayInputStream bais =
+        final InputStream bais =
                 new ByteArrayInputStream("sqrt 9\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
@@ -130,7 +131,7 @@ class CalculatorTest {
 
     @Test
     void wrongFormatTest() {
-        final ByteArrayInputStream bais =
+        final InputStream bais =
                 new ByteArrayInputStream("skgj\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
@@ -140,7 +141,7 @@ class CalculatorTest {
 
     @Test
     void wrongFormatComplicatedTest() {
-        final ByteArrayInputStream bais =
+        final InputStream bais =
                 new ByteArrayInputStream("sin 2 1\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;
@@ -150,7 +151,7 @@ class CalculatorTest {
 
     @Test
     void wikiTest() {
-        final ByteArrayInputStream bais =
+        final InputStream bais =
                 new ByteArrayInputStream("- * / 15 - 7 + 1 1 3 + 2 + 1 1\nmeow".getBytes());
         System.setIn(bais);
         String[] args = null;

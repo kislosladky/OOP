@@ -22,10 +22,13 @@ public class Calculator {
         this.inputScanner = new Scanner(System.in);
     }
 
+
     /**
-    * A function that parses the input string into tokens.
+    * Turns string into deque of tokens.
+    *
+    * @throws IOException if the input string has wrong format.
     */
-    private void inputScan() {
+    private void inputScan() throws IOException {
         String[] input = inputScanner.nextLine().split("\s", 0);
         for (String string : input) {
             try {
@@ -43,7 +46,7 @@ public class Calculator {
     *
     * @return enum of operation.
     */
-    private Operation findOperation(String operation) {
+    private Operation findOperation(String operation) throws IOException{
         return switch (operation.toLowerCase()) {
             case "/" -> Operation.DIVIDE;
             case "*" -> Operation.MULTIPLY;
@@ -55,10 +58,25 @@ public class Calculator {
             case "log" -> Operation.LOG;
             case "sqrt" -> Operation.SQRT;
             case "meow" -> Operation.MEOW;
-            default -> Operation.NONFORMAT;
+            default -> throw new IOException();
         };
     }
 
+    private void switchOperation(Operation operation) throws IOException, FinishException {
+        switch (operation) {
+            case ADD -> numbers.push(numbers.pop() + numbers.pop());
+            case SUBTRACT -> numbers.push(numbers.pop() - numbers.pop());
+            case MULTIPLY -> numbers.push(numbers.pop() * numbers.pop());
+            case DIVIDE -> numbers.push(numbers.pop() / numbers.pop());
+            case POWER -> numbers.push(Math.pow(numbers.pop(), numbers.pop()));
+            case SQRT -> numbers.push(Math.sqrt(numbers.pop()));
+            case SIN -> numbers.push((Math.sin(numbers.pop())));
+            case COS -> numbers.push((Math.cos(numbers.pop())));
+            case LOG -> numbers.push((Math.log(numbers.pop())));
+            case MEOW -> throw new FinishException("The end");
+            default -> throw new IOException();
+        }
+    }
     /**
     * A function that calculates the input expression.
     *
@@ -69,6 +87,12 @@ public class Calculator {
     */
     private double calculate() throws FinishException, IOException {
         while (!stack.isEmpty()) {
+//            switch (stack.pop()) {
+//                case Number num          -> numbers.push(num.number());
+//                case Operation operation -> switchOperation(operation);
+//                default                  -> throw new IOException();
+//            }
+//        }
             if (stack.peek() instanceof Number) { // contains number
                 numbers.push(((Number) stack.pop()).number());
             } else {
@@ -88,12 +112,8 @@ public class Calculator {
             }
         }
 
-        if (numbers.size() != 1) {
+        if (numbers.size() != 1 || numbers.peek().isNaN()) {
             numbers.clear();
-            throw new IOException();
-        }
-
-        if (numbers.peek().isNaN()) {
             throw new IOException();
         } else {
             return numbers.pop();

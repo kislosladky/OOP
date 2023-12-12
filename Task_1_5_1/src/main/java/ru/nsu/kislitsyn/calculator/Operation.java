@@ -13,6 +13,5 @@ public enum Operation implements Expression {
     SQRT,
     SIN,
     COS,
-    MEOW,
-    NONFORMAT
+    MEOW
 }
