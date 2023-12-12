@@ -72,12 +72,12 @@ public class Calculator {
     */
     private double calculate() throws FinishException, IOException {
         while (!stack.isEmpty()) {
-        //    switch (stack.pop()) {
-        //        case Number num          -> numbers.push(num.number());
-        //        case Operation operation -> switchOperation(operation);
-        //        default                  -> throw new IOException();
-        //    }
-        //}
+            //    switch (stack.pop()) {
+            //        case Number num          -> numbers.push(num.number());
+            //        case Operation operation -> switchOperation(operation);
+            //        default                  -> throw new IOException();
+            //    }
+            //}
             if (stack.peek() instanceof Number) { // contains number
                 numbers.push(((Number) stack.pop()).number());
             } else {
