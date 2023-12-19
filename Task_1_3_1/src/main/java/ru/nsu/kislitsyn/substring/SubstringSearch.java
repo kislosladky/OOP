@@ -10,7 +10,7 @@ import java.util.List;
 public class SubstringSearch {
     private final String substring;
     private final List<Long> answer;
-    private final long PRIME_NUMBER = 17;
+    private static final long PRIME_NUMBER = 17;
     private final FileToString fileToString;
 
     /**
