@@ -1,13 +1,16 @@
 package ru.nsu.kislitsyn.substring;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class SubstringSearchTest {
@@ -15,17 +18,21 @@ class SubstringSearchTest {
     void tzTest() {
         SubstringSearch search = new SubstringSearch("bra", "input.txt");
         search.rabinKarp();
-        assertEquals(1, search.getAnswer().get(0));
-        assertEquals(8, search.getAnswer().get(1));
+        List<Long> expected = new ArrayList<>();
+        expected.add(1L);
+        expected.add(8L);
+        assertEquals(expected, search.getAnswer());
     }
 
     @Test
     void hebrewTextTest() {
         SubstringSearch search = new SubstringSearch("ש", "hebrew.txt");
         search.rabinKarp();
-        assertEquals(22, search.getAnswer().get(0));
-        assertEquals(26, search.getAnswer().get(1));
-        assertEquals(329, search.getAnswer().get(16));
+        List<Long> expected = new ArrayList<>();
+        expected.add(22L);
+        expected.add(26L);
+        expected.add(54L);
+        assertEquals(expected, search.getAnswer().subList(0,3));
     }
 
     @Test
