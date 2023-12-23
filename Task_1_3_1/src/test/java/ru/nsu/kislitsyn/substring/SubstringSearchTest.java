@@ -1,5 +1,7 @@
 package ru.nsu.kislitsyn.substring;
 
+import org.junit.jupiter.api.Test;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -8,9 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class SubstringSearchTest {
@@ -32,7 +32,7 @@ class SubstringSearchTest {
         expected.add(22L);
         expected.add(26L);
         expected.add(54L);
-        assertEquals(expected, search.getAnswer().subList(0,3));
+        assertEquals(expected, search.getAnswer().subList(0, 3));
     }
 
     @Test
@@ -43,7 +43,7 @@ class SubstringSearchTest {
         expected.add(6L);
         expected.add(12L);
         expected.add(18L);
-        assertEquals(expected, search.getAnswer().subList(0,3));
+        assertEquals(expected, search.getAnswer().subList(0, 3));
     }
 
     @Test
@@ -68,7 +68,7 @@ class SubstringSearchTest {
         List<Long> expected = new ArrayList<>();
         expected.add(1_000_000_000L);
         expected.add(2_000_000_004L);
-        assertEquals(expected, search.getAnswer().subList(0,3));
+        assertEquals(expected, search.getAnswer().subList(0, 2));
     }
 
     @Test
