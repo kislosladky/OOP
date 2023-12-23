@@ -18,7 +18,6 @@ public class FileToString {
     private final char[] buffer;
     private int readFromBuffer;
     private final String filename;
-    private boolean inited;
     private final int lengthOfSubstring;
 
     /**
@@ -31,7 +30,6 @@ public class FileToString {
         this.filename = filename;
         this.readFromBuffer = 0;
         this.readFromFile = 0;
-        this.inited = false;
         this.buffer = new char[BUFFER_SIZE];
         this.lengthOfSubstring = lengthOfSubstring;
     }
@@ -46,6 +44,7 @@ public class FileToString {
     *
     * @throws IOException if file was not opened.
     */
+
     public boolean initializeString(StringBuilder string) throws IOException {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filename);
         if (inputStream == null) {

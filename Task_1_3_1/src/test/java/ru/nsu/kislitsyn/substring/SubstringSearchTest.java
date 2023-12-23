@@ -39,9 +39,11 @@ class SubstringSearchTest {
     void arabicTextTest() {
         SubstringSearch search = new SubstringSearch("ق", "arabic.txt");
         search.rabinKarp();
-        assertEquals(6, search.getAnswer().get(0));
-        assertEquals(12, search.getAnswer().get(1));
-        assertEquals(122, search.getAnswer().get(16));
+        List<Long> expected = new ArrayList<>();
+        expected.add(6L);
+        expected.add(12L);
+        expected.add(18L);
+        assertEquals(expected, search.getAnswer().subList(0,3));
     }
 
     @Test
@@ -63,10 +65,10 @@ class SubstringSearchTest {
         search.rabinKarp();
         File file = new File("large.txt");
         file.delete();
-        assertEquals(1_000_000_000, search.getAnswer().get(0));
-        assertEquals(2_000_000_004, search.getAnswer().get(1));
-
-
+        List<Long> expected = new ArrayList<>();
+        expected.add(1_000_000_000L);
+        expected.add(2_000_000_004L);
+        assertEquals(expected, search.getAnswer().subList(0,3));
     }
 
     @Test
