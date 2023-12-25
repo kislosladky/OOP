@@ -27,6 +27,11 @@ public abstract class Graph<T> {
 
     public abstract Edge<T> getEdge(Vertex<T> from, Vertex<T> to);
 
+    abstract void sort();
+
+    abstract void dijkstra(T fromValue);
+
+    abstract void show();
     /**
      * Builds graph out of file data.
      *
@@ -34,7 +39,7 @@ public abstract class Graph<T> {
      */
     @SuppressWarnings("unchecked")
     public void readFile(String fileName) {
-        try (InputStream inpstr = new FileInputStream(fileName)){
+        try (InputStream inpstr = new FileInputStream(fileName)) {
             Scanner scanner = new Scanner(inpstr);
 
             int vertexCount = 0;
@@ -63,4 +68,19 @@ public abstract class Graph<T> {
             System.out.println("Problems with file");
         }
     }
+
+    /**
+    * Sorts and prints vertices in order length of path from source.
+    *
+    * @param fromValue source of the path.
+    */
+    public void sortWithPathLengthAndPrint(T fromValue) {
+        this.dijkstra(fromValue);
+
+        this.sort();
+
+        this.show();
+    }
+
+
 }

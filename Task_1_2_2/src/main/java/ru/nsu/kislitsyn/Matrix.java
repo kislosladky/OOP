@@ -1,19 +1,23 @@
 package ru.nsu.kislitsyn;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Matrix<LineT, ColumnT> {
-    private final ArrayList<Line<LineT, ColumnT>> matrix;
+    private List<Line<LineT, ColumnT>> matrix;
 
     public Matrix() {
         this.matrix = new ArrayList<>();
     }
 
-    public ArrayList<Line<LineT, ColumnT>> getMatrix() {
+    public List<Line<LineT, ColumnT>> getMatrix() {
         return this.matrix;
     }
 
+    public void setMatrix(List<Line<LineT, ColumnT>> matrix) {
+        this.matrix = matrix;
+    }
     public ArrayList<ColumnT> getLine(int index) {
         if (this.matrix.isEmpty()) {
             return null;

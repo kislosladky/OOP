@@ -186,6 +186,7 @@ public class GraphAdjMatrix<T> extends Graph<T> {
     }
 
     public Edge<T> getEdge(Vertex<T> from, Vertex<T> to) {
-        int weight = matrix.getColumnByIndex(matrix.indexOfLine(from), matrix.indexOfLine(to));
+        int weight = matrix.getColumnByIndex(matrix.indexOfLine(from), matrix.indexOfLine(to)).getWeight();
+        return new Edge<>(from, to, weight);
     }
 }

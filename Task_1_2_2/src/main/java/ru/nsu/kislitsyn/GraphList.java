@@ -173,6 +173,20 @@ public class GraphList<T> extends Graph<T> {
         }
     }
 
+    public Edge<T> getEdge(Vertex<T> from, Vertex<T> to) {
+        for (VertexList vertexFrom : this.vertices) {
+            if (vertexFrom.value.equals(from)) {
+                for (Edge<T> edge : vertexFrom.incidentVertices) {
+                    if (edge.to().equals(to)) {
+                        return edge;
+                    }
+                }
+                break;
+            }
+        }
+        return null;
+    }
+
 
     /**
      * Deletes edge.
@@ -253,9 +267,18 @@ public class GraphList<T> extends Graph<T> {
     /**
      * Implementation of dijkstra's algorithm.
      *
-     * @param from the source of the path.
+     * @param fromValue the source of the path.
      */
-    private void dijkstra(VertexList from) {
+    void dijkstra(T fromValue) {
+        VertexList from = null;
+        for (VertexList vertex : this.vertices) {
+            if (vertex.getValue().value().equals(fromValue)) {
+                from = vertex;
+                break;
+            }
+
+        }
+
         this.dijkstraInit(from);
         ArrayDeque<VertexList> deque = new ArrayDeque<>();
         HashSet<VertexList> set = new HashSet<>();
@@ -276,24 +299,11 @@ public class GraphList<T> extends Graph<T> {
         }
     }
 
-    /**
-     * Sorts and prints vertices in order length of path from source.
-     *
-     * @param fromValue source of the path.
-     */
-    public void sortWithPathLengthAndPrint(T fromValue) {
-        VertexList from = null;
-        for (VertexList vertex : this.vertices) {
-            if (vertex.getValue().value().equals(fromValue)) {
-                from = vertex;
-                break;
-            }
-
-        }
-
-        this.dijkstra(from);
+    void sort() {
         this.vertices.sort(Comparator.comparingInt(vertice -> vertice.distance));
+    }
 
+    void show() {
         System.out.print("[");
         for (VertexList vertex : this.vertices) {
             System.out.print(vertex.getValue().value() + "(" + vertex.getDistance() + "), ");
