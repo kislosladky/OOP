@@ -3,8 +3,6 @@ package ru.nsu.kislitsyn;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.ArrayDeque;
-import java.util.HashSet;
 import java.util.Comparator;
 
 /**
@@ -13,7 +11,7 @@ import java.util.Comparator;
  * @param <T> parameter of type.
  */
 public class GraphList<T> extends Graph<T> {
-    private final int MAX_DISTANCE = Integer.MAX_VALUE / 2;
+    private static final int MAX_DISTANCE = Integer.MAX_VALUE / 2;
     private final List<VertexList> vertices;
 
     /**
@@ -65,6 +63,19 @@ public class GraphList<T> extends Graph<T> {
 
         public void setDistance(int distance) {
             this.distance = distance;
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return false;
+            }
+            if (obj.getClass() != VertexList.class) {
+                System.out.println("wrong class");
+                return false;
+            }
+            return ((VertexList) obj).getValue().equals(this.getValue());
         }
     }
 
@@ -119,9 +130,20 @@ public class GraphList<T> extends Graph<T> {
      * @param value new value for vertice.
      */
     public void setVertex(Vertex<T> vertexToChange, T value) {
-        for (VertexList vert : this.vertices) {
-            if (vert.getValue().equals(vertexToChange)) {
-                this.vertices.get(this.vertices.indexOf(vert)).setValue(new Vertex<>(value));
+//        for (VertexList vert : this.vertices) {
+//            if (vert.getValue().equals(vertexToChange)) {
+//                try {
+//                    this.vertices.get(this.vertices.indexOf(vert)).setValue(new Vertex<>(value));
+//                } catch (IndexOutOfBoundsException e) {
+//
+//                }
+//                break;
+//            }
+//        }
+
+        for (int i = 0; i < this.vertices.size(); i++) {
+            if (this.vertices.get(i).getValue().equals(vertexToChange)) {
+                this.vertices.get(i).setValue(new Vertex<>(value));
                 break;
             }
         }
@@ -207,103 +229,129 @@ public class GraphList<T> extends Graph<T> {
     }
 
     /**
-     * Sets vertice's distance to MAX_VALUE and predecessor to null.
+     * Sets vertex's distance to
      *
-     * @param vertex vertice to reset.
+     * @param vertex vertex to set.
+     * @param distance distance to set for the vertex.
      */
-    private void resetVertice(VertexList vertex) {
-        this.vertices.get(this.vertices.indexOf(vertex)).setDistance(MAX_DISTANCE);
+    void setDistance(Vertex<T> vertex, int distance) {
+//        for (VertexList vertexList : this.getVertices()) {
+//            if (vertexList.getValue().equals(vertex)) {
+//                vertexList.setDistance(distance);
+//                break;
+//            }
+//        }
+        this.vertices.get(this.vertices.indexOf(new VertexList(vertex))).setDistance(distance);
     }
 
-    /**
-     * This function prepares graph to start dijkstra algorithm.
-     *
-     * @param from the source of the pathes.
-     */
-    private void dijkstraInit(VertexList from) {
-        for (VertexList vertex : this.vertices) {
-            this.resetVertice(vertex);
-        }
-
-        this.vertices.get(this.vertices.indexOf(from)).setDistance(0);
+    int getDistance(Vertex<T> vertex) {
+        return this.vertices.get(this.vertices.indexOf(new VertexList(vertex))).getDistance();
     }
 
-    /**
-     * Implementation of relaxation for dijkstra's algorithm.
-     *
-     * @param from vertex.
-     * @param to vertex.
-     */
-    private void relax(VertexList from, VertexList to) {
-        for (Edge<T> edge : from.getIncidentVertices()) {
-            if (edge.to().equals(to.value)) {
-                if (to.distance > from.distance + edge.weight()) {
-                    this.vertices.get(this.vertices.indexOf(to))
-                            .setDistance(from.distance + edge.weight());
-                }
-            }
-        }
+//    /**
+//     * This function prepares graph to start dijkstra algorithm.
+//     *
+//     * @param from the source of the pathes.
+//     */
+//    private void dijkstraInit(VertexList from) {
+//        for (VertexList vertex : this.vertices) {
+//            this.resetVertice(vertex);
+//        }
+//
+//        this.vertices.get(this.vertices.indexOf(from)).setDistance(0);
+//    }
+
+//    /**
+//     * Implementation of relaxation for dijkstra's algorithm.
+//     *
+//     * @param from vertex.
+//     * @param to vertex.
+//     */
+//    private void relax(VertexList from, VertexList to) {
+//        for (Edge<T> edge : from.getIncidentVertices()) {
+//            if (edge.to().equals(to.value)) {
+//                if (to.distance > from.distance + edge.weight()) {
+//                    this.vertices.get(this.vertices.indexOf(to))
+//                            .setDistance(from.distance + edge.weight());
+//                }
+//            }
+//        }
+//    }
+
+//    /**
+//     * Function for dijkstra's algorithm, that finds the vertice
+//     * from queue with the least distance from the source.
+//     *
+//     * @param deque queue of vertices.
+//     *
+//     * @return vertice with the lowest distance.
+//     */
+//    private VertexList extractMin(ArrayDeque<VertexList> deque) {
+//        VertexList answ = deque.peek();
+//        for (VertexList i : deque) {
+//            if (i.getDistance() < answ.getDistance()) {
+//                answ = i;
+//            }
+//        }
+//        deque.remove(answ);
+//        return answ;
+//    }
+
+//    /**
+//     * Implementation of dijkstra's algorithm.
+//     *
+//     * @param fromValue the source of the path.
+//     */
+//    void dijkstra(T fromValue) {
+//        VertexList from = null;
+//        for (VertexList vertex : this.vertices) {
+//            if (vertex.getValue().value().equals(fromValue)) {
+//                from = vertex;
+//                break;
+//            }
+//        }
+//
+//        this.dijkstraInit(from);
+//        ArrayDeque<VertexList> deque = new ArrayDeque<>();
+//        HashSet<VertexList> set = new HashSet<>();
+//        deque.add(from);
+//        while (!deque.isEmpty()) {
+//            VertexList u = this.extractMin(deque);
+//            set.add(u);
+//            for (Edge<T> edge : u.getIncidentVertices()) {
+//                for (VertexList vertex : this.vertices) {
+//                    if (!set.contains(vertex)) {
+//                        deque.add(vertex);
+//                    }
+//                    if (edge.to().equals(vertex.getValue())) {
+//                        this.relax(u, vertex);
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+
+    List<Vertex<T>> sort() {
+        this.vertices.sort(Comparator.comparingInt(vertice -> vertice.distance));
+        return null;
     }
 
-    /**
-     * Function for dijkstra's algorithm, that finds the vertice
-     * from queue with the least distance from the source.
-     *
-     * @param deque queue of vertices.
-     *
-     * @return vertice with the lowest distance.
-     */
-    private VertexList extractMin(ArrayDeque<VertexList> deque) {
-        VertexList answ = deque.peek();
-        for (VertexList i : deque) {
-            if (i.getDistance() < answ.getDistance()) {
-                answ = i;
-            }
+    List<Edge<T>> getIncidentEdges(Vertex<T> vertex) {
+        VertexList toSearch = new VertexList(vertex);
+        return this.getVertices().get(this.getVertices().indexOf(toSearch)).incidentVertices;
+    }
+
+    @Override
+    List<Vertex<T>> getAllVertices() {
+        List<Vertex<T>> answ = new ArrayList<>();
+        for (VertexList vertexList : this.vertices) {
+            answ.add(vertexList.getValue());
         }
-        deque.remove(answ);
         return answ;
     }
 
-    /**
-     * Implementation of dijkstra's algorithm.
-     *
-     * @param fromValue the source of the path.
-     */
-    void dijkstra(T fromValue) {
-        VertexList from = null;
-        for (VertexList vertex : this.vertices) {
-            if (vertex.getValue().value().equals(fromValue)) {
-                from = vertex;
-                break;
-            }
-
-        }
-
-        this.dijkstraInit(from);
-        ArrayDeque<VertexList> deque = new ArrayDeque<>();
-        HashSet<VertexList> set = new HashSet<>();
-        deque.add(from);
-        while (!deque.isEmpty()) {
-            VertexList u = this.extractMin(deque);
-            set.add(u);
-            for (Edge<T> edge : u.getIncidentVertices()) {
-                for (VertexList vertex : this.vertices) {
-                    if (!set.contains(vertex)) {
-                        deque.add(vertex);
-                    }
-                    if (edge.to().equals(vertex.getValue())) {
-                        this.relax(u, vertex);
-                    }
-                }
-            }
-        }
-    }
-
-    void sort() {
-        this.vertices.sort(Comparator.comparingInt(vertice -> vertice.distance));
-    }
-
-    void show() {
+    void show(List<Vertex<T>> sorted) {
         System.out.print("[");
         for (VertexList vertex : this.vertices) {
             System.out.print(vertex.getValue().value() + "(" + vertex.getDistance() + "), ");

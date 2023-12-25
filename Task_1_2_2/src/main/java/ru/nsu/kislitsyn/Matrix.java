@@ -41,7 +41,13 @@ public class Matrix<LineT, ColumnT> {
     }
 
     public void addLine(LineT lineValue) {
-        this.matrix.add(new Line<>(lineValue));
+        if (this.getLine(0) != null) {
+            this.matrix.add(new Line<>(lineValue, this.getLine(0)));
+        } else {
+            this.matrix.add(new Line<>(lineValue));
+        }
+
+
     }
 
     public void removeColumnByIndex(int index) {

@@ -10,9 +10,9 @@ import java.util.*;
  */
 public class GraphIncMatrix<T> extends Graph<T> {
 
-    private Matrix<Edge<T>, IncMatrixVertex> matrix;
+    private final Matrix<Edge<T>, IncMatrixVertex> matrix;
 
-    private Map<Vertex<T>, Integer> distances;
+    private final Map<Vertex<T>, Integer> distances;
 
     /**
      * Constructor.
@@ -91,7 +91,7 @@ public class GraphIncMatrix<T> extends Graph<T> {
     public Vertex<T> addVertex(T value) {
         Vertex<T> newVertex = new Vertex<>(value);
         this.matrix.addColumn(new IncMatrixVertex(newVertex));
-        this.distances.put(newVertex, Integer.MAX_VALUE);
+        this.distances.put(newVertex, Integer.MAX_VALUE / 2);
         return newVertex;
     }
 
@@ -143,7 +143,6 @@ public class GraphIncMatrix<T> extends Graph<T> {
      *
      * @return the edge we added.
      */
-    @SuppressWarnings("unchecked")
     public Edge<T> addEdge(Edge<T> edgeToAdd) {
         this.matrix.addLine(edgeToAdd);
         int index = this.matrix.getMatrix().size() - 1;
@@ -180,43 +179,51 @@ public class GraphIncMatrix<T> extends Graph<T> {
 
     public  Edge<T> getEdge(Vertex<T> from, Vertex<T> to) {
         for (Line<Edge<T>, IncMatrixVertex> line : this.matrix.getMatrix()) {
-            if (line.getValue().from().equals(from) && line.getValue().to().equals(to)) {
-                return line.getValue();
+            try {
+                if (line.getValue().from().equals(from) && line.getValue().to().equals(to)) {
+                    return line.getValue();
+                }
+            } catch (NullPointerException e) {
+                continue;
             }
         }
         return null;
     }
 
-    void sort() {
-        List<Line<Edge<T>, IncMatrixVertex>> toSort = this.getMatrix().getMatrix();
+    List<Vertex<T>> sort() {
+        List<Vertex<T>> toSort = new ArrayList<>(this.getMatrix().getLine(0).stream().map(IncMatrixVertex::getVertex).toList());
 
-        toSort.sort(Comparator.comparingInt(vertexLine
-                -> distances.getOrDefault(vertexLine.getValue().from(), Integer.MAX_VALUE)));
-        this.setMatrix(toSort);
+        toSort.sort(Comparator.comparingInt(vertex
+                -> distances.getOrDefault(vertex, Integer.MAX_VALUE / 2)));
+        return toSort;
     }
 
-    void show() {
-        System.out.println("[");
-        for (var edge : this.matrix.getMatrix()) {
-            System.out.println(edge.getValue().from()
-                    + "(" + distances.get(edge.getValue().from()) + "), ");
-        }
-        System.out.println("]");
-    }
-
-    private List<Vertex<T>> getIncidentVertices(Vertex<T> from) {
-        List<Vertex<T>> incident = new ArrayList<>();
+    List<Edge<T>> getIncidentEdges(Vertex<T> from) {
+        List<Edge<T>> incident = new ArrayList<>();
 
         for (Line<Edge<T>, IncMatrixVertex> line : this.getMatrix().getMatrix()) {
-            if (line.getValue().from().equals(from)) {
-                incident.add(line.getValue().to());
+            if (line.getValue().from() != null && line.getValue().from().equals(from)) {
+                incident.add(line.getValue());
             }
         }
 
         return incident;
     }
-    void dijkstra(T fromValue) {
 
+    List<Vertex<T>> getAllVertices() {
+        List<Vertex<T>> answ = new ArrayList<>();
+        for (IncMatrixVertex incMatrixVertex : this.matrix.getLine(0)) {
+            answ.add(incMatrixVertex.getVertex());
+        }
+        return answ;
+    }
+
+    int getDistance(Vertex<T> vertex) {
+        return this.distances.get(vertex);
+    }
+
+    void setDistance(Vertex<T> from, int distance) {
+        this.distances.put(from, distance);
     }
 
     public enum Incidence {

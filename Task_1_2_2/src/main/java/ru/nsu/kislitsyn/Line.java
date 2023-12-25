@@ -22,7 +22,12 @@ public class Line<LineT, ColumnT> {
 
     Line(LineT value, ArrayList<ColumnT> columns) {
         this.value = value;
-        this.columns = columns;
+//        this.columns = (ArrayList<ColumnT>) columns.clone();
+        this.columns = new ArrayList<>();
+        for (ColumnT columnT : columns) {
+            this.columns.add();
+        }
+
     }
 
     void add(ColumnT column) {

@@ -1,7 +1,10 @@
 package ru.nsu.kislitsyn;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of graph in matrix of adjacency.
@@ -10,7 +13,7 @@ import java.util.Objects;
  */
 public class GraphAdjMatrix<T> extends Graph<T> {
 
-    private Matrix<Vertex<T>, AdjMatrixVertex> matrix;
+    private final Matrix<Vertex<T>, AdjMatrixVertex> matrix;
 
     /**
      * Getter of vertices.
@@ -20,8 +23,6 @@ public class GraphAdjMatrix<T> extends Graph<T> {
     public ArrayList<AdjMatrixVertex> getVertices() {
         return matrix.getLine(0);
     }
-
-
 
     public Matrix<Vertex<T>, AdjMatrixVertex> getMatrix() {
         return this.matrix;
@@ -76,7 +77,7 @@ public class GraphAdjMatrix<T> extends Graph<T> {
                 return false;
             }
             AdjMatrixVertex that = (AdjMatrixVertex) o;
-            return Objects.equals(this.getValue(), that.getValue());
+            return this.getValue().equals(that.getValue());
         }
 
         @Override
@@ -100,9 +101,10 @@ public class GraphAdjMatrix<T> extends Graph<T> {
      * @return the vertice with new value.
      */
     public Vertex<T> addVertex(T value) {
-        this.matrix.addLine(new Vertex<>(value));
-        this.matrix.addColumn(new AdjMatrixVertex(value));
-
+        if (this.getMatrix().getMatrix().isEmpty() || !this.getAllVertices().contains(new Vertex<T>(value))) {
+            this.matrix.addLine(new Vertex<>(value));
+            this.matrix.addColumn(new AdjMatrixVertex(value));
+        }
         return null;
     }
 
@@ -188,5 +190,52 @@ public class GraphAdjMatrix<T> extends Graph<T> {
     public Edge<T> getEdge(Vertex<T> from, Vertex<T> to) {
         int weight = matrix.getColumnByIndex(matrix.indexOfLine(from), matrix.indexOfLine(to)).getWeight();
         return new Edge<>(from, to, weight);
+    }
+
+    List<Vertex<T>> sort() {
+        List<AdjMatrixVertex> adjMatrixVertices = this.getVertices();
+        adjMatrixVertices.sort(Comparator.comparingInt(vertex -> vertex.distance));
+        List<Vertex<T>> sortedVertices = adjMatrixVertices.stream()
+                .map(adjMatrixVertex -> adjMatrixVertex.value)
+                .toList();
+        return sortedVertices;
+    }
+
+    List<Edge<T>> getIncidentEdges(Vertex<T> vertex) {
+        List<Edge<T>> answ = new ArrayList<>();
+        int index = -1;
+        for (int i = 0; i < this.getMatrix().getMatrix().size(); i++) {
+            if (this.getMatrix().getLineValue(i).getValue().equals(vertex)) {
+                index = i;
+                break;
+            }
+        }
+        for (AdjMatrixVertex adjMatrixVertex : this.getMatrix().getLine(index)) {
+            if (adjMatrixVertex.distance >= 0) {
+                answ.add(new Edge<>(vertex, adjMatrixVertex.getValue(), adjMatrixVertex.getDistance()));
+            }
+        }
+        return answ;
+    }
+
+    @SuppressWarnings("all")
+    List<Vertex<T>> getAllVertices() {
+        if (matrix.getLine(0) != null) {
+            return new ArrayList<>(matrix.getLine(0).stream().map(AdjMatrixVertex::getValue).collect(Collectors.toList()));
+        } else {
+            return null;
+        }
+    }
+
+    void setDistance(Vertex<T> from, int distance) {
+        int index = this.getAllVertices().indexOf(from);
+        for (var line : this.matrix.getMatrix()) {
+            line.getColumnByIndex(index).setDistance(distance);
+        }
+    }
+
+    int getDistance(Vertex<T> vertex) {
+        return this.getVertices().get(this.getVertices()
+                .indexOf(new AdjMatrixVertex(vertex.value()))).getDistance();
     }
 }
