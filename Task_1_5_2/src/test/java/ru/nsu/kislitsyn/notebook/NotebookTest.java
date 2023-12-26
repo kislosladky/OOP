@@ -3,7 +3,11 @@ package ru.nsu.kislitsyn.notebook;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
+import java.io.File;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,7 +16,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class NotebookTest {
     @Test
@@ -83,7 +88,7 @@ class NotebookTest {
 
         String expected = "test note created in Tue Dec 26 03:24:23 NOVT 2023\n" +
                 "test body";
-        assertEquals(expected.substring(0,17), output.toString().trim().substring(0, 17));
+        assertEquals(expected.substring(0, 17), output.toString().trim().substring(0, 17));
 
         Notebook deleter = new Notebook();
         deleter.setDelete(true);

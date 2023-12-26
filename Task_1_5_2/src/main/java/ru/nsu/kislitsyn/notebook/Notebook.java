@@ -1,6 +1,11 @@
 package ru.nsu.kislitsyn.notebook;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
+import org.kohsuke.args4j.Option;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -12,11 +17,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.CmdLineException;
-import org.kohsuke.args4j.CmdLineParser;
-import org.kohsuke.args4j.Option;
 
+/**
+ * www.
+ */
 public class Notebook {
     @Option(name = "-add", usage = "adding new note to notebook")
     private boolean add = false;
@@ -28,38 +32,47 @@ public class Notebook {
     @Argument
     private List<String> argument = new ArrayList<>();
 
-    public boolean isAdd() {
-        return add;
-    }
-
+    /**
+     * haha.
+     *
+     * @param add .
+     */
     public void setAdd(boolean add) {
         this.add = add;
     }
 
-    public boolean isDelete() {
-        return delete;
-    }
-
+    /**
+     * sbb.
+     *
+     * @param delete .
+     */
     public void setDelete(boolean delete) {
         this.delete = delete;
     }
 
-    public boolean isShow() {
-        return show;
-    }
-
+    /**
+     * wwbw.
+     *
+     * @param show .
+     */
     public void setShow(boolean show) {
         this.show = show;
     }
 
-    public List<String> getArgument() {
-        return argument;
-    }
-
+    /**
+     * beweh.
+     *
+     * @param argument .
+     */
     public void setArgument(List<String> argument) {
         this.argument = argument;
     }
 
+    /**
+     * ddndh.
+     *
+     * @param args .
+     */
     void doMain(String[] args) {
         File notebookJson = Paths.get("notebook.json").toFile();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -112,6 +125,11 @@ public class Notebook {
 
     }
 
+    /**
+     * enee.
+     *
+     * @param args .
+     */
     public static void main(String[] args) {
         Notebook notebook = new Notebook();
         try {
@@ -123,47 +141,102 @@ public class Notebook {
         notebook.doMain(args);
     }
 
+    /**
+     * ddndh.
+     */
     static class Note implements Comparable<Note> {
         private String header;
         private String body;
         private Date date;
 
+        /**
+         * heheh.
+         *
+         * @return .
+         */
         public String getHeader() {
             return this.header;
         }
 
+        /**
+         * wheheheh.
+         *
+         * @param header .
+         */
         public void setHeader(String header) {
             this.header = header;
         }
 
+        /**
+         * eheheh.
+         *
+         * @return .
+         */
         public String getBody() {
             return this.body;
         }
 
+        /**
+         * eheheheh.
+         *
+         * @param body .
+         */
         public void setBody(String body) {
             this.body = body;
         }
 
+        /**
+         * eehehh.
+         *
+         * @return .
+         */
         public Date getDate() {
             return this.date;
         }
 
+        /**
+         * eheheheh.
+         *
+         * @param date .
+         */
         public void setDate(Date date) {
             this.date = date;
         }
 
-        public Note() {}
+        /**
+         * default constructor.
+         */
+        public Note() {
+        }
 
+        /**
+         * eehheh.
+         *
+         * @param header g.
+         * @param body   wg.
+         */
         public Note(String header, String body) {
             this.header = header;
             this.body = body;
             this.date = new Date();
         }
 
+        /**
+         * eehehe.
+         *
+         * @param note the object to be compared.
+         *
+         * @return eh.
+         */
         public int compareTo(Note note) {
             return this.date.compareTo(note.getDate());
         }
 
+        /**
+         * ehehehe.
+         *
+         * @return .
+         */
         public String toString() {
             return this.header + " created in " + this.date.toString() + "\n" + this.body;
         }
