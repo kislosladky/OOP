@@ -29,6 +29,11 @@ public abstract class Graph<T> {
 
     abstract List<Vertex<T>> sort();
 
+    /**
+     * Dijkstra algorithm.
+     *
+     * @param fromValue vertex to search from.
+     */
     private void dijkstra(T fromValue) {
         Vertex<T> vertexFrom = new Vertex<>(fromValue);
         this.initDistance(vertexFrom);
@@ -53,6 +58,13 @@ public abstract class Graph<T> {
         }
     }
 
+    /**
+     * For dijkstra.
+     *
+     * @param deque deque.
+     *
+     * @return nearest vertex.
+     */
     private Vertex<T> extractMin(Deque<Vertex<T>> deque) {
         Vertex<T> answ = null;
         int distanceAnsw = Integer.MAX_VALUE / 2 + 1;
@@ -67,6 +79,13 @@ public abstract class Graph<T> {
         }
         return answ;
     }
+
+    /**
+     * Relaxation for dijkstra.
+     *
+     * @param from vertex.
+     * @param to vertex.
+     */
     private void relax(Vertex<T> from, Vertex<T> to) {
         for (Edge<T> edge : this.getIncidentEdges(from)) {
             if (edge.to().equals(to)
@@ -84,6 +103,11 @@ public abstract class Graph<T> {
 
     abstract int getDistance(Vertex<T> vertex);
 
+    /**
+     * Initiates distance.
+     *
+     * @param from vertex.
+     */
     private void initDistance(Vertex<T> from) {
         for (Vertex<T> vertex : this.getAllVertices()) {
             this.setDistance(vertex, Integer.MAX_VALUE / 2);
@@ -91,6 +115,11 @@ public abstract class Graph<T> {
         this.setDistance(from, 0);
     }
 
+    /**
+     * Show function.
+     *
+     * @param sorted show.
+     */
     void show(List<Vertex<T>> sorted) {
         System.out.print("[");
         for (Vertex<T> vertex : sorted) {

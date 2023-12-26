@@ -56,13 +56,13 @@ class GraphTest {
 
     @Test
     void fileInput() throws IOException {
-        Graph<String> graph = new GraphAdjMatrix<>();
+        Graph<String> graph = new GraphList<>();
 
-        graph.readFile("src/test/resources/easy.txt");
+        graph.readFile("src/test/resources/graph.txt");
 
         graph.sortWithPathLengthAndPrint("C");
-//        assertEquals(2, graph.getFullVertex(1).getDistance());
-//        assertEquals(10, graph.getFullVertex(5).getDistance());
+        assertEquals(0, graph.getDistance(new Vertex<>("C")));
+        assertEquals(14, graph.getDistance(new Vertex<>("A")));
 
     }
 
