@@ -109,8 +109,8 @@ class NotebookTest {
         notebook.setArgument(args);
         notebook.doMain(null);
 
-        String expected = "Never delete this created in Tue Dec 26 11:02:25 NOVT 2023\n" +
-                "Never never never";
+        String expected = "Never delete this created in Tue Dec 26 11:02:25 NOVT 2023\n"
+                + "Never never never";
         assertEquals(expected.substring(0, 17), output.toString().trim().substring(0, 17));
     }
 }
