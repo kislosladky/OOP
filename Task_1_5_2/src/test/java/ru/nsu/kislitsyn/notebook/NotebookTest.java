@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.File;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -37,7 +37,8 @@ class NotebookTest {
         List<Notebook.Note> parsedJson =
                 new ArrayList<>(Arrays.asList(mapper
                         .readValue(notebookJson, Notebook.Note[].class)));
-        parsedJson = parsedJson.stream().filter(note -> note.getHeader().equals("test note")).toList();
+        parsedJson = parsedJson.stream()
+                .filter(note -> note.getHeader().equals("test note")).toList();
         assertEquals("test body", parsedJson.get(0).getBody());
     }
 
@@ -56,7 +57,8 @@ class NotebookTest {
         List<Notebook.Note> parsedJson =
                 new ArrayList<>(Arrays.asList(mapper
                         .readValue(notebookJson, Notebook.Note[].class)));
-        parsedJson = parsedJson.stream().filter(note -> note.getHeader().equals("test note")).toList();
+        parsedJson = parsedJson.stream()
+                .filter(note -> note.getHeader().equals("test note")).toList();
         parsedJson.forEach(System.out::println);
         assertTrue(parsedJson.isEmpty());
     }
@@ -64,7 +66,6 @@ class NotebookTest {
     @Test
     void showWithBordersTest() throws InterruptedException, ParseException {
         Date from = new Date();
-//        Thread.sleep(2000);
         Notebook notebook = new Notebook();
         notebook.setAdd(true);
         List<String> args = new ArrayList<>();
@@ -87,8 +88,7 @@ class NotebookTest {
         notebook1.doMain(null);
 
 
-        String expected = "test note created in Tue Dec 26 03:24:23 NOVT 2023\n" +
-                "test body";
+        String expected = "test note created in Tue Dec 26 03:24:23 NOVT 2023\ntest body";
         assertEquals(expected.substring(0, 17), output.toString().trim().substring(0, 17));
 
         Notebook deleter = new Notebook();

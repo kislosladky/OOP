@@ -1,5 +1,6 @@
 package ru.nsu.kislitsyn.notebook;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -11,7 +12,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
@@ -97,8 +97,8 @@ public class Notebook {
                 if (!this.argument.isEmpty()) {
                     SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm");
                     Date from = format.parse(this.argument.get(0));
-                    Date till = format.parse(this.argument.get(1));
                     this.argument.remove(0);
+                    Date till = format.parse(this.argument.get(0));
                     this.argument.remove(0);
                     this.argument = this.argument.stream().map(String::toLowerCase).toList();
                     parsedJson = new ArrayList<>(parsedJson.stream()
