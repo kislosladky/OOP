@@ -1,0 +1,362 @@
+package ru.nsu.kislitsyn;
+
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Comparator;
+
+/**
+ * Implementation of graph in list of incidence.
+ *
+ * @param <T> parameter of type.
+ */
+public class GraphList<T> extends Graph<T> {
+    private static final int MAX_DISTANCE = Integer.MAX_VALUE / 2;
+    private final List<VertexList> vertices;
+
+    /**
+     * Constructor.
+     */
+    public GraphList() {
+        this.vertices = new ArrayList<>();
+    }
+
+    /**
+     * Getter of vertices.
+     *
+     * @return this.vertices.
+     */
+    public List<VertexList> getVertices() {
+        return this.vertices;
+    }
+
+    /**
+     * Class to store vertice and it's incident vertices.
+     */
+
+    public class VertexList {
+        private Vertex<T> value;
+        private final ArrayList<Edge<T>> incidentVertices;
+        private int distance;
+
+        public VertexList(Vertex<T> value) {
+            this.value = value;
+            this.incidentVertices = new ArrayList<>();
+            this.distance = MAX_DISTANCE;
+        }
+
+        public Vertex<T> getValue() {
+            return value;
+        }
+
+        public void setValue(Vertex<T> value) {
+            this.value = value;
+        }
+
+        public ArrayList<Edge<T>> getIncidentVertices() {
+            return incidentVertices;
+        }
+
+        public int getDistance() {
+            return distance;
+        }
+
+        public void setDistance(int distance) {
+            this.distance = distance;
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return false;
+            }
+            if (obj.getClass() != VertexList.class) {
+                System.out.println("wrong class");
+                return false;
+            }
+            return ((VertexList) obj).getValue().equals(this.getValue());
+        }
+    }
+
+    /**
+     * Adds vertice to the graph.
+     *
+     * @param value the value to add.
+     *
+     * @return the vertice with new value.
+     */
+    public Vertex<T> addVertex(T value) {
+        Vertex<T> newValue = new Vertex<>(value);
+        VertexList newVertex = new VertexList(new Vertex<>(value));
+        this.vertices.add(newVertex);
+        return newValue;
+    }
+
+    /**
+     * Deletes vertice from graph.
+     *
+     * @param vertexToDelete vertice we want tot delete.
+     */
+    public void deleteVertex(Vertex<T> vertexToDelete) {
+        vertices.removeIf((VertexList vertex) -> vertex.value.equals(vertexToDelete));
+        for (VertexList vertex : this.vertices) {
+            vertex.incidentVertices.removeIf((Edge<T> edge) ->
+                    edge.to().equals(vertexToDelete) || edge.from().equals(vertexToDelete));
+        }
+    }
+
+    /**
+     * Adds edge to the graph.
+     *
+     * @param edgeToAdd edge we need to add.
+     *
+     * @return the edge we added.
+     */
+    public Edge<T> addEdge(Edge<T> edgeToAdd) {
+
+        for (VertexList vertex : this.vertices) {
+            if (vertex.value.equals(edgeToAdd.from())) {
+                vertex.incidentVertices.add(edgeToAdd);
+            }
+        }
+        return edgeToAdd;
+    }
+
+    /**
+     * Sets the value of vertice.
+     *
+     * @param vertexToChange the vertice we want to update.
+     * @param value new value for vertice.
+     */
+    public void setVertex(Vertex<T> vertexToChange, T value) {
+//        for (VertexList vert : this.vertices) {
+//            if (vert.getValue().equals(vertexToChange)) {
+//                try {
+//                    this.vertices.get(this.vertices.indexOf(vert)).setValue(new Vertex<>(value));
+//                } catch (IndexOutOfBoundsException e) {
+//
+//                }
+//                break;
+//            }
+//        }
+
+        for (int i = 0; i < this.vertices.size(); i++) {
+            if (this.vertices.get(i).getValue().equals(vertexToChange)) {
+                this.vertices.get(i).setValue(new Vertex<>(value));
+                break;
+            }
+        }
+    }
+
+    /**
+     * Getter for vertice.
+     *
+     * @param index the index of vertex we need.
+     *
+     * @return the vertice with this value.
+     */
+    public Vertex<T> getVertex(int index) {
+        if (index < this.vertices.size()) {
+            return this.vertices.get(index).getValue();
+        } else {
+            return null;
+        }
+    }
+
+
+    public VertexList getFullVertex(int index) {
+        if (index < this.vertices.size()) {
+            return this.vertices.get(index);
+        } else {
+            return null;
+        }
+    }
+
+
+    /**
+     * Setter for edge weight.
+     *
+     * @param edgeToChange the edge to change.
+     * @param weight new weight of edge.
+     */
+    public void setEdge(Edge<T> edgeToChange, int weight) {
+
+        for (VertexList vertex : this.vertices) {
+            if (vertex.value.equals(edgeToChange.from())) {
+                for (Edge<T> edge : vertex.incidentVertices) {
+                    if (edge.equals(edgeToChange)) {
+                        vertex.incidentVertices.set(vertex.incidentVertices.indexOf(edge),
+                                new Edge<>(edge.from(), edge.to(), weight));
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public Edge<T> getEdge(Vertex<T> from, Vertex<T> to) {
+        for (VertexList vertexFrom : this.vertices) {
+            if (vertexFrom.value.equals(from)) {
+                for (Edge<T> edge : vertexFrom.incidentVertices) {
+                    if (edge.to().equals(to)) {
+                        return edge;
+                    }
+                }
+                break;
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * Deletes edge.
+     *
+     * @param edgeToDelete edge to delete.
+     */
+    public void deleteEdge(Edge<T> edgeToDelete) {
+        for (VertexList vertex : this.vertices) {
+            if (edgeToDelete.from().equals(vertex.getValue())) {
+                for (Edge<T> edge : vertex.getIncidentVertices()) {
+                    if (edgeToDelete.equals(edge)) {
+                        vertex.getIncidentVertices().remove(edge);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Sets vertex's distance to
+     *
+     * @param vertex vertex to set.
+     * @param distance distance to set for the vertex.
+     */
+    void setDistance(Vertex<T> vertex, int distance) {
+//        for (VertexList vertexList : this.getVertices()) {
+//            if (vertexList.getValue().equals(vertex)) {
+//                vertexList.setDistance(distance);
+//                break;
+//            }
+//        }
+        this.vertices.get(this.vertices.indexOf(new VertexList(vertex))).setDistance(distance);
+    }
+
+    int getDistance(Vertex<T> vertex) {
+        return this.vertices.get(this.vertices.indexOf(new VertexList(vertex))).getDistance();
+    }
+
+//    /**
+//     * This function prepares graph to start dijkstra algorithm.
+//     *
+//     * @param from the source of the pathes.
+//     */
+//    private void dijkstraInit(VertexList from) {
+//        for (VertexList vertex : this.vertices) {
+//            this.resetVertice(vertex);
+//        }
+//
+//        this.vertices.get(this.vertices.indexOf(from)).setDistance(0);
+//    }
+
+//    /**
+//     * Implementation of relaxation for dijkstra's algorithm.
+//     *
+//     * @param from vertex.
+//     * @param to vertex.
+//     */
+//    private void relax(VertexList from, VertexList to) {
+//        for (Edge<T> edge : from.getIncidentVertices()) {
+//            if (edge.to().equals(to.value)) {
+//                if (to.distance > from.distance + edge.weight()) {
+//                    this.vertices.get(this.vertices.indexOf(to))
+//                            .setDistance(from.distance + edge.weight());
+//                }
+//            }
+//        }
+//    }
+
+//    /**
+//     * Function for dijkstra's algorithm, that finds the vertice
+//     * from queue with the least distance from the source.
+//     *
+//     * @param deque queue of vertices.
+//     *
+//     * @return vertice with the lowest distance.
+//     */
+//    private VertexList extractMin(ArrayDeque<VertexList> deque) {
+//        VertexList answ = deque.peek();
+//        for (VertexList i : deque) {
+//            if (i.getDistance() < answ.getDistance()) {
+//                answ = i;
+//            }
+//        }
+//        deque.remove(answ);
+//        return answ;
+//    }
+
+//    /**
+//     * Implementation of dijkstra's algorithm.
+//     *
+//     * @param fromValue the source of the path.
+//     */
+//    void dijkstra(T fromValue) {
+//        VertexList from = null;
+//        for (VertexList vertex : this.vertices) {
+//            if (vertex.getValue().value().equals(fromValue)) {
+//                from = vertex;
+//                break;
+//            }
+//        }
+//
+//        this.dijkstraInit(from);
+//        ArrayDeque<VertexList> deque = new ArrayDeque<>();
+//        HashSet<VertexList> set = new HashSet<>();
+//        deque.add(from);
+//        while (!deque.isEmpty()) {
+//            VertexList u = this.extractMin(deque);
+//            set.add(u);
+//            for (Edge<T> edge : u.getIncidentVertices()) {
+//                for (VertexList vertex : this.vertices) {
+//                    if (!set.contains(vertex)) {
+//                        deque.add(vertex);
+//                    }
+//                    if (edge.to().equals(vertex.getValue())) {
+//                        this.relax(u, vertex);
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+
+    List<Vertex<T>> sort() {
+        this.vertices.sort(Comparator.comparingInt(vertice -> vertice.distance));
+        return null;
+    }
+
+    List<Edge<T>> getIncidentEdges(Vertex<T> vertex) {
+        VertexList toSearch = new VertexList(vertex);
+        return this.getVertices().get(this.getVertices().indexOf(toSearch)).incidentVertices;
+    }
+
+    @Override
+    List<Vertex<T>> getAllVertices() {
+        List<Vertex<T>> answ = new ArrayList<>();
+        for (VertexList vertexList : this.vertices) {
+            answ.add(vertexList.getValue());
+        }
+        return answ;
+    }
+
+    void show(List<Vertex<T>> sorted) {
+        System.out.print("[");
+        for (VertexList vertex : this.vertices) {
+            System.out.print(vertex.getValue().value() + "(" + vertex.getDistance() + "), ");
+        }
+        System.out.print("]");
+    }
+
+}
