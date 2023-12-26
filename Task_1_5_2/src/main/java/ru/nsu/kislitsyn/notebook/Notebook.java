@@ -19,28 +19,55 @@ import org.kohsuke.args4j.Option;
 
 public class Notebook {
     @Option(name = "-add", usage = "adding new note to notebook")
-    private boolean add;
+    private boolean add = false;
 
     @Option(name = "-rm", usage = "deleting note from notebook")
-    private boolean delete;
+    private boolean delete = false;
     @Option(name = "-show", usage = "showing not from notebook")
-    private boolean show;
+    private boolean show = false;
     @Argument
     private List<String> argument = new ArrayList<>();
 
-    private void doMain(String[] args) {
-        try {
-            CmdLineParser parser = new CmdLineParser(this);
-            parser.parseArgument(args);
-        } catch (CmdLineException var10) {
-            System.out.println(var10.getMessage());
-        }
+    public boolean isAdd() {
+        return add;
+    }
 
+    public void setAdd(boolean add) {
+        this.add = add;
+    }
+
+    public boolean isDelete() {
+        return delete;
+    }
+
+    public void setDelete(boolean delete) {
+        this.delete = delete;
+    }
+
+    public boolean isShow() {
+        return show;
+    }
+
+    public void setShow(boolean show) {
+        this.show = show;
+    }
+
+    public List<String> getArgument() {
+        return argument;
+    }
+
+    public void setArgument(List<String> argument) {
+        this.argument = argument;
+    }
+
+    void doMain(String[] args) {
         File notebookJson = Paths.get("notebook.json").toFile();
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
-            List<Note> parsedJson = new ArrayList<>(Arrays.asList(objectMapper.readValue(notebookJson, Note[].class)));
+            List<Note> parsedJson =
+                    new ArrayList<>(Arrays.asList(objectMapper
+                            .readValue(notebookJson, Note[].class)));
             if (this.add) {
                 Note newNote = new Note(this.argument.get(0), this.argument.get(1));
                 parsedJson.add(newNote);
@@ -49,14 +76,13 @@ public class Notebook {
 
             if (this.delete) {
                 String headerToDelete = this.argument.get(0);
-                parsedJson = parsedJson.stream().filter(x -> x.getHeader().equals(headerToDelete)
-                ).collect(Collectors.toList());
+                parsedJson = parsedJson.stream().filter(x -> !x.getHeader().equals(headerToDelete))
+                        .collect(Collectors.toList());
                 objectMapper.writeValue(notebookJson, parsedJson);
             }
 
             if (this.show) {
                 if (!this.argument.isEmpty()) {
-                    System.out.println("Filtering");
                     SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm");
                     Date from = format.parse(this.argument.get(0));
                     Date till = format.parse(this.argument.get(1));
@@ -74,7 +100,6 @@ public class Notebook {
                 }
 
                 Collections.sort(parsedJson);
-                System.out.println("answer");
                 parsedJson.forEach(System.out::println);
             }
         } catch (IOException e) {
@@ -88,7 +113,14 @@ public class Notebook {
     }
 
     public static void main(String[] args) {
-        new Notebook().doMain(args);
+        Notebook notebook = new Notebook();
+        try {
+            CmdLineParser parser = new CmdLineParser(notebook);
+            parser.parseArgument(args);
+        } catch (CmdLineException e) {
+            System.out.println(e.getMessage());
+        }
+        notebook.doMain(args);
     }
 
     static class Note implements Comparable<Note> {
