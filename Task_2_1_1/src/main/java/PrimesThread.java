@@ -18,7 +18,6 @@ public class PrimesThread implements Prime{
             this.toCheck = toCheck;
         }
 
-
         @Override
         public void run() {
             for (Integer numberToCheck : toCheck) {
@@ -32,7 +31,7 @@ public class PrimesThread implements Prime{
 
     public boolean compute() {
         int lengthOfSubarray = numbers.size() / this.numberOfThreads;
-        int rest = numbers.size() - lengthOfSubarray * this.numberOfThreads;
+        int rest = numbers.size() % this.numberOfThreads;
         List<Thread> threads = new ArrayList<>();
         for (int i = 0; i < this.numberOfThreads; i++) {
             List<Integer> toCheck =
@@ -55,21 +54,4 @@ public class PrimesThread implements Prime{
 
         return anyNonPrime;
     }
-
-
-    public static void main(String[] args) {
-//        Integer[] numbers = new Integer[] {6, 8, 7, 13, 5, 9, 4};
-//        Integer[] numbers = new Integer[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967,
-//                6998009, 6998029, 6998039, 20165149, 6998051, 6998053};
-        Integer[] numbers = new Integer[100000];
-        Arrays.fill(numbers, 20165149);
-        int numberOfThreads = 8;
-        List<Integer> toCheck = new ArrayList<>(Arrays.asList(numbers));
-        PrimesThread primesThread = new PrimesThread(numberOfThreads, toCheck);
-        boolean answ = primesThread.compute();
-
-        System.out.println(answ);
-    }
-
-
 }
