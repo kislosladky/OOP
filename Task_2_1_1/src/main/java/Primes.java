@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-public class Primes {
-
-    private boolean compute(List<Integer> numbers) {
-        for (Integer num : numbers) {
+public class Primes implements Prime{
+    private List<Integer> numbers;
+    public Primes(List<Integer> numbers) {
+        this.numbers = numbers;
+    }
+    public boolean compute() {
+        for (Integer num : this.numbers) {
             if (!PrimeCheck.isPrime(num)) {
                 return true;
             }
@@ -37,8 +39,8 @@ public class Primes {
 //        for (int i = 0; i < length; i++) {
 //            ints.add(scanner.nextInt());
 //        }
-        Primes primes = new Primes();
-        System.out.println(primes.compute(ints));
+        Primes primes = new Primes(ints);
+        System.out.println(primes.compute());
     }
 
 }

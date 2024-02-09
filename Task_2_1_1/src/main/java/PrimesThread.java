@@ -2,10 +2,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PrimesThread {
+public class PrimesThread implements Prime{
     private volatile Boolean anyNonPrime = false;
     private final List<Integer> numbers;
-    public PrimesThread(List<Integer> numbers) {
+    private final int numberOfThreads;
+    public PrimesThread(int numberOfThreads, List<Integer> numbers) {
+        this.numberOfThreads = numberOfThreads;
         this.numbers = numbers;
     }
 
@@ -28,16 +30,16 @@ public class PrimesThread {
         }
     }
 
-    private boolean compute(int numberOfThreads) {
-        int lengthOfSubarray = numbers.size() / numberOfThreads;
-        int rest = numbers.size() - lengthOfSubarray * numberOfThreads;
+    public boolean compute() {
+        int lengthOfSubarray = numbers.size() / this.numberOfThreads;
+        int rest = numbers.size() - lengthOfSubarray * this.numberOfThreads;
         List<Thread> threads = new ArrayList<>();
-        for (int i = 0; i < numberOfThreads; i++) {
+        for (int i = 0; i < this.numberOfThreads; i++) {
             List<Integer> toCheck =
                     new ArrayList<>(numbers.subList(lengthOfSubarray * i,
                             lengthOfSubarray * (i + 1)));
             if (rest > i)
-                toCheck.add(numbers.get(lengthOfSubarray * numberOfThreads + i));
+                toCheck.add(numbers.get(lengthOfSubarray * this.numberOfThreads + i));
 
             Thread thread = new Thread(new PrimeThread(toCheck));
             thread.start();
@@ -63,9 +65,8 @@ public class PrimesThread {
         Arrays.fill(numbers, 20165149);
         int numberOfThreads = 8;
         List<Integer> toCheck = new ArrayList<>(Arrays.asList(numbers));
-        PrimesThread primesThread = new PrimesThread(toCheck);
-
-        boolean answ = primesThread.compute(numberOfThreads);
+        PrimesThread primesThread = new PrimesThread(numberOfThreads, toCheck);
+        boolean answ = primesThread.compute();
 
         System.out.println(answ);
     }

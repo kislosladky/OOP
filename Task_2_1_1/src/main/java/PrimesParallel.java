@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PrimesParallel {
+public class PrimesParallel implements Prime{
     private final List<Integer> numbers;
     public PrimesParallel(List<Integer> numbers) {
         this.numbers = new ArrayList<>(numbers);
