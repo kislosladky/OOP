@@ -1,27 +1,12 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Primes {
 
-//    private ArrayList<Integer> numbers;
-
-//    public void setNumbers(Integer[] numbers) {
-//        this.numbers = new ArrayList<>(Arrays.asList(numbers));
-//    }
-
-    private boolean isPrime(int toCheck) {
-        int sqrt = (int) Math.sqrt(toCheck);
-        for (int i = 2; i <= sqrt; i++) {
-            if (toCheck % i == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean anyNonPrime(ArrayList<Integer> numbers) {
+    private boolean compute(List<Integer> numbers) {
         for (Integer num : numbers) {
-            if (!isPrime(num)) {
+            if (!PrimeCheck.isPrime(num)) {
                 return true;
             }
         }
@@ -29,8 +14,6 @@ public class Primes {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-//        int length = scanner.nextInt();
         ArrayList<Integer> ints = new ArrayList<>();
         ints.add(6);
         ints.add(8);
@@ -55,7 +38,7 @@ public class Primes {
 //            ints.add(scanner.nextInt());
 //        }
         Primes primes = new Primes();
-        System.out.println(primes.anyNonPrime(ints));
+        System.out.println(primes.compute(ints));
     }
 
 }

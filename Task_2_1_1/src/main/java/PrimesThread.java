@@ -9,26 +9,18 @@ public class PrimesThread {
         this.numbers = numbers;
     }
 
-    class PrimeCheck implements Runnable {
+    class PrimeThread implements Runnable {
         private final List<Integer> toCheck;
 
-        public PrimeCheck(List<Integer> toCheck) {
+        public PrimeThread(List<Integer> toCheck) {
             this.toCheck = toCheck;
         }
 
-        private boolean isPrime(int numberToCheck) {
-            int sqrt = (int) Math.sqrt(numberToCheck);
-                for (int i = 2; i <= sqrt; i++) {
-                    if (numberToCheck % i == 0) {
-                        return false;
-                    }
-                }
-            return true;
-        }
+
         @Override
         public void run() {
             for (Integer numberToCheck : toCheck) {
-                if (!this.isPrime(numberToCheck)) {
+                if (!PrimeCheck.isPrime(numberToCheck)) {
                     anyNonPrime = true;
                     break;
                 }
@@ -47,7 +39,7 @@ public class PrimesThread {
             if (rest > i)
                 toCheck.add(numbers.get(lengthOfSubarray * numberOfThreads + i));
 
-            Thread thread = new Thread(new PrimeCheck(toCheck));
+            Thread thread = new Thread(new PrimeThread(toCheck));
             thread.start();
             threads.add(thread);
         }
