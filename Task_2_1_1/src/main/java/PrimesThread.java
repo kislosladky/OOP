@@ -1,51 +1,77 @@
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PrimesThread {
-    private volatile boolean anyNonPrime = false;
-    private volatile AtomicInteger numberOfFreeThreads = new AtomicInteger();
-    private final int[] numbers;
-    public PrimesThread(int[] numbers) {
+    private volatile Boolean anyNonPrime = false;
+    private final List<Integer> numbers;
+    public PrimesThread(List<Integer> numbers) {
         this.numbers = numbers;
     }
 
     class PrimeCheck implements Runnable {
-        private final int toCheck;
+        private final List<Integer> toCheck;
 
-        public PrimeCheck(int toCheck) {
+        public PrimeCheck(List<Integer> toCheck) {
             this.toCheck = toCheck;
         }
 
+        private boolean isPrime(int numberToCheck) {
+            int sqrt = (int) Math.sqrt(numberToCheck);
+                for (int i = 2; i <= sqrt; i++) {
+                    if (numberToCheck % i == 0) {
+                        return false;
+                    }
+                }
+            return true;
+        }
         @Override
         public void run() {
-            numberOfFreeThreads.decrementAndGet();
-            int sqrt = (int) Math.sqrt(toCheck);
-            for (int i = 2; i <= sqrt; i++) {
-                if (toCheck % i == 0) {
+            for (Integer numberToCheck : toCheck) {
+                if (!this.isPrime(numberToCheck)) {
                     anyNonPrime = true;
                     break;
                 }
             }
-            numberOfFreeThreads.incrementAndGet();
         }
     }
 
     private boolean compute(int numberOfThreads) {
-        this.numberOfFreeThreads.getAndSet(numberOfThreads);
-        for (int i = 0; i < numbers.length; i++) {
-            while (this.numberOfFreeThreads.get() == 0) {}
-            new Thread(new PrimeCheck(numbers[i])).start();
+        int lengthOfSubarray = numbers.size() / numberOfThreads;
+        int rest = numbers.size() - lengthOfSubarray * numberOfThreads;
+        List<Thread> threads = new ArrayList<>();
+        for (int i = 0; i < numberOfThreads; i++) {
+            List<Integer> toCheck =
+                    new ArrayList<>(numbers.subList(lengthOfSubarray * i,
+                            lengthOfSubarray * (i + 1)));
+            if (rest > i)
+                toCheck.add(numbers.get(lengthOfSubarray * numberOfThreads + i));
+
+            Thread thread = new Thread(new PrimeCheck(toCheck));
+            thread.start();
+            threads.add(thread);
         }
+        try {
+            for (Thread thread : threads) {
+                thread.join();
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Calculating is interrupted");
+        }
+
         return anyNonPrime;
     }
 
 
     public static void main(String[] args) {
-//        int[] numbers = new int[] {6, 8, 7, 13, 5, 9, 4, 36, 36,36,251,1525,66, 262,6626,3636,37,89,69,0,70,8,15,25,326,36,23,3,3,3,345,5,6,6,6,6546565,656,254,568,689,356,235,457,578};
-        int[] numbers = new int[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967,
-                6998009, 6998029, 6998039, 20165149, 6998051, 6998053};
-        int numberOfThreads = 4;
-
-        PrimesThread primesThread = new PrimesThread(numbers);
+//        Integer[] numbers = new Integer[] {6, 8, 7, 13, 5, 9, 4};
+//        Integer[] numbers = new Integer[] {20319251, 6997901, 6997927, 6997937, 17858849, 6997967,
+//                6998009, 6998029, 6998039, 20165149, 6998051, 6998053};
+        Integer[] numbers = new Integer[100000];
+        Arrays.fill(numbers, 20165149);
+        int numberOfThreads = 8;
+        List<Integer> toCheck = new ArrayList<>(Arrays.asList(numbers));
+        PrimesThread primesThread = new PrimesThread(toCheck);
 
         boolean answ = primesThread.compute(numberOfThreads);
 
