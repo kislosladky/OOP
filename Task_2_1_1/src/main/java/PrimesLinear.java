@@ -10,6 +10,11 @@ public class PrimesLinear implements Prime {
         this.numbers = numbers;
     }
 
+    /**
+     * The main function of the class.
+     *
+     * @return true if the list contains non-prime number.
+     */
     public boolean compute() {
         for (Integer num : this.numbers) {
             if (Prime.notPrime(num)) {

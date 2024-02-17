@@ -40,7 +40,9 @@ public class PrimesThread implements Prime {
                     interruptAll();
                     break;
                 }
-                if (Thread.currentThread().isInterrupted()) break;
+                if (Thread.currentThread().isInterrupted()) {
+                    break;
+                }
             }
         }
     }
@@ -58,8 +60,9 @@ public class PrimesThread implements Prime {
             List<Integer> toCheck =
                     new ArrayList<>(numbers.subList(lengthOfSubarray * i,
                             lengthOfSubarray * (i + 1)));
-            if (rest > i)
+            if (rest > i) {
                 toCheck.add(numbers.get(lengthOfSubarray * this.numberOfThreads + i));
+            }
 
             Thread thread = new Thread(new PrimeThread(toCheck));
             thread.start();
