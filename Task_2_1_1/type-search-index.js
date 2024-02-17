@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"<Unnamed>","l":"Prime"},{"p":"<Unnamed>","l":"PrimeCheck"},{"p":"<Unnamed>","l":"Primes"},{"p":"<Unnamed>","l":"PrimesParallel"},{"p":"<Unnamed>","l":"PrimesThread"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"<Unnamed>","l":"Prime"},{"p":"<Unnamed>","l":"PrimesLinear"},{"p":"<Unnamed>","l":"PrimesParallel"},{"p":"<Unnamed>","l":"PrimesThread"}]

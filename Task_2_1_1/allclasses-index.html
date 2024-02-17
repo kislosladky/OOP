@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":1,"i1":2,"i2":2,"i3":2,"i4":2};
+var data = {"i0":1,"i1":2,"i2":2,"i3":2};
 var tabs = {65535:["t0","All Classes"],1:["t1","Interface Summary"],2:["t2","Class Summary"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -111,23 +111,28 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><a href="Prime.html" title="interface in &lt;Unnamed&gt;">Prime</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">Interface for classes that check if the list contains non-prime number.</div>
+</th>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><a href="PrimeCheck.html" title="class in &lt;Unnamed&gt;">PrimeCheck</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<td class="colFirst"><a href="PrimesLinear.html" title="class in &lt;Unnamed&gt;">PrimesLinear</a></td>
+<th class="colLast" scope="row">
+<div class="block">This class searches non-prime number using naive linear algorithm.</div>
+</th>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><a href="Primes.html" title="class in &lt;Unnamed&gt;">Primes</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<td class="colFirst"><a href="PrimesParallel.html" title="class in &lt;Unnamed&gt;">PrimesParallel</a></td>
+<th class="colLast" scope="row">
+<div class="block">This class searches for non-prime number using parallel stream.</div>
+</th>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><a href="PrimesParallel.html" title="class in &lt;Unnamed&gt;">PrimesParallel</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
-</tr>
-<tr id="i4" class="altColor">
 <td class="colFirst"><a href="PrimesThread.html" title="class in &lt;Unnamed&gt;">PrimesThread</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">This class searches for non-prime number by splitting the list into
+ "numberOfThreads" parts and searching in parallel using java.lang.Thread.</div>
+</th>
 </tr>
 </table>
 </li>
