@@ -1,18 +1,24 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class PrimesParallel implements Prime{
+/**
+ * This class searches for non-prime number using parallel stream.
+ */
+public class PrimesParallel implements Prime {
     private final List<Integer> numbers;
+
     public PrimesParallel(List<Integer> numbers) {
         this.numbers = new ArrayList<>(numbers);
     }
 
+    /**
+     * Searches for non-prime number.
+     *
+     * @return true if the list contains non-prime number.
+     */
     public boolean compute() {
-        long answ = this.numbers
+        return this.numbers
                 .parallelStream()
-                .filter(PrimeCheck::isPrime)
-                .count();
-        return answ != this.numbers.size();
+                .anyMatch(Prime::notPrime);
     }
 }
