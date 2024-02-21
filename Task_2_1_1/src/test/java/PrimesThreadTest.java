@@ -37,11 +37,11 @@ class PrimesThreadTest {
 
     @Test
     void taskLarge() {
-        Integer[] ints = new Integer[30000000];
+        Integer[] ints = new Integer[30_000_000];
         Arrays.fill(ints, 20165149);
         ints[9020233] = 4;
         ArrayList<Integer> numbers = new ArrayList<>(Arrays.asList(ints));
-        Prime primes = new PrimesThread(12, numbers);
+        Prime primes = new PrimesThread(72, numbers);
         //long start = System.currentTimeMillis();
         boolean answ = primes.compute();
         //long finish = System.currentTimeMillis();
