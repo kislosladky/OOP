@@ -19,6 +19,7 @@ public class JsonWorker {
             Type listOfBakers = new TypeToken<ArrayList<Baker>>() {
             }.getType();
             Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+//            Gson gson = new Gson();
             bakers = gson.fromJson(str, listOfBakers);
             for (Baker baker : bakers) {
                 System.out.println(baker);
@@ -31,19 +32,19 @@ public class JsonWorker {
     }
 
     public static List<Courier> readCouriers(String couriersJson) {
-        List<Courier> couriers;
+        List<Courier> couriers = null;
         try {
             String str = Files.readString(Paths.get(couriersJson));
             Type listOfBakers = new TypeToken<ArrayList<Courier>>() {
             }.getType();
             Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+            //Gson gson = new Gson();
             couriers = gson.fromJson(str, listOfBakers);
             for (Courier courier : couriers) {
                 System.out.println(courier);
             }
         } catch (IOException notFound) {
             System.err.println(notFound.getLocalizedMessage());
-            return null;
         }
         return couriers;
     }
@@ -58,7 +59,7 @@ public class JsonWorker {
             List<Order> orders = dispatcher.getOrderList();
             System.out.println("Orders");
             for (Order order : orders) {
-                System.out.println("Id: " + order.id() + ", order: " + order.order());
+                System.out.println("Id: " + order.id + ", order: " + order.order);
             }
         } catch (IOException ioException) {
             ioException.getLocalizedMessage();

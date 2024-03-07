@@ -73,16 +73,16 @@ public class Pizzeria {
     }
 
     public void work() {
-
+        dispatcher.start();
 
         for (Baker baker : bakers) {
             baker.start();
         }
+
         for (Courier courier : couriers) {
             courier.start();
         }
 
-        dispatcher.start();
         try {
             Thread.sleep(workTime * 1000);
         } catch (InterruptedException interruptedException) {

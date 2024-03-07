@@ -1,9 +1,12 @@
 package ru.nsu.kislitsyn.pizzeria;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class Courier extends Thread implements Staff{
+    @Expose
     private int volume;
     private final Deque<Order> pizzas = new ArrayDeque<>();
     private PizzeriaQueue<Order> pizzaStock;
@@ -23,8 +26,8 @@ public class Courier extends Thread implements Staff{
         while (!this.isInterrupted()) {
             while (pizzas.size() < this.volume) {
                 Order picked = pizzaStock.getEntity();
-                System.out.println("Pizza number " + picked.id() + ", "
-                        + picked.order() + ", is picked by courier");
+                System.out.println("Pizza number " + picked.id + ", "
+                        + picked.order + ", is picked by courier");
                 pizzas.push(picked);
             }
             try {
@@ -35,8 +38,8 @@ public class Courier extends Thread implements Staff{
 
             while (!pizzas.isEmpty()) {
                 Order pizza = pizzas.pop();
-                System.out.println("Pizza number " + pizza.id() + ", "
-                        + pizza.order() + ", is delivered");
+                System.out.println("Pizza number " + pizza.id + ", "
+                        + pizza.order + ", is delivered");
             }
         }
 

@@ -1,4 +1,10 @@
 package ru.nsu.kislitsyn.pizzeria;
 
-public record Order(int id, String order) {
+import com.google.gson.annotations.Expose;
+
+public class Order {
+    @Expose
+    public int id;
+    @Expose
+    public String order;
 }

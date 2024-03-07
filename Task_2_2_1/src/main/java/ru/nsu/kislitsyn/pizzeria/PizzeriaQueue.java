@@ -17,38 +17,37 @@ public class PizzeriaQueue<T> {
     }
 
     public void addEntity(T newOrder) {
-        if (orders.size() >= this.capacity) {
-            try {
-                notFull.await();
-            } catch (InterruptedException e) {
-                e.getLocalizedMessage();
-            }
-        }
         ReentrantLock lock = this.lock;
         lock.lock();
         try {
+            while (orders.size() >= this.capacity) {
+                notFull.await();
+            }
             orders.addLast(newOrder);
+        } catch (InterruptedException e) {
+            e.getLocalizedMessage();
         } finally {
+            notEmpty.signal();
             lock.unlock();
         }
-        notEmpty.signal();
     }
 
     public T getEntity() {
         final ReentrantLock lock = this.lock;
-        if (orders.isEmpty()) {
-            try {
-                notEmpty.await();
-            } catch (InterruptedException e) {
-                e.getLocalizedMessage();
-            }
-        }
         lock.lock();
+
+        try {
+            while (orders.isEmpty()) {
+                notEmpty.await();
+            }
+        } catch (InterruptedException e) {
+            e.getLocalizedMessage();
+        }
         try {
             return orders.pollFirst();
         } finally {
-            lock.unlock();
             notFull.signal();
+            lock.unlock();
         }
     }
 

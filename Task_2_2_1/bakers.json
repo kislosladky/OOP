@@ -1,11 +1,14 @@
 [
   {
-    "\"bakingSpeed\"": 2
+    "bakingSpeed": 2
   },
   {
     "bakingSpeed": 4
   },
   {
     "bakingSpeed": 12
+  },
+  {
+    "bakingSpeed": 10
   }
 ]
