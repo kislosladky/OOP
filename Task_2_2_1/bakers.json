@@ -1,14 +1,11 @@
 [
   {
-    "name": "Emilio",
-    "bakingSpeed": 2
+    "\"bakingSpeed\"": 2
   },
   {
-    "name": "Julian",
     "bakingSpeed": 4
   },
   {
-    "name": "Pablo",
     "bakingSpeed": 12
   }
 ]

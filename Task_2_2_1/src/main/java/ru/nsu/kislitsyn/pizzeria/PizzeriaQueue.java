@@ -6,11 +6,11 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class PizzeriaQueue<T> {
-    private final Deque<T> orders;
-    private final int capacity;
-    private final ReentrantLock lock = new ReentrantLock();
-    private final Condition notEmpty = lock.newCondition();
-    private final Condition notFull = lock.newCondition();
+    public final Deque<T> orders;
+    public final int capacity;
+    public ReentrantLock lock = new ReentrantLock();
+    public final Condition notEmpty = lock.newCondition();
+    public final Condition notFull = lock.newCondition();
     public PizzeriaQueue(int capacity) {
         this.orders = new ArrayDeque<>();
         this.capacity = capacity;
@@ -26,8 +26,11 @@ public class PizzeriaQueue<T> {
         }
         ReentrantLock lock = this.lock;
         lock.lock();
-        orders.addLast(newOrder);
-        lock.unlock();
+        try {
+            orders.addLast(newOrder);
+        } finally {
+            lock.unlock();
+        }
         notEmpty.signal();
     }
 

@@ -1,20 +1,21 @@
 package ru.nsu.kislitsyn.pizzeria;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.List;
-
 public class Pizzeria {
-    private List<Baker> bakers;
-    private List<Courier> couriers;
-    private final int stockCapacity;
-    private final PizzeriaQueue<Order> orders;
-    private final PizzeriaQueue<Order> pizzaStock;
+    public List<Baker> bakers;
+    public List<Courier> couriers;
+    public final int stockCapacity;
+    public final PizzeriaQueue<Order> orders;
+    public final PizzeriaQueue<Order> pizzaStock;
+    public Dispatcher dispatcher;
 
-    public Pizzeria(int stockCapacity) {
+    public final long workTime;
+
+    public Pizzeria(int stockCapacity, long workTime) {
         this.stockCapacity = stockCapacity;
         orders = new PizzeriaQueue<>(Integer.MAX_VALUE);
         pizzaStock = new PizzeriaQueue<>(stockCapacity);
+        this.workTime = workTime;
     }
 
     public int getStockCapacity() {
@@ -53,98 +54,54 @@ public class Pizzeria {
         this.couriers = couriers;
     }
 
-    public void getConfiguration(String bakersFilename, String couriersFilename) {
-        JsonWorker jsonWorker = new JsonWorker();
-        jsonWorker.readConfig(bakersFilename, couriersFilename);
-        this.bakers = jsonWorker.getBakers();
-        this.couriers = jsonWorker.getCouriers();
+    public void getConfiguration(String bakersFilename, String couriersFilename, String dispatcherFilename) {
+        this.bakers = JsonWorker.readBakers(bakersFilename);
+        this.couriers = JsonWorker.readCouriers(couriersFilename);
+        this.dispatcher = JsonWorker.readDispatcher(dispatcherFilename);
+
+        for (Baker baker : bakers) {
+            baker.setOrderQueue(orders);
+            baker.setPizzaStock(pizzaStock);
+        }
+
+        for (Courier courier : couriers) {
+            courier.setPizzaStock(pizzaStock);
+        }
+
+        assert dispatcher != null; //just because of warning
+        dispatcher.setOrderQueue(orders);
     }
 
-    public class Baker implements Runnable{
-        private String name;
-        private Integer bakingSpeed;
-//        private boolean isFree;
-        private Order inWork;
-        public String getName() {
-            return name;
+    public void work() {
+
+
+        for (Baker baker : bakers) {
+            baker.start();
+        }
+        for (Courier courier : couriers) {
+            courier.start();
         }
 
-        public void setName(String name) {
-            this.name = name;
+        dispatcher.start();
+        try {
+            Thread.sleep(workTime * 1000);
+        } catch (InterruptedException interruptedException) {
+            interruptedException.getLocalizedMessage();
+        }
+        dispatcher.interrupt();
+        for (Baker baker : bakers) {
+            baker.interrupt();
         }
 
-        public Integer getBakingSpeed() {
-            return bakingSpeed;
-        }
-
-        public void setBakingSpeed(Integer bakingSpeed) {
-            this.bakingSpeed = bakingSpeed;
-        }
-
-        @Override
-        public void run() {
-            while (!Thread.currentThread().isInterrupted()) {
-                inWork = orders.getEntity();
-                System.out.println("Pizza number " + inWork.id() + ", "
-                        + inWork.order() + ", is baking");
-                try {
-                    Thread.sleep(bakingSpeed * 1000);
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.getLocalizedMessage();
-                }
-                pizzaStock.addEntity(inWork);
-                System.out.println("Pizza number " + inWork.id() + ", "
-                        + inWork.order() + ", is moved to stock");
-            }
-        }
-
-        @Override
-        public String toString() {
-            return "Name: " + name + "\nSpeed: "+ bakingSpeed.toString();
+        for (Courier courier : couriers) {
+            courier.interrupt();
         }
     }
 
-    public class Courier implements Runnable {
-        private Integer volume;
-//        private boolean isFree;
-        private Deque<Order> pizzas = new ArrayDeque<>();
-        public Courier(Integer volume) {
-            this.volume = volume;
-//            this.isFree = true;
-        }
-        @Override
-        public void run() {
-            while (!Thread.currentThread().isInterrupted()) {
-                while (pizzas.size() < this.volume) {
-                    Order picked = pizzaStock.getEntity();
-                    System.out.println("Pizza number " + picked.id() + ", "
-                            + picked.order() + ", is picked by courier");
-                    pizzas.push(picked);
-                }
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.getLocalizedMessage();
-                }
-
-                while (!pizzas.isEmpty()) {
-                    Order pizza = pizzas.pop();
-                    System.out.println("Pizza number " + pizza.id() + ", "
-                            + pizza.order() + ", is delivered");
-                }
-            }
-        }
-
-        @Override
-        public String toString() {
-            return "Volume: " + volume.toString();
-        }
-    }
     public static void main(String[] args) {
-        String bakersFilename = "bakers.json";
-        String couriersFilename = "couriers.json";
-
-
+        Pizzeria pizzeria = new Pizzeria(10, 12);
+        pizzeria.getConfiguration("bakers.json", "couriers.json", "dispatcher.json");
+        pizzeria.work();
     }
 
 }
