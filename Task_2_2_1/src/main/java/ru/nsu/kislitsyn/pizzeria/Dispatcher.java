@@ -31,6 +31,7 @@ public class Dispatcher extends Thread implements Staff {
             } catch (InterruptedException interruptedException) {
                 interruptedException.getLocalizedMessage();
             }
+
             orderQueue.addEntity(order);
             System.out.println("Pizza number " + order.id + ", " + order.order + " is ordered");
             if (this.isInterrupted()) {

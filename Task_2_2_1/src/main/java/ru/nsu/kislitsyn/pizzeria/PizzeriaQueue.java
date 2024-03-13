@@ -8,48 +8,49 @@ import java.util.concurrent.locks.ReentrantLock;
 public class PizzeriaQueue<T> {
     public final Deque<T> orders;
     public final int capacity;
-    public ReentrantLock lock = new ReentrantLock();
-    public final Condition notEmpty = lock.newCondition();
-    public final Condition notFull = lock.newCondition();
+
     public PizzeriaQueue(int capacity) {
         this.orders = new ArrayDeque<>();
         this.capacity = capacity;
     }
 
-    public void addEntity(T newOrder) {
-        ReentrantLock lock = this.lock;
-        lock.lock();
-        try {
-            while (orders.size() >= this.capacity) {
-                notFull.await();
-            }
-            orders.addLast(newOrder);
-        } catch (InterruptedException e) {
-            e.getLocalizedMessage();
-        } finally {
-            notEmpty.signal();
-            lock.unlock();
-        }
+    public boolean isEmpty() {
+        return orders.isEmpty();
     }
 
-    public T getEntity() {
-        final ReentrantLock lock = this.lock;
-        lock.lock();
-
-        try {
-            while (orders.isEmpty()) {
-                notEmpty.await();
+    public boolean isFull() {
+        return orders.size() == capacity;
+    }
+    public synchronized void addEntity(T newOrder) {
+        while (this.isFull()) {
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                System.err.println(e.getLocalizedMessage());
             }
-        } catch (InterruptedException e) {
-            e.getLocalizedMessage();
+        }
+        try {
+            orders.addLast(newOrder);
+        } finally {
+            this.notifyAll();
+        }
+
+
+    }
+
+    public synchronized T getEntity() {
+        while (orders.isEmpty()) {
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                System.err.println(e.getLocalizedMessage());
+            }
         }
         try {
             return orders.pollFirst();
         } finally {
-            notFull.signal();
-            lock.unlock();
+            this.notifyAll();
         }
     }
-
 
 }

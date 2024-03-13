@@ -1,5 +1,6 @@
 package ru.nsu.kislitsyn.pizzeria;
 
+import java.util.ArrayList;
 import java.util.List;
 public class Pizzeria {
     public List<Baker> bakers;
@@ -78,9 +79,12 @@ public class Pizzeria {
         for (Baker baker : bakers) {
             baker.start();
         }
+        List<Thread> courierThreads = new ArrayList<>();
 
         for (Courier courier : couriers) {
-            courier.start();
+            Thread thread = new Thread(courier);
+            thread.start();
+            courierThreads.add(thread);
         }
 
         try {
@@ -88,13 +92,14 @@ public class Pizzeria {
         } catch (InterruptedException interruptedException) {
             interruptedException.getLocalizedMessage();
         }
+
         dispatcher.interrupt();
         for (Baker baker : bakers) {
             baker.interrupt();
         }
 
-        for (Courier courier : couriers) {
-            courier.interrupt();
+        for (Thread thread : courierThreads) {
+            thread.interrupt();
         }
     }
 

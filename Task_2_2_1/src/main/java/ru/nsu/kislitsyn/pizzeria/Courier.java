@@ -5,10 +5,10 @@ import com.google.gson.annotations.Expose;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class Courier extends Thread implements Staff{
+public class Courier implements Runnable, Staff {
     @Expose
     private int volume;
-    private final Deque<Order> pizzas = new ArrayDeque<>();
+    private Deque<Order> pizzas = new ArrayDeque<>();
     private PizzeriaQueue<Order> pizzaStock;
 
     public PizzeriaQueue<Order> getPizzaStock() {
@@ -23,9 +23,21 @@ public class Courier extends Thread implements Staff{
     }
     @Override
     public void run() {
-        while (!this.isInterrupted()) {
+        pizzas = new ArrayDeque<>();
+        while (!Thread.currentThread().isInterrupted()) {
             while (pizzas.size() < this.volume) {
-                Order picked = pizzaStock.getEntity();
+                Order picked;
+                synchronized (pizzaStock) {
+                    while (pizzaStock.isEmpty()) {
+                        try {
+                            pizzaStock.wait();
+                        } catch (InterruptedException e) {
+                            System.err.println(e.getLocalizedMessage());
+                            System.out.println("Courier couldn't wait and left");
+                        }
+                    }
+                    picked = pizzaStock.getEntity();
+                }
                 System.out.println("Pizza number " + picked.id + ", "
                         + picked.order + ", is picked by courier");
                 pizzas.push(picked);
@@ -42,6 +54,7 @@ public class Courier extends Thread implements Staff{
                         + pizza.order + ", is delivered");
             }
         }
+
 
         //TODO написать, что делать курьеру по окончании времени работы
     }

@@ -37,7 +37,17 @@ public class Baker extends Thread implements Staff {
     @Override
     public void run() {
         while (!this.isInterrupted()) {
-            Order inWork = orderQueue.getEntity();
+            Order inWork;
+            synchronized (orderQueue) {
+                while (orderQueue.isEmpty()) {
+                    try {
+                        orderQueue.wait();
+                    } catch (InterruptedException e) {
+                        System.err.println(e.getLocalizedMessage());
+                    }
+                }
+                inWork = orderQueue.getEntity();
+            }
             System.out.println("Pizza number " + inWork.id + ", "
                     + inWork.order + ", is baking");
             try {
@@ -45,7 +55,17 @@ public class Baker extends Thread implements Staff {
             } catch (InterruptedException interruptedException) {
                 interruptedException.getLocalizedMessage();
             }
-            pizzaStock.addEntity(inWork);
+
+            synchronized (pizzaStock) {
+                while (pizzaStock.isFull()) {
+                    try {
+                        pizzaStock.wait();
+                    } catch (InterruptedException e) {
+                        System.err.println(e.getLocalizedMessage());
+                    }
+                }
+                pizzaStock.addEntity(inWork);
+            }
             System.out.println("Pizza number " + inWork.id + ", "
                     + inWork.order + ", is moved to stock");
         }
