@@ -32,12 +32,21 @@ public class Courier implements Runnable, Staff {
                         try {
                             pizzaStock.wait();
                         } catch (InterruptedException e) {
-                            System.err.println(e.getLocalizedMessage());
-                            System.out.println("Courier couldn't wait and left");
+                            System.err.println("Courier couldn't wait and left");
+                            return;
                         }
                     }
-                    picked = pizzaStock.getEntity();
+                    if (Thread.currentThread().isInterrupted()) {
+                        picked = pizzaStock.getEntityIfExists();
+                    } else {
+                        picked = pizzaStock.getEntity();
+                    }
                 }
+                if (picked == null) {
+                    System.out.println("Courier finished the work");
+                    return;
+                }
+
                 System.out.println("Pizza number " + picked.id + ", "
                         + picked.order + ", is picked by courier");
                 pizzas.push(picked);
@@ -45,7 +54,7 @@ public class Courier implements Runnable, Staff {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException interruptedException) {
-                interruptedException.getLocalizedMessage();
+                System.err.println("Courier couldn't wait and left");
             }
 
             while (!pizzas.isEmpty()) {

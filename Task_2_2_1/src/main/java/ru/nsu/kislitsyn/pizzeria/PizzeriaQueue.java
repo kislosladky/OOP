@@ -53,4 +53,16 @@ public class PizzeriaQueue<T> {
         }
     }
 
+    public synchronized T getEntityIfExists() {
+        try {
+            if (orders.isEmpty()) {
+                return null;
+            } else {
+                return orders.pollFirst();
+            }
+        } finally {
+            this.notifyAll();
+        }
+    }
+
 }

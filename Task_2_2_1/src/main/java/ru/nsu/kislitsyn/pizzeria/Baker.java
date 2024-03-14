@@ -43,17 +43,27 @@ public class Baker extends Thread implements Staff {
                     try {
                         orderQueue.wait();
                     } catch (InterruptedException e) {
-                        System.err.println(e.getLocalizedMessage());
+                        System.err.println("Baker finished work");
+                        return;
                     }
                 }
-                inWork = orderQueue.getEntity();
+                if (Thread.currentThread().isInterrupted()) {
+                    inWork = orderQueue.getEntityIfExists();
+                } else {
+                    inWork = orderQueue.getEntity();
+                }
+            }
+            if (inWork == null) {
+                System.out.println("Baker finished work");
+                return;
             }
             System.out.println("Pizza number " + inWork.id + ", "
                     + inWork.order + ", is baking");
             try {
                 Thread.sleep(bakingSpeed * 1000);
             } catch (InterruptedException interruptedException) {
-                interruptedException.getLocalizedMessage();
+                System.err.println("Baker finished work");
+                return;
             }
 
             synchronized (pizzaStock) {
@@ -61,7 +71,7 @@ public class Baker extends Thread implements Staff {
                     try {
                         pizzaStock.wait();
                     } catch (InterruptedException e) {
-                        System.err.println(e.getLocalizedMessage());
+                        System.err.println("Baker is interrupted");
                     }
                 }
                 pizzaStock.addEntity(inWork);

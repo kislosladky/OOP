@@ -101,10 +101,12 @@ public class Pizzeria {
         for (Thread thread : courierThreads) {
             thread.interrupt();
         }
+
+        System.out.println("Pizzeria is closed");
     }
 
     public static void main(String[] args) {
-        Pizzeria pizzeria = new Pizzeria(10, 12);
+        Pizzeria pizzeria = new Pizzeria(10, 20);
         pizzeria.getConfiguration("bakers.json", "couriers.json", "dispatcher.json");
         pizzeria.work();
     }
