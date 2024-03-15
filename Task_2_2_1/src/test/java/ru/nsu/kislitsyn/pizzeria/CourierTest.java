@@ -3,12 +3,12 @@ package ru.nsu.kislitsyn.pizzeria;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 class CourierTest {
@@ -23,6 +23,7 @@ class CourierTest {
     public static void tearDown() {
         System.setOut(System.out);
     }
+
     @Test
     void simpleCourierTest() {
         Order order = new Order();
@@ -41,7 +42,8 @@ class CourierTest {
             System.out.println("Interrupted");
         }
         assertTrue(stock.isEmpty());
-        assertEquals("Pizza number 2, Pizza, is picked by courier\nCourier finished the work", output.toString().trim());
+        assertEquals("Pizza number 2, Pizza, is picked by courier\nCourier finished the work",
+                output.toString().trim());
     }
 
 }

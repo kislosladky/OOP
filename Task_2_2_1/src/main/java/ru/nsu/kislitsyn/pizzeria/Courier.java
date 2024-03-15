@@ -34,6 +34,7 @@ public class Courier implements Runnable, Staff {
     public int getVolume() {
         return volume;
     }
+
     /**
      * Main function od courier's fork.
      */

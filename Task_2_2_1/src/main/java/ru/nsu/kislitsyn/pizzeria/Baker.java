@@ -45,6 +45,7 @@ public class Baker extends Thread implements Staff {
     public int getBakingSpeed() {
         return bakingSpeed;
     }
+
     /**
      * The main method of the class.
      */
