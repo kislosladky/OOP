@@ -83,9 +83,9 @@ public class Baker extends Thread implements Staff {
                 inWork = orderQueue.getEntity();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
+                inWork = orderQueue.getEntityIfExists();
             }
         }
-
         return inWork;
     }
 
@@ -97,7 +97,13 @@ public class Baker extends Thread implements Staff {
             pizzaStock.addEntity(inWork);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            try {
+                pizzaStock.addEntity(inWork); //adding entity even if got interrupted
+            } catch (InterruptedException ie) {
+                System.out.println("Never triggered");
+            }
         }
+
 
         System.out.println("Pizza number " + inWork.id + ", "
                 + inWork.order + ", is moved to stock");

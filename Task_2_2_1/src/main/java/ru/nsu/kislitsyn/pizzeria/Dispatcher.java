@@ -45,11 +45,6 @@ public class Dispatcher extends Thread implements Staff {
 
             try {
                 Thread.sleep((random.nextInt(3) + 1) * 1000);
-            } catch (InterruptedException e) {
-                System.out.println("No more orders");
-                return;
-            }
-            try {
                 orderQueue.addEntity(order);
             } catch (InterruptedException e) {
                 System.out.println("No more orders");
