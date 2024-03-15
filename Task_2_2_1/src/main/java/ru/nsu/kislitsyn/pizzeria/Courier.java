@@ -1,44 +1,56 @@
 package ru.nsu.kislitsyn.pizzeria;
 
 import com.google.gson.annotations.Expose;
-
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+/**
+ * Thread of courier.
+ */
 public class Courier implements Runnable, Staff {
     @Expose
     private int volume;
     private Deque<Order> pizzas = new ArrayDeque<>();
     private PizzeriaQueue<Order> pizzaStock;
 
-    public PizzeriaQueue<Order> getPizzaStock() {
-        return pizzaStock;
-    }
 
+    /**
+     * Setter for stock.
+     */
     public void setPizzaStock(PizzeriaQueue<Order> pizzaStock) {
         this.pizzaStock = pizzaStock;
     }
+
+    /**
+     * Simple constructor.
+     */
     public Courier(Integer volume) {
         this.volume = volume;
     }
+
+    /**
+     * Main function od courier's fork.
+     */
     @Override
     public void run() {
         pizzas = new ArrayDeque<>();
-        while (!Thread.currentThread().isInterrupted()) {
+        while(true) {
             while (pizzas.size() < this.volume) {
                 Order picked;
                 synchronized (pizzaStock) {
-                    while (pizzaStock.isEmpty()) {
-                        try {
-                            pizzaStock.wait();
-                        } catch (InterruptedException e) {
-                            System.err.println("Courier couldn't wait and left");
-                            return;
-                        }
-                    }
+
                     if (Thread.currentThread().isInterrupted()) {
                         picked = pizzaStock.getEntityIfExists();
                     } else {
+                        while (pizzaStock.isEmpty()) {
+                            try {
+                                pizzaStock.wait();
+                            } catch (InterruptedException e) {
+                                Thread.currentThread().interrupt();
+                                System.out.println("Courier is interrupted");
+                                break;
+                            }
+                        }
                         picked = pizzaStock.getEntity();
                     }
                 }
@@ -54,7 +66,8 @@ public class Courier implements Runnable, Staff {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException interruptedException) {
-                System.err.println("Courier couldn't wait and left");
+                System.out.println("Courier is interrupted");
+                Thread.currentThread().interrupt();
             }
 
             while (!pizzas.isEmpty()) {
@@ -63,11 +76,11 @@ public class Courier implements Runnable, Staff {
                         + pizza.order + ", is delivered");
             }
         }
-
-
-        //TODO написать, что делать курьеру по окончании времени работы
     }
 
+    /**
+     * Simple toString override.
+     */
     @Override
     public String toString() {
         return "Volume of bag: " + volume;

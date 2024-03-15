@@ -2,54 +2,63 @@ package ru.nsu.kislitsyn.pizzeria;
 
 import com.google.gson.annotations.Expose;
 
+/**
+ * Thread that bakes pizza from order queue and puts it into stock.
+ */
 public class Baker extends Thread implements Staff {
 
     @Expose
     private int bakingSpeed;
-//    @Expose(deserialize = false)
     private PizzeriaQueue<Order> orderQueue;
     private PizzeriaQueue<Order> pizzaStock;
 
-    public PizzeriaQueue<Order> getPizzaStock() {
-        return pizzaStock;
-    }
-
+    /**
+     * Setter of stock.
+     *
+     * @param pizzaStock stock of pizzas.
+     */
     public void setPizzaStock(PizzeriaQueue<Order> pizzaStock) {
         this.pizzaStock = pizzaStock;
     }
 
-    public PizzeriaQueue<Order> getOrderQueue() {
-        return orderQueue;
-    }
-
+    /**
+     * Setter for queue of pizzas.
+     *
+     * @param orderQueue queue to set.
+     */
     public void setOrderQueue(PizzeriaQueue<Order> orderQueue) {
         this.orderQueue = orderQueue;
     }
 
-    public Integer getBakingSpeed() {
-        return bakingSpeed;
-    }
-
+    /**
+     * Setter for baking speed that is used by Gson.
+     *
+     * @param bakingSpeed int to set.
+     */
     public void setBakingSpeed(Integer bakingSpeed) {
         this.bakingSpeed = bakingSpeed;
     }
 
+    /**
+     * The main method of the class.
+     */
     @Override
     public void run() {
-        while (!this.isInterrupted()) {
+        while (true) {
             Order inWork;
             synchronized (orderQueue) {
-                while (orderQueue.isEmpty()) {
-                    try {
-                        orderQueue.wait();
-                    } catch (InterruptedException e) {
-                        System.err.println("Baker finished work");
-                        return;
-                    }
-                }
                 if (Thread.currentThread().isInterrupted()) {
                     inWork = orderQueue.getEntityIfExists();
                 } else {
+                    while (orderQueue.isEmpty()) {
+                        try {
+                            orderQueue.wait();
+                        } catch (InterruptedException e) {
+                            System.out.println("Baker is interrupted");
+                            Thread.currentThread().interrupt();
+                            break;
+                        }
+                    }
                     inWork = orderQueue.getEntity();
                 }
             }
@@ -62,8 +71,7 @@ public class Baker extends Thread implements Staff {
             try {
                 Thread.sleep(bakingSpeed * 1000);
             } catch (InterruptedException interruptedException) {
-                System.err.println("Baker finished work");
-                return;
+                Thread.currentThread().interrupt();
             }
 
             synchronized (pizzaStock) {
@@ -71,7 +79,8 @@ public class Baker extends Thread implements Staff {
                     try {
                         pizzaStock.wait();
                     } catch (InterruptedException e) {
-                        System.err.println("Baker is interrupted");
+                        System.out.println("Baker is interrupted");
+                        Thread.currentThread().interrupt();
                     }
                 }
                 pizzaStock.addEntity(inWork);
@@ -79,10 +88,13 @@ public class Baker extends Thread implements Staff {
             System.out.println("Pizza number " + inWork.id + ", "
                     + inWork.order + ", is moved to stock");
         }
-
-        //TODO написать, что делать пекарю при окончании времени работы
     }
 
+    /**
+     * Used to check the baker after deserealisation.
+     *
+     * @return baking speed of the baker.
+     */
     @Override
     public String toString() {
         return "Speed: " + bakingSpeed;
