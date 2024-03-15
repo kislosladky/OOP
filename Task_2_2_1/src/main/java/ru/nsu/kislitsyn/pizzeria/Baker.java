@@ -75,23 +75,17 @@ public class Baker extends Thread implements Staff {
      * Gets order form the queue.
      */
     private Order getOrderFromQueue() {
-        Order inWork;
-        synchronized (orderQueue) {
+        Order inWork = null;
             if (Thread.currentThread().isInterrupted()) {
                 inWork = orderQueue.getEntityIfExists();
             } else {
-                while (orderQueue.isEmpty()) {
-                    try {
-                        orderQueue.wait();
-                    } catch (InterruptedException e) {
-                        System.out.println("Baker is interrupted");
-                        Thread.currentThread().interrupt();
-                        break;
-                    }
+                try {
+                    inWork = orderQueue.getEntity();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                 }
-                inWork = orderQueue.getEntity();
             }
-        }
+
         return inWork;
     }
 
@@ -99,17 +93,12 @@ public class Baker extends Thread implements Staff {
      * Adds the order to the queue.
      */
     private void addPizzaToStock(Order inWork) {
-        synchronized (pizzaStock) {
-            while (pizzaStock.isFull()) {
-                try {
-                    pizzaStock.wait();
-                } catch (InterruptedException e) {
-                    System.out.println("Baker is interrupted");
-                    Thread.currentThread().interrupt();
-                }
-            }
+        try {
             pizzaStock.addEntity(inWork);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
+
         System.out.println("Pizza number " + inWork.id + ", "
                 + inWork.order + ", is moved to stock");
     }

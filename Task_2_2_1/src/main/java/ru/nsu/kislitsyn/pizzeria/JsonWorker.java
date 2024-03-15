@@ -32,11 +32,9 @@ public class JsonWorker {
      */
     public static List<Courier> readCouriers(String couriersJson) {
         List<Courier> couriers = null;
-
         Type listOfBakers = new TypeToken<ArrayList<Courier>>() {
         }.getType();
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        //Gson gson = new Gson();
         couriers = gson.fromJson(couriersJson, listOfBakers);
         for (Courier courier : couriers) {
             System.out.println(courier);

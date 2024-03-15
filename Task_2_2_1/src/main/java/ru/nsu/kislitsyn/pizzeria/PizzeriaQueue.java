@@ -35,34 +35,23 @@ public class PizzeriaQueue<T> {
     /**
      * Adds entity to the queue.
      */
-    public synchronized void addEntity(T newOrder) {
+    public synchronized void addEntity(T newOrder) throws InterruptedException {
         while (this.isFull()) {
-            try {
-                this.wait();
-            } catch (InterruptedException e) {
-                System.err.println(e.getLocalizedMessage());
-            }
+            this.wait();
         }
         try {
             orders.addLast(newOrder);
         } finally {
             this.notifyAll();
         }
-
-
     }
 
     /**
      * Gets entity from queue and blocks, if entity is empty.
      */
-    public synchronized T getEntity() {
+    public synchronized T getEntity() throws InterruptedException {
         while (orders.isEmpty()) {
-            try {
                 this.wait();
-            } catch (InterruptedException e) {
-                System.out.println("The queue is interrupted");
-                return null;
-            }
         }
         try {
             return orders.pollFirst();
@@ -76,11 +65,7 @@ public class PizzeriaQueue<T> {
      */
     public synchronized T getEntityIfExists() {
         try {
-            if (orders.isEmpty()) {
-                return null;
-            } else {
-                return orders.pollFirst();
-            }
+            return orders.pollFirst();
         } finally {
             this.notifyAll();
         }
