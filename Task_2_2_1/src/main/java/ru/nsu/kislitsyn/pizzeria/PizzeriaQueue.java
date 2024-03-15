@@ -51,7 +51,7 @@ public class PizzeriaQueue<T> {
      */
     public synchronized T getEntity() throws InterruptedException {
         while (orders.isEmpty()) {
-                this.wait();
+            this.wait();
         }
         try {
             return orders.pollFirst();
