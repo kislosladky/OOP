@@ -76,15 +76,15 @@ public class Baker extends Thread implements Staff {
      */
     private Order getOrderFromQueue() {
         Order inWork = null;
-            if (Thread.currentThread().isInterrupted()) {
-                inWork = orderQueue.getEntityIfExists();
-            } else {
-                try {
-                    inWork = orderQueue.getEntity();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+        if (Thread.currentThread().isInterrupted()) {
+            inWork = orderQueue.getEntityIfExists();
+        } else {
+            try {
+                inWork = orderQueue.getEntity();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
+        }
 
         return inWork;
     }

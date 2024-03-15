@@ -23,7 +23,7 @@ public class Pizzeria {
      * Constructor of pizzeria.
      *
      * @param stockCapacity capacity of stock
-     * @param workTime      time of work of pizzeria
+     * @param workTime time of work of pizzeria
      */
     public Pizzeria(int stockCapacity, long workTime) {
         this.stockCapacity = stockCapacity;

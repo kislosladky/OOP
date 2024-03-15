@@ -75,15 +75,15 @@ public class Courier implements Runnable, Staff {
      */
     private Order getPizzaFromStock() {
         Order picked = null;
-            if (Thread.currentThread().isInterrupted()) {
-                picked = pizzaStock.getEntityIfExists();
-            } else {
-                try {
-                    picked = pizzaStock.getEntity();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+        if (Thread.currentThread().isInterrupted()) {
+            picked = pizzaStock.getEntityIfExists();
+        } else {
+            try {
+                picked = pizzaStock.getEntity();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
+        }
 
         return picked;
     }

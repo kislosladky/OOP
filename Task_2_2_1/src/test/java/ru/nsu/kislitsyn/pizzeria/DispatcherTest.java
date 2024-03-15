@@ -22,7 +22,7 @@ class DispatcherTest {
         dispatcher.setOrderList(orderList);
         dispatcher.start();
         try {
-            Thread.sleep(300);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             System.out.println("Interrupted");
         }

@@ -25,7 +25,7 @@ class CourierTest {
     }
 
     @Test
-    void simpleCourierTest() {
+    void simpleCourierTest() throws InterruptedException {
         Order order = new Order();
         order.order = "Pizza";
         order.id = 2;

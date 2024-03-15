@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 class BakerTest {
     @Test
-    void simpleBakerTest() {
+    void simpleBakerTest() throws InterruptedException {
         PizzeriaQueue<Order> queue = new PizzeriaQueue<>(2);
         Order order = new Order();
         order.order = "Pizza";
