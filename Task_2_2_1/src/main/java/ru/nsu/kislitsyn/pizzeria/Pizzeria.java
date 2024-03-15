@@ -87,8 +87,14 @@ public class Pizzeria {
         }
 
         dispatcher.interrupt();
-        for (Baker baker : bakers) {
-            baker.interrupt();
+        try {
+            for (Baker baker : bakers) {
+                baker.interrupt();
+                baker.join();
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Interrupted while waiting for bakers");
+            return;
         }
 
         for (Thread thread : courierThreads) {
