@@ -29,6 +29,12 @@ public class Courier implements Runnable, Staff {
     }
 
     /**
+     * Simple getter.
+     */
+    public int getVolume() {
+        return volume;
+    }
+    /**
      * Main function od courier's fork.
      */
     @Override
@@ -86,6 +92,7 @@ public class Courier implements Runnable, Staff {
         }
         return picked;
     }
+
     /**
      * Simple toString override.
      */

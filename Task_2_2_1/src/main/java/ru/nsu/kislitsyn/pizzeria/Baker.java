@@ -40,6 +40,12 @@ public class Baker extends Thread implements Staff {
     }
 
     /**
+     * Simple getter.
+     */
+    public int getBakingSpeed() {
+        return bakingSpeed;
+    }
+    /**
      * The main method of the class.
      */
     @Override
