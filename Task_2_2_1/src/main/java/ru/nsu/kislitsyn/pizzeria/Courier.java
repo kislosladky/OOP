@@ -34,26 +34,10 @@ public class Courier implements Runnable, Staff {
     @Override
     public void run() {
         pizzas = new ArrayDeque<>();
-        while(true) {
+        while (true) {
             while (pizzas.size() < this.volume) {
-                Order picked;
-                synchronized (pizzaStock) {
+                Order picked = getPizzaFromStock();
 
-                    if (Thread.currentThread().isInterrupted()) {
-                        picked = pizzaStock.getEntityIfExists();
-                    } else {
-                        while (pizzaStock.isEmpty()) {
-                            try {
-                                pizzaStock.wait();
-                            } catch (InterruptedException e) {
-                                Thread.currentThread().interrupt();
-                                System.out.println("Courier is interrupted");
-                                break;
-                            }
-                        }
-                        picked = pizzaStock.getEntity();
-                    }
-                }
                 if (picked == null) {
                     System.out.println("Courier finished the work");
                     return;
@@ -63,6 +47,7 @@ public class Courier implements Runnable, Staff {
                         + picked.order + ", is picked by courier");
                 pizzas.push(picked);
             }
+
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException interruptedException) {
@@ -78,6 +63,29 @@ public class Courier implements Runnable, Staff {
         }
     }
 
+    /**
+     * Gets one order from stock.
+     */
+    private Order getPizzaFromStock() {
+        Order picked;
+        synchronized (pizzaStock) {
+            if (Thread.currentThread().isInterrupted()) {
+                picked = pizzaStock.getEntityIfExists();
+            } else {
+                while (pizzaStock.isEmpty()) {
+                    try {
+                        pizzaStock.wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        System.out.println("Courier is interrupted");
+                        break;
+                    }
+                }
+                picked = pizzaStock.getEntity();
+            }
+        }
+        return picked;
+    }
     /**
      * Simple toString override.
      */

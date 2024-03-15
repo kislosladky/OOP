@@ -45,27 +45,13 @@ public class Baker extends Thread implements Staff {
     @Override
     public void run() {
         while (true) {
-            Order inWork;
-            synchronized (orderQueue) {
-                if (Thread.currentThread().isInterrupted()) {
-                    inWork = orderQueue.getEntityIfExists();
-                } else {
-                    while (orderQueue.isEmpty()) {
-                        try {
-                            orderQueue.wait();
-                        } catch (InterruptedException e) {
-                            System.out.println("Baker is interrupted");
-                            Thread.currentThread().interrupt();
-                            break;
-                        }
-                    }
-                    inWork = orderQueue.getEntity();
-                }
-            }
+            Order inWork = getOrderFromQueue();
+
             if (inWork == null) {
                 System.out.println("Baker finished work");
                 return;
             }
+
             System.out.println("Pizza number " + inWork.id + ", "
                     + inWork.order + ", is baking");
             try {
@@ -74,20 +60,51 @@ public class Baker extends Thread implements Staff {
                 Thread.currentThread().interrupt();
             }
 
-            synchronized (pizzaStock) {
-                while (pizzaStock.isFull()) {
+            addPizzaToStock(inWork);
+        }
+    }
+
+    /**
+     * Gets order form the queue.
+     */
+    private Order getOrderFromQueue() {
+        Order inWork;
+        synchronized (orderQueue) {
+            if (Thread.currentThread().isInterrupted()) {
+                inWork = orderQueue.getEntityIfExists();
+            } else {
+                while (orderQueue.isEmpty()) {
                     try {
-                        pizzaStock.wait();
+                        orderQueue.wait();
                     } catch (InterruptedException e) {
                         System.out.println("Baker is interrupted");
                         Thread.currentThread().interrupt();
+                        break;
                     }
                 }
-                pizzaStock.addEntity(inWork);
+                inWork = orderQueue.getEntity();
             }
-            System.out.println("Pizza number " + inWork.id + ", "
-                    + inWork.order + ", is moved to stock");
         }
+        return inWork;
+    }
+
+    /**
+     * Adds the order to the queue.
+     */
+    private void addPizzaToStock(Order inWork) {
+        synchronized (pizzaStock) {
+            while (pizzaStock.isFull()) {
+                try {
+                    pizzaStock.wait();
+                } catch (InterruptedException e) {
+                    System.out.println("Baker is interrupted");
+                    Thread.currentThread().interrupt();
+                }
+            }
+            pizzaStock.addEntity(inWork);
+        }
+        System.out.println("Pizza number " + inWork.id + ", "
+                + inWork.order + ", is moved to stock");
     }
 
     /**

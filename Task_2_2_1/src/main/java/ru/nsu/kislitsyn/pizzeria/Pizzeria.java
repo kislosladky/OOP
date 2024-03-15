@@ -35,11 +35,16 @@ public class Pizzeria {
     /**
      * Reads staff config from jsons.
      */
-    public void getConfiguration(String bakersFilename, String couriersFilename, String dispatcherFilename) {
+    public void getConfiguration(String bakersFilename,
+                                 String couriersFilename,
+                                 String dispatcherFilename) {
         try {
-            this.bakers = JsonWorker.readBakers(Files.readString(Paths.get(bakersFilename)));
-            this.couriers = JsonWorker.readCouriers(Files.readString(Paths.get(couriersFilename)));
-            this.dispatcher = JsonWorker.readDispatcher(Files.readString(Paths.get(dispatcherFilename)));
+            this.bakers = JsonWorker.readBakers(Files
+                    .readString(Paths.get(bakersFilename)));
+            this.couriers = JsonWorker.readCouriers(Files
+                    .readString(Paths.get(couriersFilename)));
+            this.dispatcher = JsonWorker.readDispatcher(Files
+                    .readString(Paths.get(dispatcherFilename)));
         } catch (IOException e) {
             System.err.println("Couldn't read a file");
             return;
@@ -98,7 +103,8 @@ public class Pizzeria {
      */
     public static void main(String[] args) {
         Pizzeria pizzeria = new Pizzeria(10, 14);
-        pizzeria.getConfiguration("bakers.json", "couriers.json", "dispatcher.json");
+        pizzeria.getConfiguration("bakers.json",
+                "couriers.json", "dispatcher.json");
         pizzeria.work();
     }
 

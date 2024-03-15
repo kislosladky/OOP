@@ -7,7 +7,13 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Deserelizes configs from jsons.
+ */
 public class JsonWorker {
+    /**
+     * Reads bakers from json.
+     */
     public static List<Baker> readBakers(String bakersJson) {
         List<Baker> bakers;
         Type listOfBakers = new TypeToken<ArrayList<Baker>>() {
@@ -21,6 +27,9 @@ public class JsonWorker {
         return bakers;
     }
 
+    /**
+     * Reads couriers from json.
+     */
     public static List<Courier> readCouriers(String couriersJson) {
         List<Courier> couriers = null;
 
@@ -35,6 +44,9 @@ public class JsonWorker {
         return couriers;
     }
 
+    /**
+     * Reads dispatcher from json.
+     */
     public static Dispatcher readDispatcher(String dispatcherJson) {
         Dispatcher dispatcher = new Dispatcher();
         Type orderList = new TypeToken<ArrayList<Order>>() {
