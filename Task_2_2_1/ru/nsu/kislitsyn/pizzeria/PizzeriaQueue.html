@@ -339,8 +339,13 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>addEntity</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;addEntity&#8203;(<a href="PizzeriaQueue.html" title="type parameter in PizzeriaQueue">T</a>&nbsp;newOrder)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;addEntity&#8203;(<a href="PizzeriaQueue.html" title="type parameter in PizzeriaQueue">T</a>&nbsp;newOrder)
+               throws java.lang.InterruptedException</pre>
 <div class="block">Adds entity to the queue.</div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.InterruptedException</code></dd>
+</dl>
 </li>
 </ul>
 <a id="getEntity()">
@@ -349,8 +354,13 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getEntity</h4>
-<pre class="methodSignature">public&nbsp;<a href="PizzeriaQueue.html" title="type parameter in PizzeriaQueue">T</a>&nbsp;getEntity()</pre>
+<pre class="methodSignature">public&nbsp;<a href="PizzeriaQueue.html" title="type parameter in PizzeriaQueue">T</a>&nbsp;getEntity()
+            throws java.lang.InterruptedException</pre>
 <div class="block">Gets entity from queue and blocks, if entity is empty.</div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.InterruptedException</code></dd>
+</dl>
 </li>
 </ul>
 <a id="getEntityIfExists()">
