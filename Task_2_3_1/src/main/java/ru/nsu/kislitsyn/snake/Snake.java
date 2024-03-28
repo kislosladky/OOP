@@ -2,15 +2,8 @@ package ru.nsu.kislitsyn.snake;
 
 import java.util.*;
 
-import javafx.application.Application;
-//import javafx.geometry.Point2D;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 
+//TODO переделать на сетку
 public class Snake {
     private final Random random = new Random();
     private final ArrayDeque<Point> body;
@@ -25,11 +18,12 @@ public class Snake {
         this.apples = new ArrayDeque<>();
         this.body = new ArrayDeque<>();
         this.body.add(new Point(0, 0));
-        this.body.add(new Point(0, step));
-        this.body.add(new Point(0, 2 * step));
+        this.body.add(new Point(0, 1));
+        this.body.add(new Point(0, 2));
         this.direction = Direction.RIGHT;
-        size = 10 * step;
+        size = 10;
         shouldGrow = false;
+        spawnApple();
         spawnApple();
     }
     public double getStep() {
@@ -53,12 +47,43 @@ public class Snake {
     }
 
     public void setDirection(Direction direction) {
-        this.direction = direction;
+        switch (direction) {
+            case UP: {
+                if (this.direction != Direction.DOWN) {
+                    this.direction = direction;
+                }
+                break;
+            }
+            case DOWN: {
+                if (this.direction != Direction.UP) {
+                    this.direction = direction;
+                }
+                break;
+            }
+            case LEFT: {
+                if (this.direction != Direction.RIGHT) {
+                    this.direction = direction;
+                }
+                break;
+            }
+            case RIGHT: {
+                if (this.direction != Direction.LEFT) {
+                    this.direction = direction;
+                }
+                break;
+            }
+            default: throw new IllegalStateException();
+        }
     }
 
     public ArrayDeque<Point> getBody() {
         return body;
     }
+
+    public Deque<Point> getApples() {
+        return apples;
+    }
+
     public Point moveAndEat() throws BumpedException {
         Point tail = move();
         Point head = body.peekFirst();
@@ -69,6 +94,7 @@ public class Snake {
             apples.remove(head);
             spawnApple();
             shouldGrow = true;
+//            tail = null;
         }
 
         return tail;
@@ -84,22 +110,21 @@ public class Snake {
         Point newHead;
         switch (direction) {
             case UP: {
-                newHead = new Point(head.x(), (head.y() + step) % size);
+                newHead = new Point(head.x(), head.y() == 0 ? 9 : head.y() - 1);
                 break;
             }
             case DOWN: {
-                newHead = new Point(head.x(), (head.y() - step) % size);
-
+                newHead = new Point(head.x(), (head.y() + 1) % size);
                 break;
             }
             case LEFT: {
-                newHead = new Point((head.x() - step) % size, head.y());
+                newHead = new Point(head.x() == 0 ? 9 : head.x() - 1, head.y());
 
                 break;
             }
             case RIGHT: {
 //                int y = head.y() - step > 0 ? (head.y() - step) % size : step * 9;
-                newHead = new Point((head.x() + step) % size, head.y());
+                newHead = new Point((head.x() + 1) % size, head.y());
                 break;
             }
             default: throw new IllegalStateException();
@@ -118,9 +143,9 @@ public class Snake {
     private void spawnApple() {
         Point apple;
         do {
-            apple = new Point(random.nextInt() % size, random.nextInt() % size);
+            apple = new Point(Math.abs(random.nextInt()) % 10, Math.abs(random.nextInt()) % 10);
         } while (intersect(apple, body));
-
+        System.out.println("Apple x: " + apple.x() + ", y: " + apple.y());
         apples.add(apple);
 //        return apple;
     }

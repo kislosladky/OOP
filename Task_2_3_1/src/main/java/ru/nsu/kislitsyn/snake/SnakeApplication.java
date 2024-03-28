@@ -4,23 +4,26 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class SnakeApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SnakeApplication.class.getResource("snake-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1600, 900);
         stage.setScene(scene);
-        stage.setTitle("Grid Canvas Example");
+        stage.setTitle("Snake game");
         stage.show();
-        HelloController controller = fxmlLoader.getController();
+        stage.setMinHeight(500);
+        stage.setMinWidth(700);
+        SnakeController controller = fxmlLoader.getController();
         controller.setSnake();
         Canvas canvas = controller.getCanvas();
-        canvas.setOnKeyPressed(action -> {
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, action -> {
             KeyCode keycode = action.getCode();
             switch (keycode) {
                 case W: {

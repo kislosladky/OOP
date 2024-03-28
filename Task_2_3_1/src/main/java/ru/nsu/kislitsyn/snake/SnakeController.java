@@ -2,14 +2,14 @@ package ru.nsu.kislitsyn.snake;
 
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
-import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.Deque;
 
-public class HelloController {
+public class SnakeController {
 
     @FXML
     private Canvas canvas;
@@ -20,8 +20,8 @@ public class HelloController {
 
     private int width;
     private int height;
-    private int cellWidth;
-    private int cellHeight;
+    private int cellSize;
+//    private int cellHeight;
     private GraphicsContext gc;
     private Snake snake;
     private Point lastBodyCell;
@@ -38,7 +38,11 @@ public class HelloController {
 //            } catch (InterruptedException e) {
 //
 //            }
-                go();
+                try {
+                    go();
+                } catch (BumpedException e) {
+                    timer.stop();
+                }
             }
         }
     };
@@ -48,7 +52,7 @@ public class HelloController {
 
 
     public void setSnake() {
-        this.snake = new Snake(cellWidth);
+        this.snake = new Snake(cellSize);
     }
 
     public void setDirection(Snake.Direction direction) {
@@ -66,32 +70,37 @@ public class HelloController {
     @FXML
     public void draw() {
         ArrayList<Point> body = new ArrayList<>(snake.getBody());
+        Deque<Point> apples = snake.getApples();
         gc.setFill(Color.GREEN);
         for (Point point : body) {
-            gc.fillRect(point.x(), point.y(), cellHeight, cellHeight);
+            gc.fillRect(point.x() * cellSize, point.y() * cellSize, cellSize, cellSize);
+        }
+        gc.setFill(Color.RED);
+        for (Point apple : apples) {
+            gc.fillRect(apple.x() * cellSize, apple.y() * cellSize, cellSize, cellSize);
         }
         if (lastBodyCell != null) {
             gc.setFill(Color.WHITE);
-            gc.fillRect(lastBodyCell.x(), lastBodyCell.y(), cellHeight, cellWidth);
+            gc.fillRect(lastBodyCell.x() * cellSize, lastBodyCell.y() * cellSize, cellSize, cellSize);
+            gc.strokeRect(lastBodyCell.x() * cellSize, lastBodyCell.y() * cellSize, cellSize, cellSize);
         }
+
+
     }
 
 
-    public void go() {
-        try {
+    public void go() throws BumpedException{
             lastBodyCell = snake.moveAndEat();
-        } catch (BumpedException e) {
-            System.err.println("Bumped");
-        }
-
-        draw();
+            draw();
     }
+
+    @FXML
     private void drawGrid() {
         gc = canvas.getGraphicsContext2D();
         width =(int)canvas.getWidth();
         height = (int)canvas.getHeight();
-        cellWidth = width / columns;
-        cellHeight = height / rows;
+        cellSize = width / columns;
+//        cellHeight = height / rows;
         gc.setFill(Color.WHITE);
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(1);
@@ -99,11 +108,11 @@ public class HelloController {
         int y = 0;
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < columns; col++) {
-                gc.strokeRect(x, y, cellWidth, cellHeight);
-                gc.fillRect(x, y, cellWidth, cellHeight);
-                x += cellWidth;
+                gc.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                gc.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                x ++;
             }
-            y += cellHeight;
+            y++;
             x = 0;
         }
     }

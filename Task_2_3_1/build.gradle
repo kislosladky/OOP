@@ -26,7 +26,7 @@ tasks.withType(JavaCompile) {
 
 application {
   mainModule = 'ru.nsu.kislitsyn.snake'
-  mainClass = 'ru.nsu.kislitsyn.snake.HelloApplication'
+  mainClass = 'ru.nsu.kislitsyn.snake.SnakeApplication'
 }
 
 javafx {
