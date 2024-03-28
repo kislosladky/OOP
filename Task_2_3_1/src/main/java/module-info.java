@@ -1,4 +1,4 @@
-module ru.nsu.kislitsyn.task_2_3_1 {
+module ru.nsu.kislitsyn.snake {
     requires javafx.controls;
     requires javafx.fxml;
 
