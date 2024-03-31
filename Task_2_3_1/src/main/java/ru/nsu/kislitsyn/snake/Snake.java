@@ -9,37 +9,39 @@ public class Snake {
     private final ArrayDeque<Point> body;
     private final Deque<Point> apples;
     private Direction direction;
-    private int step;
-    private int size;
+    private Direction previousDirection;
+    private int width;
+    private int height;
     private boolean shouldGrow;
 
-    public Snake(int step) {
-        this.step = step;
+    public Snake(int width, int height) {
+        this.width = width;
+        this.height = height;
         this.apples = new ArrayDeque<>();
         this.body = new ArrayDeque<>();
-        this.body.add(new Point(0, 0));
-        this.body.add(new Point(0, 1));
-        this.body.add(new Point(0, 2));
+        init();
         this.direction = Direction.RIGHT;
-        size = 10;
+
         shouldGrow = false;
-        spawnApple();
-        spawnApple();
-    }
-    public double getStep() {
-        return step;
+
     }
 
-    public void setStep(int step) {
-        this.step = step;
+
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 
-    public double getSize() {
-        return size;
+    public int getHeight() {
+        return height;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public double getWitdh() {
+        return width;
+    }
+
+    public void setWidth(int witdh) {
+        this.width = witdh;
     }
 
     public Direction getDirection() {
@@ -49,25 +51,25 @@ public class Snake {
     public void setDirection(Direction direction) {
         switch (direction) {
             case UP: {
-                if (this.direction != Direction.DOWN) {
+                if (this.previousDirection != Direction.DOWN) {
                     this.direction = direction;
                 }
                 break;
             }
             case DOWN: {
-                if (this.direction != Direction.UP) {
+                if (this.previousDirection != Direction.UP) {
                     this.direction = direction;
                 }
                 break;
             }
             case LEFT: {
-                if (this.direction != Direction.RIGHT) {
+                if (this.previousDirection != Direction.RIGHT) {
                     this.direction = direction;
                 }
                 break;
             }
             case RIGHT: {
-                if (this.direction != Direction.LEFT) {
+                if (this.previousDirection != Direction.LEFT) {
                     this.direction = direction;
                 }
                 break;
@@ -84,22 +86,32 @@ public class Snake {
         return apples;
     }
 
-    public Point moveAndEat() throws BumpedException {
+    public Point moveAndEat() {
         Point tail = move();
         Point head = body.peekFirst();
-        if (bumped()) {
-            throw new BumpedException("Bumped");
-        }
+
         if (intersect(head, apples)) {
             apples.remove(head);
             spawnApple();
             shouldGrow = true;
-//            tail = null;
         }
 
         return tail;
     }
 
+    private void init() {
+        this.body.add(new Point(0, 0));
+//        this.body.add(new Point(0, 1));
+//        this.body.add(new Point(0, 2));
+        spawnApple();
+        spawnApple();
+    }
+
+    public void restart() {
+        this.body.clear();
+        this.apples.clear();
+        init();
+    }
     /**
      * Moves the snake into Direction.
      *
@@ -110,21 +122,23 @@ public class Snake {
         Point newHead;
         switch (direction) {
             case UP: {
-                newHead = new Point(head.x(), head.y() == 0 ? 9 : head.y() - 1);
+                previousDirection = Direction.UP;
+                newHead = new Point(head.x(), head.y() == 0 ? height - 1 : head.y() - 1);
                 break;
             }
             case DOWN: {
-                newHead = new Point(head.x(), (head.y() + 1) % size);
+                previousDirection = Direction.DOWN;
+                newHead = new Point(head.x(), (head.y() + 1) % height);
                 break;
             }
             case LEFT: {
-                newHead = new Point(head.x() == 0 ? 9 : head.x() - 1, head.y());
-
+                previousDirection = Direction.LEFT;
+                newHead = new Point(head.x() == 0 ? width - 1 : head.x() - 1, head.y());
                 break;
             }
             case RIGHT: {
-//                int y = head.y() - step > 0 ? (head.y() - step) % size : step * 9;
-                newHead = new Point((head.x() + 1) % size, head.y());
+                previousDirection = Direction.RIGHT;
+                newHead = new Point((head.x() + 1) % width, head.y());
                 break;
             }
             default: throw new IllegalStateException();
@@ -143,14 +157,13 @@ public class Snake {
     private void spawnApple() {
         Point apple;
         do {
-            apple = new Point(Math.abs(random.nextInt()) % 10, Math.abs(random.nextInt()) % 10);
+            apple = new Point(Math.abs(random.nextInt()) % width, Math.abs(random.nextInt()) % height);
         } while (intersect(apple, body));
         System.out.println("Apple x: " + apple.x() + ", y: " + apple.y());
         apples.add(apple);
-//        return apple;
     }
 
-    private boolean bumped() {
+    public boolean bumped() {
         Point head = body.pollFirst();
         assert head != null;
         try {

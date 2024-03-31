@@ -5,18 +5,19 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-
+import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Deque;
 
+//TODO make a game over
 public class SnakeController {
-
+    private Stage stage;
     @FXML
     private Canvas canvas;
     //    @FXML
 //    private Button buttonStart;
-    private static final int rows = 10;
-    private static final int columns = 10;
+    private int lines = 16;
+    private int columns = 16;
 
     private int width;
     private int height;
@@ -25,24 +26,33 @@ public class SnakeController {
     private GraphicsContext gc;
     private Snake snake;
     private Point lastBodyCell;
-    @FXML
+
+    public int getRows() {
+        return lines;
+    }
+
+    public void setLines(int lines) {
+        this.lines = lines;
+        snake.setHeight(lines);
+    }
+
+    public int getColumns() {
+        return columns;
+    }
+
+    public void setColumns(int columns) {
+        this.columns = columns;
+        snake.setWidth(columns);
+    }
+
     private AnimationTimer timer = new AnimationTimer() {
         private long lastUpdate = 0;
-        @FXML
+
         @Override
         public void handle(long now) {
             if (now - lastUpdate > 200_000_000) {
                 lastUpdate = now;
-//            try {
-//                Thread.sleep(l);
-//            } catch (InterruptedException e) {
-//
-//            }
-                try {
-                    go();
-                } catch (BumpedException e) {
-                    timer.stop();
-                }
+                go();
             }
         }
     };
@@ -52,13 +62,13 @@ public class SnakeController {
 
 
     public void setSnake() {
-        this.snake = new Snake(cellSize);
+        this.snake = new Snake(columns, lines);
     }
 
     public void setDirection(Snake.Direction direction) {
         snake.setDirection(direction);
     }
-    @FXML
+
     public void initialize() {
         drawGrid();
     }
@@ -77,38 +87,49 @@ public class SnakeController {
         }
         gc.setFill(Color.RED);
         for (Point apple : apples) {
-            gc.fillRect(apple.x() * cellSize, apple.y() * cellSize, cellSize, cellSize);
+            gc.fillOval(apple.x() * cellSize, apple.y() * cellSize, cellSize, cellSize);
         }
         if (lastBodyCell != null) {
             gc.setFill(Color.WHITE);
             gc.fillRect(lastBodyCell.x() * cellSize, lastBodyCell.y() * cellSize, cellSize, cellSize);
-            gc.strokeRect(lastBodyCell.x() * cellSize, lastBodyCell.y() * cellSize, cellSize, cellSize);
+//            gc.strokeRect(lastBodyCell.x() * cellSize, lastBodyCell.y() * cellSize, cellSize, cellSize);
         }
 
 
     }
 
 
-    public void go() throws BumpedException{
+
+    public void go(){
             lastBodyCell = snake.moveAndEat();
+            if (snake.bumped()) {
+                clearBody();
+                snake.restart();
+                timer.stop();
+            }
             draw();
     }
 
     @FXML
     private void drawGrid() {
         gc = canvas.getGraphicsContext2D();
-        width =(int)canvas.getWidth();
-        height = (int)canvas.getHeight();
-        cellSize = width / columns;
+//        width =(int)canvas.getWidth();
+//        height = (int)canvas.getHeight();
+        cellSize = 32;
+        width = cellSize * columns;
+        height = cellSize * lines;
+        canvas.setHeight(height);
+        canvas.setWidth(width);
+//        cellSize = width / columns;
 //        cellHeight = height / rows;
         gc.setFill(Color.WHITE);
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(1);
         int x = 0;
         int y = 0;
-        for (int row = 0; row < rows; row++) {
+        for (int row = 0; row < lines; row++) {
             for (int col = 0; col < columns; col++) {
-                gc.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize);
+//                gc.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize);
                 gc.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
                 x ++;
             }
@@ -117,11 +138,35 @@ public class SnakeController {
         }
     }
 
+    private void clearBody() {
+        gc.setFill(Color.WHITE);
+        for (Point point : snake.getBody()) {
+            gc.fillRect(point.x() * cellSize, point.y() * cellSize, cellSize, cellSize);
+//            gc.strokeRect(point.x() * cellSize, point.y() * cellSize, cellSize, cellSize);
+
+        }
+
+        for (Point point : snake.getApples()) {
+            gc.fillRect(point.x() * cellSize, point.y() * cellSize, cellSize, cellSize);
+//            gc.strokeRect(point.x() * cellSize, point.y() * cellSize, cellSize, cellSize);
+
+        }
+        if (lastBodyCell != null) {
+            gc.fillRect(lastBodyCell.x() * cellSize, lastBodyCell.y() * cellSize, cellSize, cellSize);
+//            gc.strokeRect(lastBodyCell.x() * cellSize, lastBodyCell.y() * cellSize, cellSize, cellSize);
+        }
+    }
+
+    @FXML
+    void openSettings() {
+        stage.setScene(SnakeApplication.scenes.get(1));
+        stage.show();
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
     public Canvas getCanvas() {
         return canvas;
     }
-//    @FXML
-//    protected void onHelloButtonClick() {
-//        welcomeText.setText("Hi!");
-//    }
 }

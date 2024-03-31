@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane minWidth="700" minHeight="700" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="ru.nsu.kislitsyn.snake.SnakeController">
+<AnchorPane minHeight="700" minWidth="700" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.kislitsyn.snake.SnakeController">
   <Canvas fx:id="canvas" height="415.0" layoutX="42.0" layoutY="54.0" width="423.0" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10" />
-  <Button layoutX="577.0" layoutY="337.0" mnemonicParsing="false" onAction="#drawGrid" text="Start" />
-  <Button layoutX="571.0" layoutY="393.0" mnemonicParsing="false" onAction="#letsgo" text="Go" />
+  <Button layoutX="577.0" layoutY="337.0" mnemonicParsing="false" onAction="#letsgo" text="Start" />
+   <Button layoutX="571.0" layoutY="47.0" mnemonicParsing="false" onAction="#openSettings" text="Settings" />
 </AnchorPane>
