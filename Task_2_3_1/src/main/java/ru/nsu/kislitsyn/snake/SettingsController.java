@@ -1,11 +1,9 @@
 package ru.nsu.kislitsyn.snake;
 
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
 
 public class SettingsController {

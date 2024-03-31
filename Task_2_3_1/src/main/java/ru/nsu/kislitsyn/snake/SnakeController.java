@@ -34,6 +34,9 @@ public class SnakeController {
     public void setLines(int lines) {
         this.lines = lines;
         snake.setHeight(lines);
+        System.out.println(lines);
+        canvas.setHeight(lines * cellSize);
+        drawGrid();
     }
 
     public int getColumns() {
@@ -43,6 +46,9 @@ public class SnakeController {
     public void setColumns(int columns) {
         this.columns = columns;
         snake.setWidth(columns);
+        canvas.setWidth(columns * cellSize);
+        drawGrid();
+        System.out.println(columns);
     }
 
     private AnimationTimer timer = new AnimationTimer() {
@@ -159,6 +165,7 @@ public class SnakeController {
 
     @FXML
     void openSettings() {
+        timer.stop();
         stage.setScene(SnakeApplication.scenes.get(1));
         stage.show();
     }

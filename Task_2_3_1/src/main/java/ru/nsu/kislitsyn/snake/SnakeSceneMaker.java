@@ -9,19 +9,18 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SnakeSceneMaker {
+    private SnakeController snakeController;
 
-    private Stage stage;
-
-    public SnakeSceneMaker(Stage stage) {
-        this.stage = stage;
+    public SnakeController getSnakeController() {
+        return snakeController;
     }
+
     public Scene get(Stage stage) throws IOException{
         FXMLLoader snakeLoader = new FXMLLoader(SnakeApplication.class.getResource("snake-view.fxml"));
 
         Scene snakeScene = new Scene(snakeLoader.load(), 1600, 900);
 
-
-        SnakeController snakeController = snakeLoader.getController();
+        snakeController = snakeLoader.getController();
         snakeController.setStage(stage);
         snakeController.setSnake();
         snakeScene.addEventHandler(KeyEvent.KEY_PRESSED, action -> {
@@ -50,4 +49,6 @@ public class SnakeSceneMaker {
         return snakeScene;
 
     }
+
+
 }
