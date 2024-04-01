@@ -36,6 +36,7 @@ public class SnakeController {
         snake.setHeight(lines);
         System.out.println(lines);
         canvas.setHeight(lines * cellSize);
+        snake.restart();
         drawGrid();
     }
 
@@ -49,15 +50,15 @@ public class SnakeController {
         canvas.setWidth(columns * cellSize);
         drawGrid();
         System.out.println(columns);
+        snake.restart();
     }
 
-    private AnimationTimer timer = new AnimationTimer() {
-        private long lastUpdate = 0;
+    public Timer timer = new Timer(200) {
 
         @Override
         public void handle(long now) {
-            if (now - lastUpdate > 200_000_000) {
-                lastUpdate = now;
+            if (now - getPrevTime() > getSpeed() * 1_000_000) {
+                setPrevTime(now);
                 go();
             }
         }
@@ -108,6 +109,13 @@ public class SnakeController {
 
     public void go(){
             lastBodyCell = snake.moveAndEat();
+
+            if (snake.getBody().size() == 12) {
+                clearBody();
+                snake.restart();
+                timer.stop();
+                goToNextLevel();
+            }
             if (snake.bumped()) {
                 clearBody();
                 snake.restart();
@@ -167,6 +175,11 @@ public class SnakeController {
     void openSettings() {
         timer.stop();
         stage.setScene(SnakeApplication.scenes.get(1));
+        stage.show();
+    }
+
+    void goToNextLevel() {
+        stage.setScene(SnakeApplication.scenes.get(2));
         stage.show();
     }
 

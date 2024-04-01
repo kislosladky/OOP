@@ -22,6 +22,8 @@ public class SnakeApplication extends Application {
         scenes.add(snakeScene);
         Scene settingsScene = new SettingsSceneMaker().get(stage, snakeController);
         scenes.add(settingsScene);
+        Scene winScene = new WinSceneMaker().get(stage, snakeController);
+        scenes.add(winScene);
         stage.setScene(snakeScene);
         stage.setTitle("Snake game");
         stage.show();
