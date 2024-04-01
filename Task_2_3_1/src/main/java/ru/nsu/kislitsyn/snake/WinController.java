@@ -6,16 +6,9 @@ import javafx.stage.Stage;
 public class WinController {
     private Stage stage;
     private SnakeController snakeController;
-    public Stage getStage() {
-        return stage;
-    }
 
     public void setStage(Stage stage) {
         this.stage = stage;
-    }
-
-    public SnakeController getSnakeController() {
-        return snakeController;
     }
 
     public void setSnakeController(SnakeController snakeController) {

@@ -5,6 +5,7 @@ import javafx.animation.AnimationTimer;
 public abstract class Timer extends AnimationTimer {
     private long speed;
     private long prevTime;
+
     public void setSpeed(long speed) {
         this.speed = speed;
     }
@@ -24,5 +25,4 @@ public abstract class Timer extends AnimationTimer {
     public Timer(long speed) {
         this.speed = speed;
     }
-
 }

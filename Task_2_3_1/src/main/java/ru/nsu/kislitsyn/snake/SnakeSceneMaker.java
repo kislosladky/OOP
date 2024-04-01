@@ -5,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class SnakeSceneMaker {
@@ -15,7 +14,7 @@ public class SnakeSceneMaker {
         return snakeController;
     }
 
-    public Scene get(Stage stage) throws IOException{
+    public Scene get(Stage stage) throws IOException {
         FXMLLoader snakeLoader = new FXMLLoader(SnakeApplication.class.getResource("snake-view.fxml"));
 
         Scene snakeScene = new Scene(snakeLoader.load(), 1600, 900);
@@ -47,8 +46,5 @@ public class SnakeSceneMaker {
         });
 
         return snakeScene;
-
     }
-
-
 }

@@ -1,12 +1,8 @@
 package ru.nsu.kislitsyn.snake;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import javafx.scene.input.KeyCode;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +10,7 @@ import java.util.List;
 
 public class SnakeApplication extends Application {
     public static List<Scene> scenes = new ArrayList<>();
+
     @Override
     public void start(Stage stage) throws IOException {
         SnakeSceneMaker snakeSceneMaker = new SnakeSceneMaker();

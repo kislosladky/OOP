@@ -1,9 +1,10 @@
 package ru.nsu.kislitsyn.snake;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Random;
 
 
-//TODO переделать на сетку
 public class Snake {
     private final Random random = new Random();
     private final ArrayDeque<Point> body;
@@ -27,17 +28,8 @@ public class Snake {
     }
 
 
-
     public void setHeight(int height) {
         this.height = height;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public double getWitdh() {
-        return width;
     }
 
     public void setWidth(int witdh) {
@@ -74,7 +66,8 @@ public class Snake {
                 }
                 break;
             }
-            default: throw new IllegalStateException();
+            default:
+                throw new IllegalStateException();
         }
     }
 
@@ -101,8 +94,6 @@ public class Snake {
 
     private void init() {
         this.body.add(new Point(0, 0));
-//        this.body.add(new Point(0, 1));
-//        this.body.add(new Point(0, 2));
         spawnApple();
         spawnApple();
     }
@@ -112,6 +103,7 @@ public class Snake {
         this.apples.clear();
         init();
     }
+
     /**
      * Moves the snake into Direction.
      *
@@ -141,7 +133,8 @@ public class Snake {
                 newHead = new Point((head.x() + 1) % width, head.y());
                 break;
             }
-            default: throw new IllegalStateException();
+            default:
+                throw new IllegalStateException();
         }
         body.addFirst(newHead);
 
@@ -172,9 +165,11 @@ public class Snake {
             body.addFirst(head);
         }
     }
+
     private boolean intersect(Point point, Deque<Point> deque) {
         return deque.contains(point);
     }
+
     public enum Direction {
         UP,
         DOWN,

@@ -5,7 +5,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 
 
-
 public class SettingsController {
     private Stage stage;
 
@@ -14,6 +13,7 @@ public class SettingsController {
     @FXML
     private ChoiceBox<Integer> height;
     private SnakeController snakeController;
+
     @FXML
     private void changeWidth() {
         Integer selectedOption = width.getValue();
