@@ -26,11 +26,6 @@ public class SnakeSceneMaker {
     public Scene get(Stage stage) throws IOException {
         FXMLLoader snakeLoader =
                 new FXMLLoader(SnakeApplication.class.getResource("snake-view.fxml"));
-
-        snakeController = snakeLoader.getController();
-        snakeController.setStage(stage);
-        snakeController.setSnake();
-
         Scene snakeScene = new Scene(snakeLoader.load(), 1600, 900);
         snakeScene.addEventHandler(KeyEvent.KEY_PRESSED, action -> {
             KeyCode keycode = action.getCode();
@@ -56,6 +51,9 @@ public class SnakeSceneMaker {
                 }
             }
         });
+        snakeController = snakeLoader.getController();
+        snakeController.setStage(stage);
+        snakeController.setSnake();
 
         return snakeScene;
     }

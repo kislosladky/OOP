@@ -181,10 +181,6 @@ public class SnakeController {
         for (Point point : snake.getApples()) {
             gc.fillRect(point.x() * cellSize, point.y() * cellSize, cellSize, cellSize);
         }
-
-        //if (lastBodyCell != null) {
-        //    gc.fillRect(lastBodyCell.x() * cellSize, lastBodyCell.y() * cellSize, cellSize, cellSize);
-        //}
     }
 
     /**
