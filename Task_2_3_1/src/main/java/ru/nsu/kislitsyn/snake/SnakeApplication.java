@@ -8,9 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * Main class of the game the initializes all screens.
+ */
 public class SnakeApplication extends Application {
     public static List<Scene> scenes = new ArrayList<>();
 
+    /**
+     * Runs the app.
+     */
     @Override
     public void start(Stage stage) throws IOException {
         SnakeSceneMaker snakeSceneMaker = new SnakeSceneMaker();
@@ -24,11 +30,14 @@ public class SnakeApplication extends Application {
         stage.setScene(snakeScene);
         stage.setTitle("Snake game");
         stage.show();
-        stage.setMinHeight(500);
-        stage.setMinWidth(700);
+        stage.setMinHeight(710);
+        stage.setMinWidth(760);
 
     }
 
+    /**
+     * Main.
+     */
     public static void main(String[] args) {
         launch();
     }

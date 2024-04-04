@@ -7,13 +7,22 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+/**
+ * Makes the scene of the game screen.
+ */
 public class SnakeSceneMaker {
     private SnakeController snakeController;
 
+    /**
+     * Getter for snake controller that is used in other scenes for snake adjustment.
+     */
     public SnakeController getSnakeController() {
         return snakeController;
     }
 
+    /**
+     * Loads the scene from fxml file.
+     */
     public Scene get(Stage stage) throws IOException {
         FXMLLoader snakeLoader = new FXMLLoader(SnakeApplication.class.getResource("snake-view.fxml"));
 
