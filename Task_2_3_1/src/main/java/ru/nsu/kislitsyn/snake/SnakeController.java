@@ -1,12 +1,12 @@
 package ru.nsu.kislitsyn.snake;
 
+import java.util.ArrayList;
+import java.util.Deque;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import java.util.ArrayList;
-import java.util.Deque;
 
 
 /**
@@ -109,18 +109,21 @@ public class SnakeController {
     @FXML
     public void draw() {
         ArrayList<Point> body = new ArrayList<>(snake.getBody());
-        Deque<Point> apples = snake.getApples();
+
         gc.setFill(Color.GREEN);
         for (Point point : body) {
             gc.fillRect(point.x() * cellSize, point.y() * cellSize, cellSize, cellSize);
         }
+
+        Deque<Point> apples = snake.getApples();
         gc.setFill(Color.RED);
         for (Point apple : apples) {
             gc.fillOval(apple.x() * cellSize, apple.y() * cellSize, cellSize, cellSize);
         }
         if (lastBodyCell != null) {
             gc.setFill(Color.WHITE);
-            gc.fillRect(lastBodyCell.x() * cellSize, lastBodyCell.y() * cellSize, cellSize, cellSize);
+            gc.fillRect(lastBodyCell.x() * cellSize,
+                    lastBodyCell.y() * cellSize, cellSize, cellSize);
         }
 
 

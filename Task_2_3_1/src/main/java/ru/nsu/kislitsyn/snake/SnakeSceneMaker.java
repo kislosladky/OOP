@@ -1,11 +1,11 @@
 package ru.nsu.kislitsyn.snake;
 
+import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import java.io.IOException;
 
 /**
  * Makes the scene of the game screen.
@@ -24,13 +24,14 @@ public class SnakeSceneMaker {
      * Loads the scene from fxml file.
      */
     public Scene get(Stage stage) throws IOException {
-        FXMLLoader snakeLoader = new FXMLLoader(SnakeApplication.class.getResource("snake-view.fxml"));
-
-        Scene snakeScene = new Scene(snakeLoader.load(), 1600, 900);
+        FXMLLoader snakeLoader =
+                new FXMLLoader(SnakeApplication.class.getResource("snake-view.fxml"));
 
         snakeController = snakeLoader.getController();
         snakeController.setStage(stage);
         snakeController.setSnake();
+
+        Scene snakeScene = new Scene(snakeLoader.load(), 1600, 900);
         snakeScene.addEventHandler(KeyEvent.KEY_PRESSED, action -> {
             KeyCode keycode = action.getCode();
             switch (keycode) {
@@ -50,7 +51,9 @@ public class SnakeSceneMaker {
                     snakeController.setDirection(Snake.Direction.RIGHT);
                     break;
                 }
-
+                default: {
+                    throw new IllegalStateException();
+                }
             }
         });
 
