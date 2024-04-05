@@ -37,7 +37,7 @@ class SnakeTest {
     void initTest() {
         Snake snake = new Snake(10, 10);
         assertEquals(2, snake.getApples().size());
-        assertEquals(new Point(0,0), snake.getBody().peekFirst());
+        assertEquals(new Point(0, 0), snake.getBody().peekFirst());
     }
 
     @Test
@@ -49,8 +49,15 @@ class SnakeTest {
         snake.restart();
 
         assertEquals(1, snake.getBody().size());
-        assertEquals(new Point(0,0), snake.getBody().peekFirst());
+        assertEquals(new Point(0, 0), snake.getBody().peekFirst());
         assertEquals(Snake.Direction.RIGHT, snake.getDirection());
         assertEquals(3, snake.getApples().size());
+    }
+
+    @Test
+    void tailTest() {
+        Snake snake = new Snake(10, 10);
+        Point tail = snake.moveAndEat();
+        assertEquals(new Point(0, 0), tail);
     }
 }
