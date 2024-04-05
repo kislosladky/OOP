@@ -1,2 +1,4 @@
 module:ru.nsu.kislitsyn.snake
 ru.nsu.kislitsyn.snake
+ru.nsu.kislitsyn.snake.controllers
+ru.nsu.kislitsyn.snake.scenemakers
