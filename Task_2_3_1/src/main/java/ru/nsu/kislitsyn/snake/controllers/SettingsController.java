@@ -1,8 +1,10 @@
-package ru.nsu.kislitsyn.snake;
+package ru.nsu.kislitsyn.snake.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
+import ru.nsu.kislitsyn.snake.SnakeApplication;
+import ru.nsu.kislitsyn.snake.controllers.SnakeController;
 
 
 /**

@@ -123,6 +123,7 @@ public class Snake {
 
         if (intersect(head, apples)) {
             apples.remove(head);
+            System.out.println("Ate apple at" + head);
             spawnApple();
             shouldGrow = true;
         }
@@ -202,7 +203,7 @@ public class Snake {
         do {
             apple = new Point(Math.abs(random.nextInt()) % width,
                     Math.abs(random.nextInt()) % height);
-        } while (intersect(apple, body));
+        } while (intersect(apple, body) || intersect(apple, apples));
         System.out.println("Apple x: " + apple.x() + ", y: " + apple.y());
         apples.add(apple);
     }

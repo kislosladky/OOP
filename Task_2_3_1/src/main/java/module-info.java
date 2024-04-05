@@ -5,4 +5,8 @@ module ru.nsu.kislitsyn.snake {
 
     opens ru.nsu.kislitsyn.snake to javafx.fxml;
     exports ru.nsu.kislitsyn.snake;
+    exports ru.nsu.kislitsyn.snake.scenemakers;
+    opens ru.nsu.kislitsyn.snake.scenemakers to javafx.fxml;
+    exports ru.nsu.kislitsyn.snake.controllers;
+    opens ru.nsu.kislitsyn.snake.controllers to javafx.fxml;
 }

@@ -1,12 +1,17 @@
-package ru.nsu.kislitsyn.snake;
+package ru.nsu.kislitsyn.snake.controllers;
 
 import java.util.ArrayList;
 import java.util.Deque;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import ru.nsu.kislitsyn.snake.Point;
+import ru.nsu.kislitsyn.snake.Snake;
+import ru.nsu.kislitsyn.snake.SnakeApplication;
+import ru.nsu.kislitsyn.snake.Timer;
 
 
 /**
@@ -14,6 +19,8 @@ import javafx.stage.Stage;
  */
 public class SnakeController {
     private Stage stage;
+    @FXML
+    private Label score;
     @FXML
     private Canvas canvas;
     private int lines = 16;
@@ -137,7 +144,7 @@ public class SnakeController {
      */
     public void go() {
         lastBodyCell = snake.moveAndEat();
-
+        score.setText(""+snake.getBody().size());
         if (snake.getBody().size() == lines * columns / 8) {
             clear();
             snake.restart();

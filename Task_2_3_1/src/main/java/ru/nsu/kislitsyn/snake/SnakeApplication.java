@@ -6,6 +6,10 @@ import java.util.List;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ru.nsu.kislitsyn.snake.controllers.SnakeController;
+import ru.nsu.kislitsyn.snake.scenemakers.SettingsSceneMaker;
+import ru.nsu.kislitsyn.snake.scenemakers.SnakeSceneMaker;
+import ru.nsu.kislitsyn.snake.scenemakers.WinSceneMaker;
 
 
 /**

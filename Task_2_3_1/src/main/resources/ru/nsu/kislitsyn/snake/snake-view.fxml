@@ -3,9 +3,15 @@
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="700" minWidth="700" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.kislitsyn.snake.SnakeController">
+<AnchorPane minHeight="700" minWidth="700" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.kislitsyn.snake.controllers.SnakeController">
   <Canvas fx:id="canvas" height="415.0" layoutX="42.0" layoutY="54.0" width="423.0" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10" />
   <Button layoutX="672.0" layoutY="337.0" mnemonicParsing="false" onAction="#letsgo" text="Start" />
    <Button layoutX="662.0" layoutY="48.0" mnemonicParsing="false" onAction="#openSettings" text="Settings" />
+   <Label layoutX="680.0" layoutY="112.0" text="Score" />
+   <Label fx:id="score" layoutX="681.0" layoutY="145.0" prefHeight="32.0" prefWidth="34.0">
+      <font>
+         <Font size="22.0" />
+      </font></Label>
 </AnchorPane>
