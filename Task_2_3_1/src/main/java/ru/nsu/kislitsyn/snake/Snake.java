@@ -84,6 +84,13 @@ public class Snake {
     }
 
     /**
+     * Useful only for tests.
+     */
+    public Direction getDirection() {
+        return direction;
+    }
+
+    /**
      * Getter for the snake body.
      */
     public ArrayDeque<Point> getBody() {
