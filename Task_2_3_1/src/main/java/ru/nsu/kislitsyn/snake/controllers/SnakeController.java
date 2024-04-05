@@ -144,7 +144,7 @@ public class SnakeController {
      */
     public void go() {
         lastBodyCell = snake.moveAndEat();
-        score.setText(""+snake.getBody().size());
+        score.setText("" + snake.getBody().size());
         if (snake.getBody().size() == lines * columns / 8) {
             clear();
             snake.restart();
@@ -154,6 +154,7 @@ public class SnakeController {
         if (snake.bumped()) {
             clear();
             snake.restart();
+            score.setText("0");
             timer.stop();
         }
         draw();
