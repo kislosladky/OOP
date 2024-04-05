@@ -4,9 +4,10 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ru.nsu.kislitsyn.snake.SnakeApplication;
 import ru.nsu.kislitsyn.snake.controllers.SettingsController;
 import ru.nsu.kislitsyn.snake.controllers.SnakeController;
-import ru.nsu.kislitsyn.snake.SnakeApplication;
+
 
 
 /**
