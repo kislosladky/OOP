@@ -1,8 +1,6 @@
 package ru.nsu.kislitsyn;
 
 
-import lombok.AllArgsConstructor;
-
 import java.io.IOException;
 import java.net.*;
 import java.nio.file.Files;
@@ -24,32 +22,20 @@ public class PrimeClient {
         tasks = new LinkedBlockingDeque<>();
     }
 
-    @AllArgsConstructor
-    private static class ServerBroadcaster extends Thread {
-        String message;
+    private void sendBroadcast(String message) {
+        try (DatagramSocket socket = new DatagramSocket()) {
+            socket.setBroadcast(true);
+            byte[] messageBytes = message.getBytes();
+            DatagramPacket packet = new DatagramPacket(messageBytes,
+                    messageBytes.length,
+                    InetAddress.getByName("255.255.255.255"),
+                    8081);
 
-        @Override
-        public void run() {
-            sendBroadcast();
-        }
-
-        private void sendBroadcast() {
-            try (DatagramSocket socket = new DatagramSocket()) {
-                socket.setBroadcast(true);
-                byte[] message = this.message.getBytes();
-                DatagramPacket packet = new DatagramPacket(message,
-                        message.length,
-                        InetAddress.getByName("255.255.255.255"),
-                        8081);
-
-                socket.send(packet);
-                System.out.println("\n" + this.message + " is sent");
-            } catch (IOException e) {
-                System.err.println(e.getMessage());
-            }
+            socket.send(packet);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
         }
     }
-
 
     private void splitNumbersToTasks(List<Integer> numbers) {
         int taskSize = 50;
@@ -61,33 +47,31 @@ public class PrimeClient {
     }
 
 
-    private boolean sendTasks() {
+    public boolean compute(List<Integer> numbers) {
+        splitNumbersToTasks(numbers);
+
+        sendBroadcast("conn");
+
         List<ServerHandler> serverHandlers = new ArrayList<>();
         Socket socket;
         try (ServerSocket serverSocket = new ServerSocket(8080)) {
             while (!tasks.isEmpty() && !foundNonPrime.get()) {
-                System.out.print("Hell");
                 socket = serverSocket.accept();
                 var handler = new ServerHandler(socket, serverSocket, tasks, foundNonPrime, ongoingTasks);
                 handler.start();
                 serverHandlers.add(handler);
-                System.out.println("o");
             }
         } catch (IOException exception) {
             //TODO to catch
             System.err.println(exception.getMessage() + " or computing is finished");
         }
-        ServerBroadcaster stopper = new ServerBroadcaster("stop");
-//        if (foundNonPrime.get() || ) {
-        stopper.start();
-//        }
+
+        sendBroadcast("stop");
+
         try {
             for (ServerHandler handler : serverHandlers) {
-                System.out.println("Joining");
                 handler.join();
-                System.out.println("Joined");
             }
-            stopper.join();
         } catch (InterruptedException exception) {
             //TODO to catch
             System.err.println(exception.getMessage());
@@ -98,7 +82,6 @@ public class PrimeClient {
 
     public static void main(String[] args) {
         PrimeClient client = new PrimeClient();
-        ServerBroadcaster finder = new ServerBroadcaster("conn");
         List<Integer> numbers;
         try {
              numbers = InputReader.getNumbers(Files.newInputStream(Path.of("numbers.txt")));
@@ -107,12 +90,6 @@ public class PrimeClient {
             return;
         }
 
-        client.splitNumbersToTasks(numbers);
-
-        finder.setDaemon(true);
-        finder.start();
-
-//         и кидаем их серверам json'ами,
-        System.out.println(client.sendTasks());
+        System.out.println(client.compute(numbers));
     }
 }

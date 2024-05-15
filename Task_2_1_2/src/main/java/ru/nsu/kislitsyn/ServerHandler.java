@@ -36,13 +36,11 @@ public class ServerHandler extends Thread {
         }
 
         String toSend = gson.toJson(task, new TypeToken<Task>(){}.getType());
-        try {
-            var out = new PrintWriter(socket.getOutputStream(), true);
-            var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
+        try (var out = new PrintWriter(socket.getOutputStream(), true);
+             var in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
+        ){
             out.println(toSend);
             String answer = in.readLine();
-            System.out.println("The answer is " + answer);
             boolean foundNonPrime = gson.fromJson(answer, Boolean.class);
             if (foundNonPrime) {
                 found.set(true);

@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 
 public class PrimeServer {
@@ -38,7 +37,7 @@ public class PrimeServer {
             Task task = gson.fromJson(input, new TypeToken<Task>(){}.getType());
             List<Integer> numbers = task.numbers();
             for (Integer number : numbers) {
-                if (isNonPrime(number)) {
+                if (isNonPrime(number) || Thread.currentThread().isInterrupted()) {
                     return true;
                 }
             }
@@ -74,29 +73,32 @@ public class PrimeServer {
         }
     }
 
-
-    //TODO подумать, как останавливаться, когда другой сервер нашел составное число
-    public static void main(String[] args) {
-        PrimeServer server = new PrimeServer();
-        try (DatagramSocket ds = new DatagramSocket(8081)) {
+    public void listen() {
+        try (DatagramSocket datagramSocket = new DatagramSocket(8081)) {
             DatagramPacket pack = new DatagramPacket(new byte[4], 4);
             while (true) {
-                ds.receive(pack);
+                datagramSocket.receive(pack);
                 String data = new String(pack.getData(), StandardCharsets.UTF_8);
-                System.out.println("Data is " + data);
                 switch (data) {
                     case "conn" -> {
-                        server.clientAddress = pack.getAddress();
-                        server.clientPort = 8080;
-                        System.out.println("Connecting to " + server.clientAddress.toString() + " on port " + server.clientPort);
-                        server.startTCP();
+                        clientAddress = pack.getAddress();
+                        clientPort = 8080;
+                        startTCP();
 
                     }
-                    case "stop" -> {server.stopTCP(); return;}
+                    case "stop" -> {
+                        stopTCP();
+                        return;
+                    }
                 }
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+        PrimeServer server = new PrimeServer();
+        server.listen();
     }
 }
