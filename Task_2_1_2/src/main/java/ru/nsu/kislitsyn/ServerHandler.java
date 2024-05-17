@@ -32,6 +32,7 @@ public class ServerHandler extends Thread {
                 serverSocket.close();
             } catch (IOException ignored) {
             }
+            ongoingTasks.decrementAndGet();
             return;
         }
 
@@ -45,7 +46,7 @@ public class ServerHandler extends Thread {
             if (foundNonPrime) {
                 found.set(true);
             }
-            if (foundNonPrime || (tasks.isEmpty() && ongoingTasks.get() == 1)) {
+            if (foundNonPrime || (tasks.isEmpty() && ongoingTasks.get() > 0)) {
                 serverSocket.close();
             }
 

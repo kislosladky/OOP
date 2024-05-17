@@ -84,7 +84,7 @@ public class PrimeClient {
         PrimeClient client = new PrimeClient();
         List<Integer> numbers;
         try {
-             numbers = InputReader.getNumbers(Files.newInputStream(Path.of("numbers.txt")));
+            numbers = InputReader.getNumbers(Files.newInputStream(Path.of("numbers.txt")));
         } catch (IOException e) {
             System.err.println(e.getMessage());
             return;

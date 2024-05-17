@@ -7,7 +7,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -22,7 +25,7 @@ public class PrimeServer {
                 return false;
             }
 
-            int border = (int)Math.sqrt(number) + 1;
+            int border = (int) Math.sqrt(number) + 1;
 
             for (int i = 3; i <= border; i += 2) {
                 if (number % i == 0) {
@@ -34,7 +37,7 @@ public class PrimeServer {
 
         private static boolean checkNumbers(String input) {
             Gson gson = new Gson();
-            Task task = gson.fromJson(input, new TypeToken<Task>(){}.getType());
+            Task task = gson.fromJson(input, new TypeToken<Task>() {}.getType());
             List<Integer> numbers = task.numbers();
             for (Integer number : numbers) {
                 if (isNonPrime(number) || Thread.currentThread().isInterrupted()) {
@@ -74,7 +77,7 @@ public class PrimeServer {
     }
 
     public void listen() {
-        try (DatagramSocket datagramSocket = new DatagramSocket(8081)) {
+        try (DatagramSocket datagramSocket = new DatagramSocket(8081, InetAddress.getByName("0.0.0.0"))) {
             DatagramPacket pack = new DatagramPacket(new byte[4], 4);
             while (true) {
                 datagramSocket.receive(pack);
@@ -84,7 +87,6 @@ public class PrimeServer {
                         clientAddress = pack.getAddress();
                         clientPort = 8080;
                         startTCP();
-
                     }
                     case "stop" -> {
                         stopTCP();
