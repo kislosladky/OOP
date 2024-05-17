@@ -43,8 +43,10 @@ public class ServerHandler extends Thread {
             out.println(toSend);
             String answer = in.readLine();
             boolean foundNonPrime = gson.fromJson(answer, Boolean.class);
+            System.out.println("result is " + foundNonPrime);
             if (foundNonPrime) {
                 found.set(true);
+                System.out.println("Found non prime number");
             }
             if (foundNonPrime || (tasks.isEmpty() && ongoingTasks.get() > 0)) {
                 serverSocket.close();

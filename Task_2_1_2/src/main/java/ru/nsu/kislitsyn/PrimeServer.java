@@ -1,106 +1,95 @@
 package ru.nsu.kislitsyn;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.nio.charset.StandardCharsets;
+import java.net.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+
 
 public class PrimeServer {
-    public InetAddress clientAddress;
-    private PrimeChecker primeChecker;
-    private int clientPort;
+    public BlockingDeque<Task> tasks;
+    public AtomicBoolean foundNonPrime = new AtomicBoolean(false);
+    public AtomicInteger ongoingTasks = new AtomicInteger(0);
 
-    class PrimeChecker extends Thread {
-        private static boolean isNonPrime(Integer number) {
-            if (number % 2 == 0) {
-                return false;
-            }
-
-            int border = (int) Math.sqrt(number) + 1;
-
-            for (int i = 3; i <= border; i += 2) {
-                if (number % i == 0) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private static boolean checkNumbers(String input) {
-            Gson gson = new Gson();
-            Task task = gson.fromJson(input, new TypeToken<Task>() {}.getType());
-            List<Integer> numbers = task.numbers();
-            for (Integer number : numbers) {
-                if (isNonPrime(number) || Thread.currentThread().isInterrupted()) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        @Override
-        public void run() {
-            String input = null;
-
-            try (Socket socket = new Socket(clientAddress, clientPort);
-                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
-            ) {
-                input = in.readLine();
-                boolean answer = checkNumbers(input);
-                out.println(answer);
-            } catch (IOException e) {
-                //TODO to handle
-                System.err.println(e.getMessage());
-            }
-        }
+    public PrimeServer() {
+        tasks = new LinkedBlockingDeque<>();
     }
 
-    private void startTCP() {
-        primeChecker = new PrimeChecker();
-        primeChecker.start();
-    }
+    private void sendBroadcast(String message) {
+        try (DatagramSocket socket = new DatagramSocket()) {
+            socket.setBroadcast(true);
+            byte[] messageBytes = message.getBytes();
+            DatagramPacket packet = new DatagramPacket(messageBytes,
+                    messageBytes.length,
+                    InetAddress.getByName("192.168.0.255"),
+                    8081);
 
-    private void stopTCP() {
-        if (primeChecker != null) {
-            primeChecker.interrupt();
-        }
-    }
-
-    public void listen() {
-        try (DatagramSocket datagramSocket = new DatagramSocket(8081, InetAddress.getByName("0.0.0.0"))) {
-            DatagramPacket pack = new DatagramPacket(new byte[4], 4);
-            while (true) {
-                datagramSocket.receive(pack);
-                String data = new String(pack.getData(), StandardCharsets.UTF_8);
-                switch (data) {
-                    case "conn" -> {
-                        clientAddress = pack.getAddress();
-                        clientPort = 8080;
-                        startTCP();
-                    }
-                    case "stop" -> {
-                        stopTCP();
-                        return;
-                    }
-                }
-            }
+            socket.send(packet);
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
 
+    private void splitNumbersToTasks(List<Integer> numbers) {
+        int taskSize = 50;
+        int currentIndex = 0;
+        while (numbers.size() >= currentIndex) {
+            this.tasks.add(new Task(numbers.subList(currentIndex, Math.min(currentIndex + taskSize, numbers.size()))));
+            currentIndex += taskSize;
+        }
+    }
+
+
+    public boolean compute(List<Integer> numbers) {
+        splitNumbersToTasks(numbers);
+
+        sendBroadcast("conn");
+
+        List<ServerHandler> serverHandlers = new ArrayList<>();
+        Socket socket;
+        try (ServerSocket serverSocket = new ServerSocket(8080)) {
+            while (!tasks.isEmpty() && !foundNonPrime.get()) {
+                socket = serverSocket.accept();
+                var handler = new ServerHandler(socket, serverSocket, tasks, foundNonPrime, ongoingTasks);
+                handler.start();
+                serverHandlers.add(handler);
+            }
+        } catch (IOException exception) {
+            //TODO to catch
+            System.err.println(exception.getMessage() + " or computing is finished");
+        }
+
+        sendBroadcast("stop");
+
+        try {
+            for (ServerHandler handler : serverHandlers) {
+                handler.join();
+            }
+        } catch (InterruptedException exception) {
+            //TODO to catch
+            System.err.println(exception.getMessage());
+        }
+
+        return foundNonPrime.get();
+    }
+
     public static void main(String[] args) {
-        PrimeServer server = new PrimeServer();
-        server.listen();
+        PrimeServer client = new PrimeServer();
+        List<Integer> numbers;
+        try {
+            numbers = InputReader.getNumbers(Files.newInputStream(Path.of("numbers.txt")));
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            return;
+        }
+
+        System.out.println(client.compute(numbers));
     }
 }
