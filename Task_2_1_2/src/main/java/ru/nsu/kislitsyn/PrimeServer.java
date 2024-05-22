@@ -155,7 +155,7 @@ public class PrimeServer {
      * @param numbers list of numbers we need to check.
      * @return if there is a non-prime number.
      */
-    private boolean work(List<Integer> numbers) {
+    public boolean work(List<Integer> numbers) {
         splitNumbersToTasks(numbers);
 
         try(Selector selector = Selector.open();
