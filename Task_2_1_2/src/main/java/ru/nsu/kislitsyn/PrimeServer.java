@@ -170,8 +170,6 @@ public class PrimeServer {
                 selector.select();
                 System.out.println("Selected keys");
                 Set<SelectionKey> keys = selector.selectedKeys();
-                //TODO кидать таску новым серверам и тем, что закончили предыдущую таску
-//                for (SelectionKey key : keys) {
                 Iterator<SelectionKey> iter = keys.iterator();
                 while (iter.hasNext()) {
                     SelectionKey key = iter.next();
@@ -207,18 +205,18 @@ public class PrimeServer {
      *
      * @param args args.
      */
-//    public static void main(String[] args) {
-//        PrimeServer server = new PrimeServer();
-//
-//        List<Integer> numbers;
-//        try {
-//            numbers = InputReader.getNumbers(Files.newInputStream(Path.of("numbers.txt")));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            System.err.println(e.getMessage());
-//            return;
-//        }
-//
-//        System.out.println(server.work(numbers));
-//    }
+    public static void main(String[] args) {
+        PrimeServer server = new PrimeServer();
+
+        List<Integer> numbers;
+        try {
+            numbers = InputReader.getNumbers(Files.newInputStream(Path.of("numbers.txt")));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println(e.getMessage());
+            return;
+        }
+
+        System.out.println(server.work(numbers));
+    }
 }

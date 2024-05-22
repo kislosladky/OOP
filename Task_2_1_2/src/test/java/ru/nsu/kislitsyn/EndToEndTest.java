@@ -12,6 +12,7 @@ class EndToEndTest {
     void falseTest() throws InterruptedException {
         Thread clientRunner = new Thread(() -> PrimeClient.main(null));
         clientRunner.start();
+        Thread.sleep(1000);
         PrimeServer server = new PrimeServer();
         List<Integer> input = new ArrayList<>(Arrays.asList(1, 2, 3, 5, 7, 11, 13, 17));
         assertFalse(server.work(input));
@@ -22,6 +23,7 @@ class EndToEndTest {
     void trueTest() throws InterruptedException {
         Thread clientRunner = new Thread(() -> PrimeClient.main(null));
         clientRunner.start();
+        Thread.sleep(1000);
         PrimeServer server = new PrimeServer();
         List<Integer> input = new ArrayList<>(Arrays.asList(1, 2, 3, 5, 7, 12, 13, 17));
         assertTrue(server.work(input));
