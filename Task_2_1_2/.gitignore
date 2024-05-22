@@ -4,7 +4,7 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-numbers.txt
+numbers123.txt
 
 ### IntelliJ IDEA ###
 .idea/

@@ -207,18 +207,18 @@ public class PrimeServer {
      *
      * @param args args.
      */
-    public static void main(String[] args) {
-        PrimeServer server = new PrimeServer();
-
-        List<Integer> numbers;
-        try {
-            numbers = InputReader.getNumbers(Files.newInputStream(Path.of("numbers.txt")));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println(e.getMessage());
-            return;
-        }
-
-        System.out.println(server.work(numbers));
-    }
+//    public static void main(String[] args) {
+//        PrimeServer server = new PrimeServer();
+//
+//        List<Integer> numbers;
+//        try {
+//            numbers = InputReader.getNumbers(Files.newInputStream(Path.of("numbers.txt")));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            System.err.println(e.getMessage());
+//            return;
+//        }
+//
+//        System.out.println(server.work(numbers));
+//    }
 }
