@@ -108,7 +108,7 @@ public class PrimeServer {
         String toSend = gson.toJson(taskToSend.getNumbers()) + "\n";
         try {
             socketChannel.write(ByteBuffer.wrap(toSend.getBytes()));
-            System.out.println("task is sent");
+            System.out.println(toSend + " is sent");
         } catch (IOException e) {
             e.printStackTrace();
             //TODO to handle

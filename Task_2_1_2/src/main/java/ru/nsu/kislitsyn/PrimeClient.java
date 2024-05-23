@@ -71,9 +71,8 @@ public class PrimeClient {
             try (SocketChannel socket = SocketChannel.open(new InetSocketAddress(serverAddress, serverPort))) {
                 ByteBuffer buffer = ByteBuffer.allocate(1024);
                 int readCnt = socket.read(buffer);
-                System.out.println("Counting");
                 String input = new String(buffer.array(), 0, readCnt);
-
+                System.out.println("Got " + input);
                 boolean answer = checkNumbers(input);
                 try {
                     Thread.sleep(4000);
