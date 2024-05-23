@@ -2,7 +2,6 @@ package ru.nsu.kislitsyn;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -27,6 +26,8 @@ public class PrimeClient {
      */
     class PrimeChecker extends Thread {
         /**
+         * Checks number if it is non-prime.
+         *
          * @param number number to check.
          * @return true if non-prime.
          */
