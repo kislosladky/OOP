@@ -66,7 +66,7 @@ public class PrimeServer {
         }
 
         while(taskToSend.getRemoteAddress() != null
-                && !Broadcaster.checkServer(taskToSend.getRemoteAddress())) {
+                && Broadcaster.checkServer(taskToSend.getRemoteAddress())) {
             Task newTask = tasks.poll();
             tasks.addFirst(taskToSend);
             if (newTask == null) {
