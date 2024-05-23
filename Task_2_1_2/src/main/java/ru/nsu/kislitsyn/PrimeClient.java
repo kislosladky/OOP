@@ -71,11 +71,14 @@ public class PrimeClient {
             try (SocketChannel socket = SocketChannel.open(new InetSocketAddress(serverAddress, serverPort))) {
                 ByteBuffer buffer = ByteBuffer.allocate(1024);
                 int readCnt = socket.read(buffer);
-
+                System.out.println("Counting");
                 String input = new String(buffer.array(), 0, readCnt);
 
                 boolean answer = checkNumbers(input);
-
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException ignored) {
+                }
                 socket.write(ByteBuffer.wrap(String.valueOf(answer).getBytes()));
                 if (answer) {
                     return;
