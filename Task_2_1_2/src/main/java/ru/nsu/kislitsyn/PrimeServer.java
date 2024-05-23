@@ -187,7 +187,7 @@ public class PrimeServer {
                         }
                     } catch (IOException ignored) {
                         System.err.println(ignored.getMessage());
-                        iter.remove();
+                        key.channel().close();
                     }
                     iter.remove();
                 }
