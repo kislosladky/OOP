@@ -4,7 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
@@ -50,7 +53,8 @@ public class PrimeClient {
          */
         private static boolean checkNumbers(String input) {
             Gson gson = new Gson();
-            List<Integer> numbers = gson.fromJson(input, new TypeToken<List<Integer>>() {}.getType());
+            List<Integer> numbers = gson.fromJson(input,
+                    new TypeToken<List<Integer>>() {}.getType());
             for (Integer number : numbers) {
                 if (isNonPrime(number)) {
                     return true;
@@ -68,7 +72,8 @@ public class PrimeClient {
          */
         @Override
         public void run() {
-            try (SocketChannel socket = SocketChannel.open(new InetSocketAddress(serverAddress, serverPort))) {
+            try (SocketChannel socket =
+                         SocketChannel.open(new InetSocketAddress(serverAddress, serverPort))) {
                 ByteBuffer buffer = ByteBuffer.allocate(1024);
                 int readCnt = socket.read(buffer);
                 String input = new String(buffer.array(), 0, readCnt);
@@ -95,7 +100,7 @@ public class PrimeClient {
     /**
      * Starts TCP thread if not started yet.
      */
-    private void startTCP() {
+    private void startTcp() {
         System.out.println("Starting tcp thread");
         if (primeChecker == null) {
             primeChecker = new PrimeChecker();
@@ -106,7 +111,7 @@ public class PrimeClient {
     /**
      * Stops tcp thread if works.
      */
-    private void stopTCP() {
+    private void stopTcp() {
         if (primeChecker != null) {
             primeChecker.interrupt();
 
@@ -147,15 +152,15 @@ public class PrimeClient {
                         serverAddress = pack.getAddress();
                         serverPort = 8080;
                         System.out.println("IP is " + serverAddress);
-                        startTCP();
+                        startTcp();
                     }
                     case "stop" -> {
-                        stopTCP();
+                        stopTcp();
                         return;
                     }
                     case "echo" ->
                         echo(pack);
-
+                    default -> throw new IllegalArgumentException("No such command");
                 }
             }
         } catch (IOException e) {

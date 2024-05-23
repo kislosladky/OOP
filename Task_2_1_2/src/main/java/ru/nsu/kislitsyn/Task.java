@@ -1,11 +1,11 @@
 package ru.nsu.kislitsyn;
 
+import java.net.SocketAddress;
+import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.net.SocketAddress;
-import java.util.List;
 
 /**
  * Kinda like record for task that consists of

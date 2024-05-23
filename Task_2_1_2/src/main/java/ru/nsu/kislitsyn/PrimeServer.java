@@ -1,14 +1,24 @@
 package ru.nsu.kislitsyn;
 
 import com.google.gson.Gson;
+
 import java.io.IOException;
-import java.net.*;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.nio.ByteBuffer;
-import java.nio.channels.*;
+import java.nio.channels.SelectableChannel;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Class that searches non-prime number in file by sending pieces of the array
@@ -41,7 +51,7 @@ public class PrimeServer {
 
     /**
      * @param serverSocket server socket that we need to accept.
-     * @param selector selector where we can add a new socketChannel.
+     * @param selector     selector where we can add a new socketChannel.
      * @throws IOException if anything goes wrong (probably socket or selector is closed)
      */
     private void addToSelectorAndSendTask(ServerSocketChannel serverSocket, Selector selector)
@@ -65,7 +75,7 @@ public class PrimeServer {
             return null;
         }
 
-        while(taskToSend.getRemoteAddress() != null
+        while (taskToSend.getRemoteAddress() != null
                 && Broadcaster.checkServer(taskToSend.getRemoteAddress())) {
             Task newTask = tasks.poll();
             tasks.addFirst(taskToSend);
@@ -144,7 +154,7 @@ public class PrimeServer {
      * @throws IOException if channel is closed.
      */
     private void deleteTaskByRemoteAddress(SelectableChannel channel) throws IOException {
-        SocketAddress address = ((SocketChannel)channel).getRemoteAddress();
+        SocketAddress address = ((SocketChannel) channel).getRemoteAddress();
 
         tasks.removeIf(x -> x.getRemoteAddress() != null && x.getRemoteAddress().equals(address));
     }
@@ -158,15 +168,15 @@ public class PrimeServer {
     public boolean work(List<Integer> numbers) {
         splitNumbersToTasks(numbers);
 
-        try(Selector selector = Selector.open();
-            ServerSocketChannel serverSocket = ServerSocketChannel.open();
+        try (Selector selector = Selector.open();
+             ServerSocketChannel serverSocket = ServerSocketChannel.open();
         ) {
             serverSocket.bind(new InetSocketAddress(8080));
             serverSocket.configureBlocking(false);
             serverSocket.register(selector, SelectionKey.OP_ACCEPT);
             System.out.println("Server socket is ready");
             Broadcaster.sendBroadcast("conn");
-            while(!tasks.isEmpty()) {
+            while (!tasks.isEmpty()) {
                 selector.select();
                 System.out.println("Selected keys");
                 Set<SelectionKey> keys = selector.selectedKeys();

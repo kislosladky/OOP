@@ -44,7 +44,7 @@ public class Broadcaster {
             byte[] messageBytes = message.getBytes();
             DatagramPacket packet = new DatagramPacket(messageBytes,
                     messageBytes.length,
-                    InetAddress.getByName("192.168.0.255"),
+                    InetAddress.getByName("127.255.255.255"),
                     8081);
 
             socket.send(packet);
