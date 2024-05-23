@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.kislitsyn","l":"Broadcaster"},{"p":"ru.nsu.kislitsyn","l":"InputReader"},{"p":"ru.nsu.kislitsyn","l":"PrimeClient"},{"p":"ru.nsu.kislitsyn","l":"PrimeServer"},{"p":"ru.nsu.kislitsyn","l":"Task"}];updateSearchResults();
