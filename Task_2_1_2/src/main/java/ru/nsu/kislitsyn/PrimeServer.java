@@ -186,7 +186,8 @@ public class PrimeServer {
                             deleteTaskByRemoteAddress(key.channel());
                         }
                     } catch (IOException ignored) {
-                        ignored.printStackTrace();
+                        System.err.println(ignored.getMessage());
+                        iter.remove();
                     }
                     iter.remove();
                 }
