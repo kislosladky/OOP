@@ -1,7 +1,6 @@
 package ru.nsu.kislitsyn;
 
 import com.google.gson.Gson;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
@@ -43,13 +42,16 @@ public class PrimeServer {
         int taskSize = 50;
         int currentIndex = 0;
         while (numbers.size() >= currentIndex) {
-            this.tasks.add(new Task(numbers.subList(currentIndex, Math.min(currentIndex + taskSize, numbers.size()))));
+            this.tasks.add(new Task(numbers.subList(currentIndex,
+                    Math.min(currentIndex + taskSize, numbers.size()))));
             currentIndex += taskSize;
         }
     }
 
 
     /**
+     * Adds new socketChannel to selector.
+     *
      * @param serverSocket server socket that we need to accept.
      * @param selector     selector where we can add a new socketChannel.
      * @throws IOException if anything goes wrong (probably socket or selector is closed)
@@ -97,8 +99,6 @@ public class PrimeServer {
      * @param socketChannel a socket of client that is waiting for the task.
      */
     private void sendTask(SocketChannel socketChannel) {
-        Gson gson = new Gson();
-
         Task taskToSend = getTask();
         if (taskToSend == null) {
             return; //TODO do I need to return or something?
@@ -113,8 +113,9 @@ public class PrimeServer {
         }
 
         taskToSend.setRemoteAddress(remoteAddress);
-
         tasks.addLast(taskToSend);
+
+        Gson gson = new Gson();
         String toSend = gson.toJson(taskToSend.getNumbers()) + "\n";
         try {
             socketChannel.write(ByteBuffer.wrap(toSend.getBytes()));

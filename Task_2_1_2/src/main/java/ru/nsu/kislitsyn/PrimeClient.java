@@ -118,6 +118,7 @@ public class PrimeClient {
             try {
                 primeChecker.join();
             } catch (InterruptedException ignored) {
+                System.err.println(ignored.getMessage());
             }
             primeChecker = null;
         }
@@ -133,6 +134,7 @@ public class PrimeClient {
             packet.setData("echo".getBytes());
             socket.send(packet);
         } catch (IOException ignored) {
+            System.err.println(ignored.getMessage());
         }
     }
 
