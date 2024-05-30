@@ -1,7 +1,11 @@
 package ru.nsu.kislitsyn.snake;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.List;
 import java.util.Random;
 
 
@@ -9,43 +13,34 @@ import java.util.Random;
  * This class contains of all snake logic.
  */
 public class Snake {
-    private final Random random = new Random();
+    @Getter
     private final ArrayDeque<Point> body;
-    private final Deque<Point> apples;
+    @Getter
     private Direction direction;
     private Direction previousDirection;
+    @Getter
+    @Setter
     private int width;
+    @Getter
+    @Setter
     private int height;
+    @Getter
+    @Setter
     private boolean shouldGrow;
-    private int level;
-
+    @Getter
+    private final Apples apples;
     /**
      * A constructor that initializes some starting values.
      */
-    public Snake(int width, int height) {
+    public Snake(int width, int height, Apples apples) {
         this.width = width;
         this.height = height;
-        this.apples = new ArrayDeque<>();
+        this.apples = apples;
         this.body = new ArrayDeque<>();
         init();
         this.direction = Direction.RIGHT;
-        level = 1;
+//        level = 1;
         shouldGrow = false;
-    }
-
-
-    /**
-     * Setter for the height of the field.
-     */
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    /**
-     * Setter for the width of the field.
-     */
-    public void setWidth(int witdh) {
-        this.width = witdh;
     }
 
 
@@ -84,60 +79,34 @@ public class Snake {
     }
 
     /**
-     * Useful only for tests.
-     */
-    public Direction getDirection() {
-        return direction;
-    }
-
-    /**
-     * Getter for the snake body.
-     */
-    public ArrayDeque<Point> getBody() {
-        return body;
-    }
-
-    /**
-     * Getter for the list of apples.
-     */
-    public Deque<Point> getApples() {
-        return apples;
-    }
-
-    /**
      * Sort of getter to increase the level in the game.
      */
-    public void increaseLevel() {
-        level++;
-    }
+//    public void increaseLevel() {
+//        level++;
+//    }
 
 
     /**
      * This function moves the snake and eats the apple if needed.
      *
-     * @return the coordinates fo tail.
+     * @return the coordinates of tail.
      */
     public Point moveAndEat() {
         Point tail = move();
-        Point head = body.peekFirst();
-
-        if (intersect(head, apples)) {
-            apples.remove(head);
-            spawnApple();
+        if (apples.ate(body)) {
             shouldGrow = true;
         }
-
         return tail;
     }
 
     /**
      * Initializes the starting condition of the snake.
      */
-    private void init() {
+    void init() {
         this.body.add(new Point(0, 0));
-        for (int i = 0; i < level + 2; i++) {
-            spawnApple();
-        }
+//        for (int i = 0; i < level + 2; i++) {
+//            apples.spawnApple(body);
+//        }
     }
 
     /**
@@ -145,7 +114,6 @@ public class Snake {
      */
     public void restart() {
         this.body.clear();
-        this.apples.clear();
         this.direction = Direction.RIGHT;
         init();
     }
@@ -156,7 +124,7 @@ public class Snake {
      *
      * @return the head of the snake.
      */
-    private Point move() {
+    Point move() {
         Point head = body.peekFirst();
         Point newHead;
         switch (direction) {
@@ -194,17 +162,6 @@ public class Snake {
 
     }
 
-    /**
-     * Spawns the apple randomly without collisions.
-     */
-    private void spawnApple() {
-        Point apple;
-        do {
-            apple = new Point(Math.abs(random.nextInt()) % width,
-                    Math.abs(random.nextInt()) % height);
-        } while (intersect(apple, body) || intersect(apple, apples));
-        apples.add(apple);
-    }
 
     /**
      * Checks if the snake bumped into itself.
@@ -222,10 +179,13 @@ public class Snake {
     /**
      * Checks for collision of point and deque of points.
      */
-    private boolean intersect(Point point, Deque<Point> deque) {
+    static boolean intersect(Point point, Deque<Point> deque) {
         return deque.contains(point);
     }
 
+    public static boolean intersectAny(Point point, List<Deque<Point>> deques) {
+        return deques.stream().anyMatch(x -> x.contains(point));
+    }
     /**
      * Enumeration for directions where snake can move.
      */

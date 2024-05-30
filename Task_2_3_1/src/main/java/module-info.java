@@ -1,6 +1,7 @@
 module ru.nsu.kislitsyn.snake {
     requires javafx.controls;
     requires javafx.fxml;
+    requires static lombok;
 
 
     opens ru.nsu.kislitsyn.snake to javafx.fxml;

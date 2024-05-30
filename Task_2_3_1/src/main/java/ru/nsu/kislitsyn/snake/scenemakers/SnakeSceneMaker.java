@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import lombok.Getter;
 import ru.nsu.kislitsyn.snake.Snake;
 import ru.nsu.kislitsyn.snake.SnakeApplication;
 import ru.nsu.kislitsyn.snake.controllers.SnakeController;
@@ -13,15 +14,9 @@ import ru.nsu.kislitsyn.snake.controllers.SnakeController;
 /**
  * Makes the scene of the game screen.
  */
+@Getter
 public class SnakeSceneMaker {
     private SnakeController snakeController;
-
-    /**
-     * Getter for snake controller that is used in other scenes for snake adjustment.
-     */
-    public SnakeController getSnakeController() {
-        return snakeController;
-    }
 
     /**
      * Loads the scene from fxml file.
