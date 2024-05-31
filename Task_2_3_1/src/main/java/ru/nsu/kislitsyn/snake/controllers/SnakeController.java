@@ -24,6 +24,7 @@ import ru.nsu.kislitsyn.snake.snakes.Snake;
  * The controller of the main scene with game.
  */
 public class SnakeController {
+
     @Setter
     private Stage stage;
     @FXML
@@ -40,6 +41,7 @@ public class SnakeController {
     private final Deque<Point> lastBodyCells = new ArrayDeque<>();
     private int level = 1;
     private int totalLength = 2;
+    
     /**
      * Sets the number of lines in the field and adjusts the canvas for it.
      */
@@ -50,6 +52,7 @@ public class SnakeController {
         canvas.setHeight(lines * cellSize);
         apples.setHeight(lines);
         restart();
+
         prepareField();
     }
 
@@ -100,7 +103,6 @@ public class SnakeController {
         snake.setDirection(direction);
     }
 
-
     /**
      * Initializes the field for the snake.
      */
@@ -122,6 +124,7 @@ public class SnakeController {
     @FXML
     public void draw() {
         ArrayList<Point> body = new ArrayList<>(snake.getBody());
+
         gc.setFill(Color.GREEN);
 
         for (Point point : body) {
@@ -189,7 +192,6 @@ public class SnakeController {
             totalLength = snake.getBody().size() + 1;
         }
 
-
         draw();
     }
 
@@ -244,7 +246,6 @@ public class SnakeController {
     void goToNextLevel() {
         stage.setScene(SnakeApplication.scenes.get(2));
         stage.show();
-//        snake.increaseLevel();
         level++;
     }
 

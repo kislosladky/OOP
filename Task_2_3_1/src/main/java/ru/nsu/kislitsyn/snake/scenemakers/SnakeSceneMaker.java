@@ -14,6 +14,7 @@ import ru.nsu.kislitsyn.snake.controllers.SnakeController;
 /**
  * Makes the scene of the game screen.
  */
+
 @Getter
 public class SnakeSceneMaker {
     private SnakeController snakeController;

@@ -8,8 +8,6 @@ import lombok.Setter;
 import ru.nsu.kislitsyn.snake.Apples;
 import ru.nsu.kislitsyn.snake.Point;
 
-
-
 /**
  * This class contains of all snake logic.
  */
