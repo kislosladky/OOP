@@ -2,11 +2,13 @@ package ru.nsu.kislitsyn.snake.snakes;
 
 import ru.nsu.kislitsyn.snake.Apples;
 import ru.nsu.kislitsyn.snake.Point;
-import ru.nsu.kislitsyn.snake.scenemakers.SnakeSceneMaker;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+/**
+ * A snake that is trying to bump into the head of the player's snake.
+ */
 public class HunterSnake extends Snake {
     private final Deque<Point> playerSnake;
     /**
@@ -21,6 +23,9 @@ public class HunterSnake extends Snake {
         this.playerSnake = playerSnake;
     }
 
+    /**
+     * Adding choosing of direction to move.
+     */
     @Override
     public Point moveAndEat() {
         chooseDirection();
@@ -31,6 +36,9 @@ public class HunterSnake extends Snake {
         return tail;
     }
 
+    /**
+     * Kind of autopilot for the snake.
+     */
     private void chooseDirection() {
         Point target = playerSnake.peekFirst();
         Point head = getBody().peekFirst();
@@ -49,6 +57,9 @@ public class HunterSnake extends Snake {
         }
     }
 
+    /**
+     * Fills the deque with potential directions to move.
+     */
     private Deque<Direction> fillDirections(Point head, Point target) {
         Deque<Direction> possibleDirections = new ArrayDeque<>();
 
@@ -68,6 +79,9 @@ public class HunterSnake extends Snake {
         return possibleDirections;
     }
 
+    /**
+     * Validates directions for snake to move.
+     */
     private void checkDirections(Point head, Deque<Direction> directions) {
         for (Direction currDirection : directions) {
             switch (currDirection) {
@@ -99,6 +113,9 @@ public class HunterSnake extends Snake {
         }
     }
 
+    /**
+     * A simple override to spawn tha snake in different place.
+     */
     @Override
     void init() {
         this.getBody().add(new Point(getWidth() / 2, getHeight() / 2));

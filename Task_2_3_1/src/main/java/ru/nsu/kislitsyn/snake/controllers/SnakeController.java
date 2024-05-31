@@ -33,7 +33,7 @@ public class SnakeController {
 
     private Snake snake;
 //    private RobotSnake robot;
-    private HunterSnake robot;
+    private Snake robot;
     private Apples apples;
     private Deque<Point> lastBodyCells = new ArrayDeque<>();
     private int level = 1;
@@ -85,8 +85,8 @@ public class SnakeController {
     public void setSnake() {
         apples = new Apples(columns, lines);
         snake = new Snake(columns, lines, apples);
-//        robot = new RobotSnake(columns, lines, apples);
-        robot = new HunterSnake(columns, lines, apples, snake.getBody());
+        robot = new RobotSnake(columns, lines, apples);
+//        robot = new HunterSnake(columns, lines, apples, snake.getBody());
 
         spawnApples();
     }

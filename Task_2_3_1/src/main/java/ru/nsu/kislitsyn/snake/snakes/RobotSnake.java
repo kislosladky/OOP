@@ -6,6 +6,9 @@ import ru.nsu.kislitsyn.snake.Point;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+/**
+ * The snake that eats apples by itself.
+ */
 public class RobotSnake extends Snake {
     Point target = null;
 //    Deque<Point> path;
@@ -20,9 +23,10 @@ public class RobotSnake extends Snake {
         super(width, height, apples);
     }
 
-    //Эта змейка должна сама выбирать себе траекторию
-    //Стоит значит, надо написать для нее новый метод? или сделать override move?
 
+    /**
+     * Adding chooseDirection call for decision making.
+     */
     @Override
     public Point moveAndEat() {
         chooseDirection(getApples());
@@ -33,6 +37,9 @@ public class RobotSnake extends Snake {
         return tail;
     }
 
+    /**
+     * Kind of autopilot.
+     */
     private void chooseDirection(Apples apples) {
         Deque<Point> applePoints = apples.getApples();
         Deque<Point> bodyPoints = getBody();
@@ -56,12 +63,18 @@ public class RobotSnake extends Snake {
         }
     }
 
+    /**
+     * Sets the closest apple as a target for the snake.
+     */
     private void findTarget(Deque<Point> apples, Deque<Point> body) {
         Point head = body.peekFirst();
 
         this.target = findClosestPointTo(head, apples);
     }
 
+    /**
+     * Finds the point from targets that is the closest to the source.
+     */
     private Point findClosestPointTo(Point from, Deque<Point> targets) {
         int minDistance = Integer.MAX_VALUE / 2;
         Point closestTarget = null;
@@ -76,10 +89,16 @@ public class RobotSnake extends Snake {
         return closestTarget;
     }
 
+    /**
+     * Calculates the distance between 2 points.
+     */
     private int distanceBetween(Point a, Point b) {
         return Math.abs(a.x() - b.x()) + Math.abs(a.y() - b.y());
     }
 
+    /**
+     * Fills the deque with potential directions to move.
+     */
     private Deque<Direction> fillDirections(Point head) {
         Deque<Direction> possibleDirections = new ArrayDeque<>();
 
@@ -99,6 +118,9 @@ public class RobotSnake extends Snake {
         return possibleDirections;
     }
 
+    /**
+     * Validates directions for snake to move.
+     */
     private void checkDirections(Point head, Deque<Direction> directions) {
         for (Direction currDirection : directions) {
             switch (currDirection) {
@@ -130,6 +152,9 @@ public class RobotSnake extends Snake {
         }
     }
 
+    /**
+     * A simple override to spawn tha snake in different place.
+     */
     void init() {
         this.getBody().add(new Point(getWidth() - 1, getHeight() - 1));
     }
