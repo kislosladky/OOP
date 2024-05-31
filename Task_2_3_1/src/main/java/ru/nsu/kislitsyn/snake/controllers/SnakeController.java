@@ -171,18 +171,20 @@ public class SnakeController {
             timer.stop();
             goToNextLevel();
         }
-        if (snake.bumped()) {
+        if (snake.bumped() || Snake.intersect(snake.getBody().peekFirst(), robot.getBody())) {
             clear();
             restart();
             score.setText("0");
             timer.stop();
         }
 
-        if (robot.bumped()) {
+        if (robot.bumped() || Snake.intersect(robot.getBody().peekFirst(), snake.getBody())) {
             clear();
             robot.restart();
             totalLength = snake.getBody().size() + 1;
         }
+
+
         draw();
     }
 

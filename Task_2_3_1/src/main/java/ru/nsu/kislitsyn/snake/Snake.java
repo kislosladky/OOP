@@ -179,7 +179,7 @@ public class Snake {
     /**
      * Checks for collision of point and deque of points.
      */
-    static boolean intersect(Point point, Deque<Point> deque) {
+    public static boolean intersect(Point point, Deque<Point> deque) {
         return deque.contains(point);
     }
 
