@@ -1,12 +1,12 @@
-//package ru.nsu.kislitsyn.snake;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertFalse;
-//
-//import org.junit.jupiter.api.Test;
-//
-//
-//class SnakeTest {
+package ru.nsu.kislitsyn.snake;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import org.junit.jupiter.api.Test;
+
+
+class SnakeTest {
 //    @Test
 //    void setDirectionTest() {
 //        Apples apples = new Apples()
@@ -19,14 +19,14 @@
 //        assertEquals(Snake.Direction.UP, snake.getDirection());
 //    }
 //
-//    @Test
-//    void moveTest() {
-//        Snake snake = new Snake(10, 10);
-//        assertEquals(1, snake.getBody().size());
-//        snake.moveAndEat();
-//        assertEquals(1, snake.getBody().size());
-//        assertEquals(new Point(1, 0), snake.getBody().peekFirst());
-//    }
+    @Test
+    void moveTest() {
+        Snake snake = new Snake(10, 10);
+        assertEquals(1, snake.getBody().size());
+        snake.moveAndEat();
+        assertEquals(1, snake.getBody().size());
+        assertEquals(new Point(1, 0), snake.getBody().peekFirst());
+    }
 //
 //    @Test
 //    void bumpedTest() {
@@ -61,5 +61,5 @@
 //        Point tail = snake.moveAndEat();
 //        assertEquals(new Point(0, 0), tail);
 //    }
-//}
+}
 
