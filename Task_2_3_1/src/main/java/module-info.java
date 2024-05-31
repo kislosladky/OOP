@@ -4,6 +4,7 @@ module ru.nsu.kislitsyn.snake {
     requires static lombok;
 
 
+
     opens ru.nsu.kislitsyn.snake to javafx.fxml;
     exports ru.nsu.kislitsyn.snake;
     exports ru.nsu.kislitsyn.snake.scenemakers;
