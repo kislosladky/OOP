@@ -7,7 +7,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import lombok.Getter;
-import ru.nsu.kislitsyn.snake.Snake;
+import ru.nsu.kislitsyn.snake.snakes.Snake;
 import ru.nsu.kislitsyn.snake.SnakeApplication;
 import ru.nsu.kislitsyn.snake.controllers.SnakeController;
 

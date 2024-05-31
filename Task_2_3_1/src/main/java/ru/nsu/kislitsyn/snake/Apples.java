@@ -3,6 +3,7 @@ package ru.nsu.kislitsyn.snake;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import ru.nsu.kislitsyn.snake.snakes.Snake;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

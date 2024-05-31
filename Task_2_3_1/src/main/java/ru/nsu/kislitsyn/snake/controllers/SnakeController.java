@@ -8,10 +8,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import lombok.Getter;
 import lombok.Setter;
 import ru.nsu.kislitsyn.snake.*;
 import ru.nsu.kislitsyn.snake.Timer;
+import ru.nsu.kislitsyn.snake.snakes.HunterSnake;
+import ru.nsu.kislitsyn.snake.snakes.RobotSnake;
+import ru.nsu.kislitsyn.snake.snakes.Snake;
 
 
 /**
@@ -30,7 +32,8 @@ public class SnakeController {
     private GraphicsContext gc;
 
     private Snake snake;
-    private RobotSnake robot;
+//    private RobotSnake robot;
+    private HunterSnake robot;
     private Apples apples;
     private Deque<Point> lastBodyCells = new ArrayDeque<>();
     private int level = 1;
@@ -82,8 +85,8 @@ public class SnakeController {
     public void setSnake() {
         apples = new Apples(columns, lines);
         snake = new Snake(columns, lines, apples);
-        robot = new RobotSnake(columns, lines, apples);
-
+//        robot = new RobotSnake(columns, lines, apples);
+        robot = new HunterSnake(columns, lines, apples, snake.getBody());
 
         spawnApples();
     }

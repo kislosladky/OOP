@@ -1,29 +1,29 @@
-package ru.nsu.kislitsyn.snake;
+package ru.nsu.kislitsyn.snake.snakes;
+
+import ru.nsu.kislitsyn.snake.Apples;
+import ru.nsu.kislitsyn.snake.Point;
+import ru.nsu.kislitsyn.snake.scenemakers.SnakeSceneMaker;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Iterator;
 
-public class RobotSnake extends Snake{
-    Point target = null;
-//    Deque<Point> path;
+public class HunterSnake extends Snake {
+    private final Deque<Point> playerSnake;
     /**
      * A constructor that initializes some starting values.
      *
-     * @param width - width of the field.
-     * @param height - height of the field.
-     * @param apples - apples.
+     * @param width
+     * @param height
+     * @param apples
      */
-    public RobotSnake(int width, int height, Apples apples) {
+    public HunterSnake(int width, int height, Apples apples, Deque<Point> playerSnake) {
         super(width, height, apples);
+        this.playerSnake = playerSnake;
     }
-
-    //Эта змейка должна сама выбирать себе траекторию
-    //Стоит значит, надо написать для нее новый метод? или сделать override move?
 
     @Override
     public Point moveAndEat() {
-        chooseDirection(getApples());
+        chooseDirection();
         Point tail = move();
         if (getApples().ate(getBody())) {
             setShouldGrow(true);
@@ -31,20 +31,15 @@ public class RobotSnake extends Snake{
         return tail;
     }
 
-    private void chooseDirection(Apples apples) {
-        Deque<Point> applePoints = apples.getApples();
-        Deque<Point> bodyPoints = getBody();
-        Point head = bodyPoints.peekFirst();
-
-        if (target == null || !applePoints.contains(target)) {
-            findTarget(applePoints, bodyPoints);
-        }
-
-
+    private void chooseDirection() {
+        Point target = playerSnake.peekFirst();
+        Point head = getBody().peekFirst();
         assert head != null;
-        Deque<Direction> possibleDirections = fillDirections(head);
+        assert target != null;
+        Deque<Direction> possibleDirections = fillDirections(head, target);
 
         checkDirections(head, possibleDirections);
+
         if (!possibleDirections.isEmpty()) {
             setDirection(possibleDirections.peekFirst());
             if (getDirection() != possibleDirections.peekFirst()
@@ -54,31 +49,7 @@ public class RobotSnake extends Snake{
         }
     }
 
-    private void findTarget(Deque<Point> apples, Deque<Point> body) {
-        Point head = body.peekFirst();
-
-        this.target = findClosestPointTo(head, apples);
-    }
-
-    private Point findClosestPointTo(Point from, Deque<Point> targets) {
-        int minDistance = Integer.MAX_VALUE / 2;
-        Point closestTarget = null;
-
-        for (Point target : targets) {
-            int distance = distanceBetween(from,target);
-            if (distance < minDistance) {
-                minDistance = distance;
-                closestTarget = target;
-            }
-        }
-        return closestTarget;
-    }
-
-    private int distanceBetween(Point a, Point b) {
-        return Math.abs(a.x() - b.x()) + Math.abs(a.y() - b.y());
-    }
-
-    private Deque<Direction> fillDirections(Point head) {
+    private Deque<Direction> fillDirections(Point head, Point target) {
         Deque<Direction> possibleDirections = new ArrayDeque<>();
 
         assert head != null;
@@ -125,11 +96,11 @@ public class RobotSnake extends Snake{
                     break;
                 }
             }
-//            iter.remove();
         }
     }
 
+    @Override
     void init() {
-        this.getBody().add(new Point(getWidth() - 1, getHeight() - 1));
+        this.getBody().add(new Point(getWidth() / 2, getHeight() / 2));
     }
 }

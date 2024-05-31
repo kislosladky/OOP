@@ -1,12 +1,13 @@
-package ru.nsu.kislitsyn.snake;
+package ru.nsu.kislitsyn.snake.snakes;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.nsu.kislitsyn.snake.Apples;
+import ru.nsu.kislitsyn.snake.Point;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
-import java.util.Random;
 
 
 /**
@@ -104,9 +105,6 @@ public class Snake {
      */
     void init() {
         this.body.add(new Point(0, 0));
-//        for (int i = 0; i < level + 2; i++) {
-//            apples.spawnApple(body);
-//        }
     }
 
     /**
