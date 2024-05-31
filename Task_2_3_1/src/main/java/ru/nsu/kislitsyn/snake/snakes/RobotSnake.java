@@ -1,17 +1,17 @@
 package ru.nsu.kislitsyn.snake.snakes;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import ru.nsu.kislitsyn.snake.Apples;
 import ru.nsu.kislitsyn.snake.Point;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 /**
  * The snake that eats apples by itself.
  */
 public class RobotSnake extends Snake {
     Point target = null;
-//    Deque<Point> path;
+
     /**
      * A constructor that initializes some starting values.
      *
@@ -25,7 +25,7 @@ public class RobotSnake extends Snake {
 
 
     /**
-     * Adding chooseDirection call for decision making.
+     * Adding chooseDirection call for decision-making.
      */
     @Override
     public Point moveAndEat() {
@@ -80,7 +80,7 @@ public class RobotSnake extends Snake {
         Point closestTarget = null;
 
         for (Point target : targets) {
-            int distance = distanceBetween(from,target);
+            int distance = distanceBetween(from, target);
             if (distance < minDistance) {
                 minDistance = distance;
                 closestTarget = target;
@@ -148,6 +148,8 @@ public class RobotSnake extends Snake {
                     }
                     break;
                 }
+                default:
+                    throw new IllegalStateException();
             }
         }
     }

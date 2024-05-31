@@ -1,7 +1,9 @@
 package ru.nsu.kislitsyn.snake.controllers;
 
-import java.util.*;
-
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -9,7 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import lombok.Setter;
-import ru.nsu.kislitsyn.snake.*;
+import ru.nsu.kislitsyn.snake.Apples;
+import ru.nsu.kislitsyn.snake.Point;
+import ru.nsu.kislitsyn.snake.SnakeApplication;
 import ru.nsu.kislitsyn.snake.Timer;
 import ru.nsu.kislitsyn.snake.snakes.HunterSnake;
 import ru.nsu.kislitsyn.snake.snakes.RobotSnake;
@@ -30,12 +34,10 @@ public class SnakeController {
     private int columns = 16;
     private int cellSize;
     private GraphicsContext gc;
-
     private Snake snake;
-//    private RobotSnake robot;
     private Snake robot;
     private Apples apples;
-    private Deque<Point> lastBodyCells = new ArrayDeque<>();
+    private final Deque<Point> lastBodyCells = new ArrayDeque<>();
     private int level = 1;
     private int totalLength = 2;
     /**
@@ -86,7 +88,7 @@ public class SnakeController {
         apples = new Apples(columns, lines);
         snake = new Snake(columns, lines, apples);
         robot = new RobotSnake(columns, lines, apples);
-//        robot = new HunterSnake(columns, lines, apples, snake.getBody());
+        //robot = new HunterSnake(columns, lines, apples, snake.getBody());
 
         spawnApples();
     }

@@ -1,22 +1,19 @@
 package ru.nsu.kislitsyn.snake.snakes;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import ru.nsu.kislitsyn.snake.Apples;
 import ru.nsu.kislitsyn.snake.Point;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 /**
  * A snake that is trying to bump into the head of the player's snake.
  */
 public class HunterSnake extends Snake {
     private final Deque<Point> playerSnake;
+
     /**
      * A constructor that initializes some starting values.
-     *
-     * @param width
-     * @param height
-     * @param apples
      */
     public HunterSnake(int width, int height, Apples apples, Deque<Point> playerSnake) {
         super(width, height, apples);
@@ -109,6 +106,8 @@ public class HunterSnake extends Snake {
                     }
                     break;
                 }
+                default:
+                    throw new IllegalStateException();
             }
         }
     }

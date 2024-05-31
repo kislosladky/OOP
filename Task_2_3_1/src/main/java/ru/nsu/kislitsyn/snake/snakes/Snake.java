@@ -1,13 +1,13 @@
 package ru.nsu.kislitsyn.snake.snakes;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import ru.nsu.kislitsyn.snake.Apples;
 import ru.nsu.kislitsyn.snake.Point;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.List;
 
 
 /**
@@ -30,6 +30,7 @@ public class Snake {
     private boolean shouldGrow;
     @Getter
     private final Apples apples;
+
     /**
      * A constructor that initializes some starting values.
      */
@@ -40,10 +41,8 @@ public class Snake {
         this.body = new ArrayDeque<>();
         init();
         this.direction = Direction.RIGHT;
-//        level = 1;
         shouldGrow = false;
     }
-
 
     /**
      * Setter for direction that deals with a quite tricky bug.
@@ -78,14 +77,6 @@ public class Snake {
                 throw new IllegalStateException();
         }
     }
-
-    /**
-     * Sort of getter to increase the level in the game.
-     */
-//    public void increaseLevel() {
-//        level++;
-//    }
-
 
     /**
      * This function moves the snake and eats the apple if needed.
@@ -181,9 +172,13 @@ public class Snake {
         return deque.contains(point);
     }
 
+    /**
+     * Checks the intersection wit multiple deque.
+     */
     public static boolean intersectAny(Point point, List<Deque<Point>> deques) {
         return deques.stream().anyMatch(x -> x.contains(point));
     }
+
     /**
      * Enumeration for directions where snake can move.
      */
