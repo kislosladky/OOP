@@ -5,6 +5,8 @@ plugins {
   id 'org.openjfx.javafxplugin' version '0.0.13'
   id 'org.beryx.jlink' version '2.25.0'
   id 'jacoco'
+  id "io.freefair.lombok" version "8.6"
+
 }
 
 group 'ru.nsu.kislitsyn'
@@ -18,8 +20,10 @@ ext {
   junitVersion = '5.10.0'
 }
 
+
 //sourceCompatibility = '17'
 //targetCompatibility = '17'
+
 
 tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'
